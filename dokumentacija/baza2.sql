@@ -82,30 +82,90 @@ INSERT INTO osoba (id, ime_prezime, poznat_po, slika, popularnost) VALUES (10, '
 
 SELECT * from osoba;
 
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (2, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (3, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (4, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (5, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (6, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (7, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (8, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (9, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (10, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (11, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (12, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (13, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (14, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (15, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (16, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (17, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (18, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (19, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (20, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (21, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
-INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (22, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (23, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (34, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (4634, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (53645, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (6324, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (7352, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (823, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (9342, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (10325, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (11532, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (1223, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (13354, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (14234, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (1554, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (1634, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (1735, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (1834, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (1924, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (2054, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (2123, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (2234, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (231, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (341, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (46314, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (536415, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (63241, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (73512, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (8213, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (93142, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (101325, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (115132, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (12213, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (133154, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (142134, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (15514, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (16314, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (17315, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (18314, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (19124, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (20514, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (21213, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (22134, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (231, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (341, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (46314, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (536415, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (63241, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (73512, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (8231, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (93412, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (103225, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (115322, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (12232, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (133524, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (142324, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (15542, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (16342, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (17352, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (18342, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (19242, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (20542, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (21232, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
+INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (22342, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
 
 INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (1, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
 SELECT * from film;
+
+INSERT INTO film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) VALUES
+(40, 'HR', 'Družba pere kvržice', 'Družba pere kvržice', 8, '/putanja1', '2023-12-01', 'Opis filma koji govori o grupi prijatelja koji preživljavaju kroz razne avanture.'),
+(41, 'HR', 'Pohlepni zec', 'Pohlepni zec', 7, '/putanja2', '2023-12-02', 'Film o zecu koji je neumorno trčao za bogatstvom, ali je zaboravio na prijateljstvo.'),
+(42, 'HR', 'Noćna mora', 'Noćna mora', 9, '/putanja3', '2023-12-03', 'Tenzije rastu kada se grupa prijatelja nađe u napuštenoj kući s tajnama iz prošlosti.'),
+(43, 'HR', 'Posljednja želja', 'Posljednja želja', 6, '/putanja4', '2023-12-04', 'Film o mladiću koji se suočava s vlastitim strahovima kako bi ispunio posljednju želju svog djedu.'),
+(44, 'HR', 'Tajna grada', 'Tajna grada', 7, '/putanja5', '2023-12-05', 'Detektiv istražuje seriju misteroznih događaja u starom dijelu grada.'),
+(45, 'HR', 'Krug života', 'Krug života', 8, '/putanja6', '2023-12-06', 'Priča o obitelji koja se suočava s gubicima i ponovnim pronalaženjem smisla života.'),
+(46, 'HR', 'Zvjezdane staze', 'Zvjezdane staze', 9, '/putanja7', '2023-12-07', 'Povratak u svemir u kojem putnici na svemirskom brodu otkrivaju novi svemir.'),
+(47, 'HR', 'Kamen mudrosti', 'Kamen mudrosti', 7, '/putanja8', '2023-12-08', 'Mladi junak kreće na put da pronađe tajni artefakt koji bi mogao promijeniti sudbinu svijeta.'),
+(48, 'HR', 'Zadnji dah', 'Zadnji dah', 6, '/putanja9', '2023-12-09', 'Film o medicinskoj sestri koja se bori za život pacijenta, dok sama gubi svoje.'),
+(49, 'HR', 'Skrivena istina', 'Skrivena istina', 8, '/putanja10', '2023-12-10', 'Misteriozni film o novinaru koji istražuje zločine koji su bili zaboravljeni.'),
+(50, 'HR', 'Putovanje kroz vrijeme', 'Putovanje kroz vrijeme', 7, '/putanja11', '2023-12-11', 'Grupa znanstvenika otkriva putovanje kroz vrijeme, ali svaki njihov pokušaj ima neočekivane posljedice.'),
+(51, 'HR', 'Dug put kući', 'Dug put kući', 8, '/putanja12', '2023-12-12', 'Film o ženi koja se vraća kući nakon dugih godina, suočavajući se s prošlim traumama.'),
+(52, 'HR', 'Posljednji dan', 'Posljednji dan', 9, '/putanja13', '2023-12-13', 'Film o svijetu pred kraj, gdje ljudi pokušavaju živjeti normalno, iako je apokalipsa neizbježna.'),
+(53, 'HR', 'Dječji svijet', 'Dječji svijet', 7, '/putanja14', '2023-12-14', 'Priča o skupini djece koja pokušavaju zaštititi svoj svijet od nadolazeće opasnosti.'),
+(54, 'HR', 'Tajni vrt', 'Tajni vrt', 6, '/putanja15', '2023-12-15', 'Djevojčica otkriva zaboravljeni vrt koji skriva mnoge tajne prošlih vremena.');
+
 
 insert into osoba_film (osoba_id, film_id, lik) VALUES (20, 5, "Pero");
 insert into osoba_film (osoba_id, film_id, lik) VALUES (20, 6, "Franjo");

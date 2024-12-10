@@ -42,44 +42,20 @@ export class RestOsobaFilm {
         }
     }
     async putOsobaFilm(zahtjev, odgovor) {
-        odgovor.type('application/json');
-        let idOsoba = zahtjev.params['id'];
-        if (!idOsoba) {
-            odgovor.status(422).send({ greska: "neočekivani podaci" });
-            return;
-        }
-        let idOsobe = parseInt(idOsoba, 10);
-        if (isNaN(idOsobe)) {
-            odgovor.status(400).send({ greska: "ID mora biti broj" });
-            return;
-        }
-        let filmovi = zahtjev.body.filmovi;
-        console.log(filmovi);
-        if (!filmovi) {
-            let film = zahtjev.body;
-            if (!film || typeof film.id !== 'number' || typeof film.lik !== 'string') {
-                odgovor.status(400).send({ greska: "Film mora sadržavati 'id' i 'lik' kao valjane vrednosti" });
-                return;
-            }
-            filmovi = [film];
-        }
-        else if (!Array.isArray(filmovi)) {
-            odgovor.status(400).send({ greska: "pogresan format podataka" });
+        odgovor.type("application/json");
+        const id = parseInt(zahtjev.params["id"] || "0");
+        const filmovi = zahtjev.body;
+        if (!id || !Array.isArray(filmovi)) {
+            odgovor.status(400).json({ greska: "Nedostaje ID osobe ili podaci o filmovima" });
             return;
         }
         try {
-            for (let film of filmovi) {
-                let { id, lik } = film;
-                if (!id || typeof lik !== 'string') {
-                    odgovor.status(400).send({ greska: "Film mora sadržavati 'id' i 'lik' kao valjane vrijednosti" });
-                    return;
-                }
-            }
-            await this.osobaFilmDao.poveziOsobuSaFilmovima(idOsobe, filmovi);
-            odgovor.status(200).send({ poruka: "Osoba uspješno povezana s filmovima" });
+            await this.osobaFilmDao.poveziOsobuSaFilmovima(id, filmovi);
+            odgovor.status(201).json({ status: "uspjeh" });
         }
-        catch (greska) {
-            odgovor.status(500).send({ greska: "Greška pri povezivanju osobe s filmovima" });
+        catch (err) {
+            console.error("Greška prilikom povezivanja osobe s filmovima:", err);
+            odgovor.status(500).json({ greska: "Greška prilikom povezivanja osobe s filmovima" });
         }
     }
     async deleteOsobaFilm(zahtjev, odgovor) {

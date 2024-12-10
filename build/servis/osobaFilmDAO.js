@@ -12,11 +12,6 @@ export class OsobaFilmDAO {
         try {
             const sql = `
         SELECT 
-            o.id AS osoba_id, 
-            o.ime_prezime, 
-            o.poznat_po, 
-            o.slika AS slika_osobe, 
-            o.popularnost AS popularnost_osobe,
             f.id AS film_id, 
             f.naslov, 
             f.originalni_naslov, 
@@ -38,19 +33,20 @@ export class OsobaFilmDAO {
             throw new Error("Greška pri dohvaćanju podataka iz baze");
         }
     }
-    async poveziOsobuSaFilmovima(idOsobe, filmovi) {
-        const sql = `
-      INSERT INTO osoba_film (osoba_id, film_id, lik)
-      VALUES (?, ?, ?)
-  `;
-        try {
-            for (const film of filmovi) {
-                const { id, lik } = film;
-                await this.baza.ubaciAzurirajPodatke(sql, [idOsobe, id, lik]);
+    async poveziOsobuSaFilmovima(osobaId, filmovi) {
+        const sqlProveriFilm = "SELECT COUNT(*) AS broj FROM film WHERE id = ?";
+        const sqlProveriOsobu = "SELECT COUNT(*) AS broj FROM osoba WHERE id = ?";
+        const sqlDodavanjeVeze = "INSERT INTO osoba_film (film_id, osoba_id, lik) VALUES (?, ?, ?)";
+        for (const film of filmovi) {
+            const filmPostoji = (await this.baza.dajPodatkePromise(sqlProveriFilm, [film.film_id]));
+            const osobaPostoji = (await this.baza.dajPodatkePromise(sqlProveriOsobu, [osobaId]));
+            if (filmPostoji[0].broj === 0) {
+                throw new Error(`Film s ID-jem ${film.film_id} ne postoji u bazi.`);
             }
-        }
-        catch (err) {
-            throw new Error("Greška pri povezivanju osobe s filmovima");
+            if (osobaPostoji[0].broj === 0) {
+                throw new Error(`Osoba s ID-jem ${osobaId} ne postoji u bazi.`);
+            }
+            await this.baza.ubaciAzurirajPodatke(sqlDodavanjeVeze, [film.film_id, osobaId, film.lik || null]);
         }
     }
     async obrisiVezeOsobeNaFilmove(idOsobe) {

@@ -6,6 +6,7 @@ import { RestKorisnik } from "./restKorisnik.js";
 import { RestFilm } from "./restFilm.js";
 import { RestOsoba } from "./restOsoba.js";
 import { RestOsobaFilm } from "./restOsobaFilm.js";
+//import { provjeriToken } from "../zajednicko/jwt.js";
 const server = express();
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
@@ -43,6 +44,19 @@ else {
     port = dajPortSevis("lpolak22");
 }
 function pokreniKonfiguraciju() {
+    // server.all("*", (zahtjev,odgovor,dalje) => {
+    // 	try{
+    // 		const token = provjeriToken(zahtjev, konf.dajKonf().jwtTajniKljuc);
+    // 		if(!token){
+    // 			odgovor.status(406).json({greska: "Token nije validan!"});
+    // 			return;
+    // 		}
+    // 		dalje();
+    // 	}
+    // 	catch(err){
+    // 		odgovor.status(422).json({greska: "Token je istekao!"});
+    // 	}
+    // });
     pripremiPutanjeResursKorisnika();
     pripremiPutanjeResursOsoba();
     pripremiPutanjeResursFilmova();
@@ -89,11 +103,11 @@ function pripremiPutanjeResursKorisnika() {
 function pripremiPutanjeResursFilmova() {
     let restFilm = new RestFilm();
     server.get("/servis/film/:id", restFilm.getFilm.bind(restFilm));
-    server.post("/servis/film/:id", restFilm.postFilmovi.bind(restFilm));
+    server.post("/servis/film/:id", restFilm.postFilm.bind(restFilm));
     server.put("/servis/film/:id", restFilm.putFilmovi.bind(restFilm));
     server.delete("/servis/film/:id", restFilm.deleteFilm.bind(restFilm));
     server.get("/servis/film", restFilm.getSviFilmovi.bind(restFilm));
-    server.post("/servis/film", restFilm.postFilm.bind(restFilm));
+    server.post("/servis/film", restFilm.postFilmovi.bind(restFilm));
     server.put("/servis/film", restFilm.putFilm.bind(restFilm));
     server.delete("/servis/film", restFilm.deleteFilmovi.bind(restFilm));
 }

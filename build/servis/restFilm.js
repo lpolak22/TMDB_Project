@@ -108,8 +108,8 @@ export class RestFilm {
             odgovor.status(200).send(filmovi);
         }
         catch (greska) {
-            console.error("Greška pri dohvaćanju filmova:", greska);
-            odgovor.status(500).send({ greska: "došlo je do greške na serveru" });
+            console.error("greska pri dohvacanju filmova:", greska);
+            odgovor.status(400).send({ greska: "doslo je do greške na serveru" });
         }
     }
     pretvoriUDate(datum) {
@@ -151,7 +151,7 @@ export class RestFilm {
         }
         catch (error) {
             console.error("Greška pri dodavanju filma:", error);
-            odgovor.status(500).send({ greska: "greška pri dodavanju filma" });
+            odgovor.status(400).send({ greska: "greska pri dodavanju filma" });
         }
     }
     async getFilm(zahtjev, odgovor) {
@@ -206,11 +206,11 @@ export class RestFilm {
                 odgovor.status(201).send({ status: "uspjeh" });
             }
             else {
-                odgovor.status(400).send({ greska: "neuspješno brisanje filma" });
+                odgovor.status(400).send({ greska: "neuspjesno brisanje filma" });
             }
         }
         catch (greska) {
-            odgovor.status(500).send({ greska: "greška prilikom brisanja" });
+            odgovor.status(400).send({ greska: "greska prilikom brisanja" });
         }
     }
     async putFilm(zahtjev, odgovor) {
