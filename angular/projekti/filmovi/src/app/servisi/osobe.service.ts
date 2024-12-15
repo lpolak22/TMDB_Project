@@ -20,11 +20,11 @@ export class OsobeService {
         this.osobe = data;
         return this.osobe;
       } else {
-        throw new Error('Failed to load people data');
+        throw new Error('Neuspjesno dohvacanje');
       }
     } catch (error) {
       console.error(error);
-      throw new Error('Failed to load people data');
+      throw new Error('Neuspjesno dohvacanje');
     }
   }
 

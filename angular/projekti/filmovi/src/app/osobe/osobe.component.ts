@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Import CommonModule for *ngIf and *ngFor
-import { OsobeService } from '../servisi/osobe.service';  // Import the OsobeService
+import { CommonModule } from '@angular/common';
+import { OsobeService } from '../servisi/osobe.service';
 import { environment } from '../../environments/environment';
 
 @Component({
@@ -11,51 +11,70 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./osobe.component.scss']
 })
 export class OsobeComponent implements OnInit {
-  isLoading: boolean = true;
-  errorMessage: string = '';
-  osobe: any[] = [];
-  currentPage: number = 1;
+  porukaGreske: string | null = null; 
+  sveOsobe: any[] = []; 
+  prikazaneOsobe: any[] = []; 
+  trenutnaStranica: number = 1; 
+  brojOsobaPoStranici: number = 10; 
+  ukupanBrojOsoba: number = 0; 
+  ukupanBrojStranica: number = 0;
 
-  constructor(private osobeService: OsobeService) {}
+  constructor() {}
 
   ngOnInit() {
-    this.loadOsobe(this.currentPage);
+    this.loadSveOsobe(); 
   }
 
-  async loadOsobe(stranica: number) {
-    let parametri = `?stranica=${stranica}`;
+  async loadSveOsobe() {
     try {
-      let response = await fetch(`${environment.restServis}osoba${parametri}`, {
+      const response = await fetch(`${environment.restServis}osoba`, {
         headers: {
           'Accept': 'application/json',
         },
       });
-      console.log(response);
-      
-  
+
       if (response.status === 200) {
-        let data = await response.json();
-        console.log(data);
+        this.sveOsobe = await response.json();
+        this.ukupanBrojOsoba = this.sveOsobe.length; 
+        console.log("Ukupan broj osoba:", this.ukupanBrojOsoba);
         
-        this.osobe = data;
-        return this.osobe;
+        this.azurirajBrojStranica();
+        this.azurirajPrikazaneOsobe(); 
       } else {
-        throw new Error('Failed to load people data');
+        throw new Error('Trenutno nije moguće prikazati osobe');
       }
     } catch (error) {
       console.error(error);
-      throw new Error('Failed to load people data');
+      this.porukaGreske = 'Došlo je do pogreške, žao nam je';
     }
   }
-  
 
-  goToPersonDetails(id: number) {
-    // Navigate to the details page (modify as per your routing)
+  azurirajPrikazaneOsobe() {
+    const pocIndeks = (this.trenutnaStranica - 1) * this.brojOsobaPoStranici;
+    const krajIndeks = pocIndeks + this.brojOsobaPoStranici;
+    this.prikazaneOsobe = this.sveOsobe.slice(pocIndeks, krajIndeks); 
+  }
+
+  onPromjenaStranice(page: number) {
+    if (page < 1 || page > this.ukupanBrojStranica) return;
+    this.trenutnaStranica = page;
+    this.azurirajPrikazaneOsobe();
+  }
+
+  onPromjenaOsobaPoStranici(event: Event) {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    this.brojOsobaPoStranici = parseInt(selectedValue, 10);
+    this.trenutnaStranica = 1; 
+    this.azurirajBrojStranica();
+    this.azurirajPrikazaneOsobe();
+  }
+
+  odiNaStranicuDetalja(id: number) {
     window.location.href = `/detalji/${id}`;
   }
 
-  onPageChange(page: number) {
-    this.currentPage = page;
-    this.loadOsobe(this.currentPage);
+  azurirajBrojStranica() {
+    this.ukupanBrojStranica = Math.ceil(this.ukupanBrojOsoba / this.brojOsobaPoStranici);
+    console.log('Ukupan broj stranica:', this.ukupanBrojStranica);
   }
 }

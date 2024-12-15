@@ -1,18 +1,32 @@
 <main>
-  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  <div *ngIf="porukaGreske" class="error">{{ porukaGreske }}</div>
 
-  <div *ngIf="!errorMessage">
-    <div *ngFor="let osoba of osobe" class="osoba">
-      <img [src]="osoba.slika" alt="Osoba" (click)="goToPersonDetails(osoba.id)" />
-      <!--    <img [src]="environment.posteriPutanja+osoba.slika" alt="Osoba" (click)="goToPersonDetails(osoba.id)" /> -->
-      <h3>{{ osoba.ime_prezime }}</h3>
-      <p>{{ osoba.poznat_po }}</p>
-    </div>
+  <div *ngIf="!porukaGreske" class="ukupan-broj-osoba">
+    <p>Ukupan broj osoba: {{ ukupanBrojOsoba }}</p>
+  </div>
 
-    <div class="pagination">
-      <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage <= 1">Previous</button>
-      <button (click)="onPageChange(currentPage + 1)">Next</button>
+  <div class="odabir-stranice">
+    <label for="osobePoStranici">Prikaži osoba po stranici:</label>
+    <select id="osobePoStranici" (change)="onPromjenaOsobaPoStranici($event)">
+      <option value="5">5</option>
+      <option value="10" selected>10</option>
+      <option value="20">20</option>
+      <option value="50">50</option>
+    </select>
+  </div>
+
+  <div *ngIf="!porukaGreske" class="osobe-container">
+    <div *ngFor="let osoba of prikazaneOsobe" class="osoba">
+      <img [src]="osoba?.slika" alt="Osoba" (click)="odiNaStranicuDetalja(osoba?.id)" />
+      <h3>{{ osoba?.ime_prezime }}</h3>
+      <p>{{ osoba?.poznat_po }}</p>
     </div>
   </div>
 
+  <div class="pagination">
+    <button (click)="onPromjenaStranice(trenutnaStranica - 1)" [disabled]="trenutnaStranica <= 1">Prethodna</button>
+    <button (click)="onPromjenaStranice(trenutnaStranica + 1)" [disabled]="trenutnaStranica >= ukupanBrojStranica">
+      Sljedeća
+    </button>
+  </div>
 </main>
