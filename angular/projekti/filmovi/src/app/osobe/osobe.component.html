@@ -1,1 +1,18 @@
-<p>osobe works!</p>
+<main>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngIf="!errorMessage">
+    <div *ngFor="let osoba of osobe" class="osoba">
+      <img [src]="osoba.slika" alt="Osoba" (click)="goToPersonDetails(osoba.id)" />
+      <!--    <img [src]="environment.posteriPutanja+osoba.slika" alt="Osoba" (click)="goToPersonDetails(osoba.id)" /> -->
+      <h3>{{ osoba.ime_prezime }}</h3>
+      <p>{{ osoba.poznat_po }}</p>
+    </div>
+
+    <div class="pagination">
+      <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage <= 1">Previous</button>
+      <button (click)="onPageChange(currentPage + 1)">Next</button>
+    </div>
+  </div>
+
+</main>
