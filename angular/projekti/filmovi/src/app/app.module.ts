@@ -24,8 +24,7 @@ const routes:Routes = [
     PocetnaComponent,
     PrijavaComponent,
     RegistracijaComponent,
-    DokumentacijaComponent,
-    DetaljiComponent
+    DokumentacijaComponent
   ],
   imports: [
     BrowserModule,

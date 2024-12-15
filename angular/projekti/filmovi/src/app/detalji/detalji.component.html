@@ -1,1 +1,11 @@
-<p>detalji works!</p>
+<main>
+    <div *ngIf="porukaGreske" class="error">{{ porukaGreske }}</div>
+  
+    <div *ngIf="osoba" class="detalji-osobe">
+      <h1>{{ osoba?.ime_prezime }}</h1>
+      <img [src]="osoba?.slika" alt="Slika osobe" />
+      <p><strong>Poznato po:</strong> {{ osoba?.poznat_po }}</p>
+      <p><strong>Popularnost:</strong> {{ osoba?.popularnost }}</p>
+    </div>
+  </main>
+  
