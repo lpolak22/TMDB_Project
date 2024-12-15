@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { OsobeService } from '../servisi/osobe.service';
 import { environment } from '../../environments/environment';
@@ -19,7 +20,7 @@ export class OsobeComponent implements OnInit {
   ukupanBrojOsoba: number = 0; 
   ukupanBrojStranica: number = 0;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.loadSveOsobe(); 
@@ -70,7 +71,8 @@ export class OsobeComponent implements OnInit {
   }
 
   odiNaStranicuDetalja(id: number) {
-    window.location.href = `/detalji/${id}`;
+    // Umjesto window.location.href, koristi Angular Router za navigaciju
+    this.router.navigate(['/detalji', id]);
   }
 
   azurirajBrojStranica() {
