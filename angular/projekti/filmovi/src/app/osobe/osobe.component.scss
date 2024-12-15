@@ -1,0 +1,37 @@
+/* Add some basic styles for the component */
+.loading {
+  font-size: 18px;
+  color: blue;
+}
+
+.error {
+  font-size: 18px;
+  color: red;
+}
+
+.osoba {
+  margin-bottom: 20px;
+}
+
+.osoba img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.osoba h3 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.osoba p {
+  font-size: 14px;
+  color: gray;
+}
+
+.pagination button {
+  margin: 5px;
+  padding: 10px;
+  cursor: pointer;
+}

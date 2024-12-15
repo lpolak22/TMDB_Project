@@ -6,11 +6,11 @@ import { RestKorisnik } from "./restKorisnik.js";
 import { RestFilm } from "./restFilm.js";
 import { RestOsoba } from "./restOsoba.js";
 import { RestOsobaFilm } from "./restOsobaFilm.js";
-import { provjeriToken } from "../zajednicko/jwt.js";
+//import { provjeriToken } from "../zajednicko/jwt.js";
 const server = express();
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
-let port = 12223;
+let port = 12222;
 server.use(cors({
     origin: function (origin, povratniPoziv) {
         if (!origin ||
@@ -44,19 +44,19 @@ else {
     port = dajPortSevis("lpolak22");
 }
 function pokreniKonfiguraciju() {
-    server.all("*", (zahtjev, odgovor, dalje) => {
-        try {
+    /*server.all("*", (zahtjev,odgovor,dalje) => {
+        try{
             const token = provjeriToken(zahtjev, konf.dajKonf().jwtTajniKljuc);
-            if (!token) {
-                odgovor.status(406).json({ greska: "Token nije validan!" });
+            if(!token){
+                odgovor.status(406).json({greska: "Token nije validan!"});
                 return;
             }
             dalje();
         }
-        catch (err) {
-            odgovor.status(422).json({ greska: "Token je istekao!" });
+        catch(err){
+            odgovor.status(422).json({greska: "Token je istekao!"});
         }
-    });
+    });*/
     pripremiPutanjeResursKorisnika();
     pripremiPutanjeResursOsoba();
     pripremiPutanjeResursFilmova();
