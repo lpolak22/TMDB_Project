@@ -62,8 +62,8 @@ export class OsobeComponent implements OnInit {
   }
 
   onPromjenaOsobaPoStranici(event: Event) {
-    const selectedValue = (event.target as HTMLSelectElement).value;
-    this.brojOsobaPoStranici = parseInt(selectedValue, 10);
+    const odabranaVrijednost = (event.target as HTMLSelectElement).value;
+    this.brojOsobaPoStranici = parseInt(odabranaVrijednost, 10);
     this.trenutnaStranica = 1; 
     this.azurirajBrojStranica();
     this.azurirajPrikazaneOsobe();
@@ -76,5 +76,15 @@ export class OsobeComponent implements OnInit {
   azurirajBrojStranica() {
     this.ukupanBrojStranica = Math.ceil(this.ukupanBrojOsoba / this.brojOsobaPoStranici);
     console.log('Ukupan broj stranica:', this.ukupanBrojStranica);
+  }
+
+  idiNaPrvuStranicu() {
+    this.trenutnaStranica = 1;
+    this.azurirajPrikazaneOsobe();
+  }
+
+  idiNaPosljednjuStranicu() {
+    this.trenutnaStranica = this.ukupanBrojStranica;
+    this.azurirajPrikazaneOsobe();
   }
 }

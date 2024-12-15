@@ -24,9 +24,18 @@
   </div>
 
   <div class="pagination">
-    <button (click)="onPromjenaStranice(trenutnaStranica - 1)" [disabled]="trenutnaStranica <= 1">Prethodna</button>
-    <button (click)="onPromjenaStranice(trenutnaStranica + 1)" [disabled]="trenutnaStranica >= ukupanBrojStranica">
-      Sljedeća
+    <button (click)="idiNaPrvuStranicu()" [disabled]="trenutnaStranica <= 1"><<</button>
+
+    <button (click)="onPromjenaStranice(trenutnaStranica - 1)" [disabled]="trenutnaStranica <= 1">
+      <
     </button>
+
+    <span class="current-page">{{ trenutnaStranica }} / {{ ukupanBrojStranica }}</span>
+
+    <button (click)="onPromjenaStranice(trenutnaStranica + 1)" [disabled]="trenutnaStranica >= ukupanBrojStranica">
+      >
+    </button>
+
+    <button (click)="idiNaPosljednjuStranicu()" [disabled]="trenutnaStranica >= ukupanBrojStranica">>></button>
   </div>
 </main>
