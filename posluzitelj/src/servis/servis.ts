@@ -6,6 +6,7 @@ import { RestKorisnik } from "./restKorisnik.js";
 import { RestFilm } from "./restFilm.js";
 import { RestOsoba } from "./restOsoba.js";
 import { RestOsobaFilm } from "./restOsobaFilm.js";
+import { RestTMDB } from "./restTMDB.js";
 //import { provjeriToken } from "../zajednicko/jwt.js";
 
 const server = express();
@@ -70,6 +71,7 @@ function pokreniKonfiguraciju() {
 	pripremiPutanjeResursOsoba();
 	pripremiPutanjeResursFilmova();
 	pripremiPutanjeResursOsobaFilm();
+	pripremiPutanjuTMDBdodavanje();
 
 	server.use((zahtjev, odgovor) => {
 		odgovor.type("application/json");
@@ -141,4 +143,9 @@ function pripremiPutanjeResursOsobaFilm() {
 	server.put("/servis/osoba/:id/film", restOsobaFilm.putOsobaFilm.bind(restOsobaFilm));
 	server.delete("/servis/osoba/:id/film", restOsobaFilm.deleteOsobaFilm.bind(restOsobaFilm));
 
+}
+
+function pripremiPutanjuTMDBdodavanje(){
+	let restTMDB = new RestTMDB(konf.dajKonf().tmdbApiKeyV3);
+	server.get("/servis/app/dodavanje", restTMDB.getOsobe.bind(restTMDB));
 }
