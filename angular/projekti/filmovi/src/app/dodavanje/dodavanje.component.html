@@ -1,0 +1,57 @@
+<main>
+    <div class="search-bar">
+      <input
+        type="text"
+        [(ngModel)]="ime"
+        placeholder="Unesite ime osobe za pretragu"
+      />
+      <button (click)="pretraziOsobe()">Pretraži</button>
+    </div>
+  
+    <div *ngIf="porukaGreske" class="error">{{ porukaGreske }}</div>
+  
+    <div *ngIf="osobe.length > 0" class="results">
+      <table>
+        <thead>
+          <tr>
+            <th>Ime i prezime</th>
+            <th>Poznat po</th>
+            <th>Akcije</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let osoba of osobe">
+            <td>{{ osoba.ime_prezime }}</td>
+            <td>{{ osoba.poznat_po }}</td>
+            <td>
+              <button (click)="dodajOsobu(osoba)">Dodaj</button>
+              <button (click)="obrisiOsobu(osoba)">Obriši</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <!-- Pagination buttons -->
+      <div class="pagination">
+        <!-- Button for first page -->
+        <button (click)="idiNaPrvuStranicu()" [disabled]="trenutnaStranica === 1">Prva</button>
+  
+        <!-- Button for previous page -->
+        <button (click)="prethodnaStranica()" [disabled]="trenutnaStranica === 1">Prethodna</button>
+  
+        <!-- Current page and total pages -->
+        <span>Stranica {{ trenutnaStranica }} od {{ ukupnoStranica }}</span>
+  
+        <!-- Button for next page -->
+        <button (click)="sljedecaStranica()" [disabled]="trenutnaStranica === ukupnoStranica">Sljedeća</button>
+  
+        <!-- Button for last page -->
+        <button (click)="idiNaPosljednjuStranicu()" [disabled]="trenutnaStranica === ukupnoStranica">Posljednja</button>
+      </div>
+    </div>
+  
+    <div *ngIf="osobe.length === 0 && !porukaGreske" class="no-results">
+      Nema pronađenih osoba.
+    </div>
+  </main>
+  

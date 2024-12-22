@@ -31,9 +31,13 @@ export class DetaljiComponent implements OnInit {
           'Accept': 'application/json',
         },
       });
-
+  
       if (response.status === 200) {
-        this.osoba = await response.json();
+        const data = await response.json();
+        this.osoba = {
+          ...data,
+          slika: this.resolveSlikaUrl(data.slika),
+        };
       } else {
         throw new Error('Podaci osobe nisu dostupni');
       }
@@ -42,4 +46,18 @@ export class DetaljiComponent implements OnInit {
       this.porukaGreske = 'Došlo je do pogreške, žao nam je';
     }
   }
+  
+
+  resolveSlikaUrl(slika: string): string {
+    if (!slika) {
+      return 'assets/default-image.jpg';
+    }
+  
+    if (slika.startsWith('http')) {
+      return slika;
+    }
+  
+    return `${environment.slikaOsobePutanja}${slika}`;
+  }
+  
 }

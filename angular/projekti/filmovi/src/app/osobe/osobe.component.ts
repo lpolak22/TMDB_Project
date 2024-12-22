@@ -89,4 +89,17 @@ export class OsobeComponent implements OnInit {
     this.trenutnaStranica = this.ukupanBrojStranica;
     this.azurirajPrikazaneOsobe();
   }
+
+  resolveSlikaUrl(slika: string): string {
+    if (!slika) {
+      return 'assets/default-image.png'; 
+    }
+  
+    if (slika.startsWith('http')) {
+      return slika;
+    }
+  
+    return `${environment.slikaOsobePutanja}${slika}`;
+  }
+  
 }

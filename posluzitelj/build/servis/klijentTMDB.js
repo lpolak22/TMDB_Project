@@ -1,48 +1,47 @@
-"use strict";
-// import { FilmoviTmdbI, OsobaTmdbI } from "../servisI/tmdbI.js";
-// export class TMDBklijent {
-//     private bazicniURL = "https://api.themoviedb.org/3";
-//     private apiKljuc:string;
-//     constructor(apiKljuc:string){
-//        this.apiKljuc = apiKljuc;
-//     }
-//     public async dohvatiOsobe(stranica: number = 1) {
-//       const resurs = "/person/popular";
-//       const parametri = { page: stranica };
-//       const odgovor = await this.obaviZahtjev(resurs, parametri);
-//       const json = JSON.parse(odgovor);
-//       return json.results as Array<OsobaTmdbI>;
-//   }
-//     public async dohvatiOsobu(id:number){
-//        let resurs = "/person/"+id;
-//        let odgovor = await this.obaviZahtjev(resurs);
-//        return JSON.parse(odgovor) as OsobaTmdbI;
-//     }
-//     public async pretraziFilmovePoNazivu(trazi:string,stranica:number){
-//        let resurs = "/search/movie";
-//        let parametri = {sort_by: "popularity.desc",
-//                         include_adult: false,
-//                         page: stranica,
-//                         query: trazi};
-//        let odgovor = await this.obaviZahtjev(resurs,parametri);
-//        return JSON.parse(odgovor) as FilmoviTmdbI;
-//     }
-//     public async pretraziOsobePoImenu(trazi:string,stranica:number){
-//         let resurs = "/search-person";
-//         let parametri = {sort_by: "popularity.desc",
-//                          include_adult: false,
-//                          page: stranica,
-//                          query: trazi};
-//         let odgovor = await this.obaviZahtjev(resurs,parametri);
-//         return JSON.parse(odgovor) as FilmoviTmdbI;
-//      }
-//     private async obaviZahtjev(resurs:string,parametri:{[kljuc:string]:string|number|boolean}={}){
-//         let zahtjev = this.bazicniURL+resurs+"?api_key="+this.apiKljuc;
-//         for(let p in parametri){
-//             zahtjev+="&"+p+"="+parametri[p];
-//         }
-//         let odgovor = await fetch(zahtjev);
-//         let rezultat = await odgovor.text();
-//         return rezultat;
-//     }
-// }
+export class TMDBklijent {
+    bazicniURL = "https://api.themoviedb.org/3";
+    apiKljuc;
+    constructor(apiKljuc) {
+        this.apiKljuc = apiKljuc;
+    }
+    // Funkcija za dohvat osoba s podrškom za stranicenje
+    async dohvatiOsobe(stranica) {
+        const resurs = "/person/popular";
+        const parametri = { page: stranica }; // Stranica je sada dinamička
+        const odgovor = await this.obaviZahtjev(resurs, parametri);
+        const json = JSON.parse(odgovor);
+        const ukupnoStranica = json.total_pages; // Ukupni broj stranica
+        const osobe = json.results;
+        return { osobe, ukupnoStranica };
+    }
+    // Funkcija za pretragu osoba po imenu s stranicenjem
+    async pretraziOsobePoImenu(trazi, stranica) {
+        let resurs = "/search/person";
+        let parametri = {
+            sort_by: "popularity.desc",
+            include_adult: false,
+            page: stranica, // Dinamička stranica
+            query: trazi,
+        };
+        let odgovor = await this.obaviZahtjev(resurs, parametri);
+        let json = JSON.parse(odgovor);
+        const ukupnoStranica = json.total_pages;
+        const osobe = json.results.map((osoba) => ({
+            id: osoba.id,
+            ime_prezime: osoba.name,
+            poznat_po: osoba.known_for_department,
+            slika: osoba.profile_path,
+            popularnost: osoba.popularity || null,
+        }));
+        return { osobe, ukupnoStranica };
+    }
+    async obaviZahtjev(resurs, parametri = {}) {
+        let zahtjev = this.bazicniURL + resurs + "?api_key=" + this.apiKljuc;
+        for (let p in parametri) {
+            zahtjev += "&" + p + "=" + parametri[p];
+        }
+        let odgovor = await fetch(zahtjev);
+        let rezultat = await odgovor.text();
+        return rezultat;
+    }
+}

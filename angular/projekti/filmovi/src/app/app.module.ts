@@ -9,12 +9,16 @@ import { RegistracijaComponent } from './registracija/registracija.component';
 import { DokumentacijaComponent } from './dokumentacija/dokumentacija.component';
 import { OsobeComponent } from './osobe/osobe.component';
 import { DetaljiComponent } from './detalji/detalji.component';
+import { DodavanjeComponent } from './dodavanje/dodavanje.component';
+import { FormsModule } from '@angular/forms';
 
 const routes:Routes = [
   {path: '', component: PocetnaComponent},
   {path: 'dokumentacija', component: DokumentacijaComponent},
   {path: 'osobe', component: OsobeComponent},
   { path: 'detalji/:id', component: DetaljiComponent },
+  {path: 'dodavanje', component: DodavanjeComponent},
+
   {path: '**', redirectTo: ''}
 ];
 
@@ -24,12 +28,14 @@ const routes:Routes = [
     PocetnaComponent,
     PrijavaComponent,
     RegistracijaComponent,
-    DokumentacijaComponent
+    DokumentacijaComponent,
+    DodavanjeComponent
   ],
   imports: [
     BrowserModule,
     OsobeComponent,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

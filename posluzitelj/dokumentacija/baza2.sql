@@ -80,6 +80,9 @@ INSERT INTO osoba (id, ime_prezime, poznat_po, slika, popularnost) VALUES (9, 'N
 INSERT INTO osoba (id, ime_prezime, poznat_po, slika, popularnost) VALUES (8, 'Nasumicna Slika', 'SLika', 'https://cdn-icons-png.freepik.com/256/1077/1077114.png?semt=ais_hybrid', 10);
 INSERT INTO osoba (id, ime_prezime, poznat_po, slika, popularnost) VALUES (10, 'Nasumicna Slika', 'SLika', 'https://cdn-icons-png.freepik.com/256/1077/1077114.png?semt=ais_hybrid', 10);
 
+INSERT INTO osoba (id, ime_prezime, poznat_po, slika, popularnost) VALUES (11, 'Bud Spencer', 'Gluma', '/cVbBoKxRDFOdDKwdpRmxVazDWlE.jpg', 10);
+
+
 SELECT * from osoba;
 
 INSERT into film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis) values (23, "HR", "Družba pere kvržice", "Družba pere kvržice", 10, "/putanja", "2023-12-03", "dug i opsiran opis");
