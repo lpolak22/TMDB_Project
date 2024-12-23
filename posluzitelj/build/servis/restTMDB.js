@@ -7,17 +7,17 @@ export class RestTMDB {
     getOsobe(zahtjev, odgovor) {
         odgovor.type("application/json");
         const imeParam = zahtjev.query["ime"];
-        const stranicaParam = parseInt(zahtjev.query["stranica"], 10) || 1; // Dodavanje podrške za stranicu
+        const stranicaParam = parseInt(zahtjev.query["stranica"], 10) || 1;
         if (!imeParam || imeParam.toString().trim() === "") {
-            odgovor.status(422).send({ greska: "Parametar 'ime' je obavezan za pretragu." });
+            odgovor.status(422).send({ greska: "neočekivani podaci" });
             return;
         }
         const ime = imeParam.toString();
         this.tmdbKlijent
-            .pretraziOsobePoImenu(ime, stranicaParam) // Prosljeđivanje stranice
+            .pretraziOsobePoImenu(ime, stranicaParam)
             .then(({ osobe, ukupnoStranica }) => {
             if (!osobe || osobe.length === 0) {
-                odgovor.status(404).send({ greska: "Nema rezultata za zadanu pretragu." });
+                odgovor.status(422).send({ greska: "neočekivani podaci" });
                 return;
             }
             odgovor.status(200).json({
@@ -29,7 +29,7 @@ export class RestTMDB {
         })
             .catch((greska) => {
             console.error("Greška prilikom pretrage osoba:", greska);
-            odgovor.status(400).json({ greska: "Greška prilikom pretrage osoba." });
+            odgovor.status(400).json({ greska: "pogreska prilikom dohvata osoba" });
         });
     }
 }

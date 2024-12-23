@@ -12,9 +12,9 @@ export class OsobeService {
   constructor() {}
 
   async loadOsobe(stranica: number) {
-    let parametri = `?stranica=${stranica}`;
+    let parametar = `?stranica=${stranica}`;
     try {
-      let response = await fetch(`${this.restServis}osoba${parametri}`);
+      let response = await fetch(`${this.restServis}osoba${parametar}`);
       if (response.status === 200) {
         let data = await response.json();
         this.osobe = data;

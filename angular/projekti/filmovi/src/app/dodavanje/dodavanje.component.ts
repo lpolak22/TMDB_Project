@@ -46,23 +46,30 @@ export class DodavanjeComponent {
     }
   }
 
-  // Nova metoda za navigaciju na prvu stranicu
   idiNaPrvuStranicu() {
     this.trenutnaStranica = 1;
     this.pretraziOsobe();
   }
 
-  // Nova metoda za navigaciju na posljednju stranicu
   idiNaPosljednjuStranicu() {
     this.trenutnaStranica = this.ukupnoStranica;
     this.pretraziOsobe();
   }
 
-  dodajOsobu(osoba: any) {
-    console.log('Dodaj osobu:', osoba);
-  }
+  // obrisiOsobu(osoba: any) {
+  //   console.log('Obriši osobu:', osoba);
+  // }
 
-  obrisiOsobu(osoba: any) {
-    console.log('Obriši osobu:', osoba);
-  }
+  async dodajOsobu(osoba: any) {
+    try {
+        // Dodaj osobu u bazu
+        await this.dodavanjeService.dodajOsobuUBazu(osoba);
+
+        alert('Osoba i njeni filmovi uspješno dodani.');
+    } catch (error: any) {
+        alert(error.message || 'Greška prilikom dodavanja osobe.');
+    }
+}
+
+  
 }
