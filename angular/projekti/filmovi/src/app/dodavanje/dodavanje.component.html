@@ -3,7 +3,7 @@
       <input
         type="text"
         [(ngModel)]="ime"
-        placeholder="Unesite ime osobe za pretragu"
+        placeholder="Unesite ime osobe..."
       />
       <button (click)="pretraziOsobe()">Pretraži</button>
     </div>
@@ -25,27 +25,21 @@
             <td>{{ osoba.poznat_po }}</td>
             <td>
               <button (click)="dodajOsobu(osoba)">Dodaj</button>
-              <button (click)="obrisiOsobu(osoba)">Obriši</button>
+              <button>Obriši</button>
             </td>
           </tr>
         </tbody>
       </table>
   
-      <!-- Pagination buttons -->
-      <div class="pagination">
-        <!-- Button for first page -->
+      <div class="stranicenje">
         <button (click)="idiNaPrvuStranicu()" [disabled]="trenutnaStranica === 1">Prva</button>
   
-        <!-- Button for previous page -->
         <button (click)="prethodnaStranica()" [disabled]="trenutnaStranica === 1">Prethodna</button>
   
-        <!-- Current page and total pages -->
         <span>Stranica {{ trenutnaStranica }} od {{ ukupnoStranica }}</span>
   
-        <!-- Button for next page -->
         <button (click)="sljedecaStranica()" [disabled]="trenutnaStranica === ukupnoStranica">Sljedeća</button>
   
-        <!-- Button for last page -->
         <button (click)="idiNaPosljednjuStranicu()" [disabled]="trenutnaStranica === ukupnoStranica">Posljednja</button>
       </div>
     </div>

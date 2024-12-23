@@ -71,7 +71,6 @@ export class OsobeComponent implements OnInit {
   }
 
   odiNaStranicuDetalja(id: number) {
-    // Umjesto window.location.href, koristi Angular Router za navigaciju
     this.router.navigate(['/detalji', id]);
   }
 
