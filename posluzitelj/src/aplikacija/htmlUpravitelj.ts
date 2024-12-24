@@ -142,7 +142,6 @@ async prijava(zahtjev: Request, odgovor: Response) {
   }
 
   async dodavanje(zahtjev: Request, odgovor: Response) {
-    console.log("radi");
     if (zahtjev.session.tip_korisnika_id != 3) {
       console.log("sesija: ", zahtjev.session.tip_korisnika_id);
       odgovor.status(403).send({ greska: "zabranjen pristup" });

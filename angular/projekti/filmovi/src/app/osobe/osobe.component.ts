@@ -37,7 +37,6 @@ export class OsobeComponent implements OnInit {
       if (response.status === 200) {
         this.sveOsobe = await response.json();
         this.ukupanBrojOsoba = this.sveOsobe.length; 
-        console.log("Ukupan broj osoba:", this.ukupanBrojOsoba);
         
         this.azurirajBrojStranica();
         this.azurirajPrikazaneOsobe(); 
@@ -76,7 +75,6 @@ export class OsobeComponent implements OnInit {
 
   azurirajBrojStranica() {
     this.ukupanBrojStranica = Math.ceil(this.ukupanBrojOsoba / this.brojOsobaPoStranici);
-    console.log('Ukupan broj stranica:', this.ukupanBrojStranica);
   }
 
   idiNaPrvuStranicu() {

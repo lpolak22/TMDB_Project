@@ -56,28 +56,50 @@ export class DodavanjeComponent {
     this.pretraziOsobe();
   }
 
+  // async obrisiOsobu(osoba: any) {
+  //   if (!confirm(`Jeste li sigurni da želite obrisati osobu ${osoba.ime_prezime}?`)) {
+  //     return;
+  //   }
+  
+  //   try {
+  //     await this.dodavanjeService.obrisiOsobu(osoba.id);
+  //     this.osobe = this.osobe.filter((o) => o.id !== osoba.id);
+  //   } catch (error: any) {
+  //     alert(error.message || 'Greška prilikom brisanja osobe.');
+  //   }
+  // }
+  
+
+  async dodajOsobu(osoba: any) {
+    try {
+      await this.dodavanjeService.dodajOsobuUBazu(osoba);
+      // Ažuriranje svojstva 'dodana' i obavijest Angularu o promjeni
+      osoba.dodana = true;
+      this.osobe = [...this.osobe]; // Kreiranje nove reference za osvježavanje prikaza
+    } catch (error: any) {
+      alert(error.message || 'Greška prilikom dodavanja osobe.');
+    }
+  }
+  
   async obrisiOsobu(osoba: any) {
     if (!confirm(`Jeste li sigurni da želite obrisati osobu ${osoba.ime_prezime}?`)) {
       return;
     }
-  
     try {
       await this.dodavanjeService.obrisiOsobu(osoba.id);
-      this.osobe = this.osobe.filter((o) => o.id !== osoba.id);
+      // Ažuriranje svojstva 'dodana' i obavijest Angularu o promjeni
+      osoba.dodana = false;
+      this.osobe = [...this.osobe]; // Kreiranje nove reference za osvježavanje prikaza
     } catch (error: any) {
       alert(error.message || 'Greška prilikom brisanja osobe.');
     }
   }
   
-
-  async dodajOsobu(osoba: any) {
-    try {
-        await this.dodavanjeService.dodajOsobuUBazu(osoba);
-
-    } catch (error: any) {
-        alert(error.message || 'Greška prilikom dodavanja osobe.');
-    }
-}
+  
+  isOsobaDodana(osoba: any): boolean {
+    return osoba.dodana === true; // Provjera statusa osobe
+  }
+  
 
   
 }

@@ -65,10 +65,8 @@ export class TMDBklijent {
         const resurs = `/person/${id}/movie_credits`;
         const odgovor = await this.obaviZahtjevDohvatiFilm(resurs);
         
-        // Dohvaćeni filmovi
         const filmovi = JSON.parse(odgovor).cast;
     
-        // Vratite samo prvih 20 filmova
         return filmovi.slice(0, 20).map((film: any) => ({
             id: film.id,
             naslov: film.title,
@@ -82,5 +80,11 @@ export class TMDBklijent {
         }));
     }
     
-
+    public async dohvatiSlikeOsobe(id: number): Promise<Array<string>> {
+        const resurs = `/person/${id}/images`;
+        const odgovor = await this.obaviZahtjev(resurs);
+        const json = JSON.parse(odgovor);
+        return json.profiles.map((slika: any) => slika.file_path);
+    }
+    
 }

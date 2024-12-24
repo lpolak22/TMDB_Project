@@ -24,9 +24,22 @@
             <td>{{ osoba.ime_prezime }}</td>
             <td>{{ osoba.poznat_po }}</td>
             <td>
-              <button (click)="dodajOsobu(osoba)">Dodaj</button>
-              <button (click)="obrisiOsobu(osoba)">Obriši</button>
+              <button
+                *ngIf="!isOsobaDodana(osoba)"
+                class="add-button"
+                (click)="dodajOsobu(osoba)"
+              >
+                Dodaj
+              </button>
+              <button
+                *ngIf="isOsobaDodana(osoba)"
+                class="delete-button"
+                (click)="obrisiOsobu(osoba)"
+              >
+                Obriši
+              </button>
             </td>
+            
           </tr>
         </tbody>
       </table>

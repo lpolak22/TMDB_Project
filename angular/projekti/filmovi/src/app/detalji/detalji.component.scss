@@ -1,22 +1,104 @@
+$green-primary: rgb(0, 152, 102);
+$green-secondary: rgb(13, 172, 115);
+$green-even: rgb(153, 225, 190);
+$green-odd: rgb(77, 197, 153);
+$green-active: rgb(0, 137, 92);
+$red-color: #f44336;
+$red-hover: #e53935;
+$red-active: #d32f2f;
+$color_1: #fff;
+$background-color: #f5f5f5;
+$border-color: #e0e0e0;
+
 .detalji-osobe {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .detalji-osobe img {
+  text-align: center;
+  margin-top: 20px;
+
+  img {
     width: 300px;
     height: auto;
     border-radius: 10px;
     margin-top: 20px;
   }
-  
-  .detalji-osobe h1 {
+
+  h1 {
     font-size: 24px;
     margin: 20px 0;
   }
-  
-  .detalji-osobe p {
+
+  p {
     font-size: 18px;
     margin: 10px 0;
   }
-  
+}
+
+.galerija {
+  margin-top: 20px;
+
+  h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+
+  .galerija-slike {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    img {
+      width: 150px;
+      height: auto;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+.povezani-filmovi {
+  margin-top: 30px;
+
+  h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+
+    th {
+      background-color: $green-primary;  /* Zaglavlje tablice */
+      color: $color_1;
+      padding: 15px;
+      text-align: left;
+      font-size: 18px;
+    }
+
+    td {
+      background-color: $color_1;  /* Bijela pozadina za redove */
+      padding: 15px;
+      text-align: left;
+      font-size: 16px;
+      border-bottom: 1px solid $border-color;
+    }
+
+    .even {
+      background-color: $green-even;  // Boja za parne redove
+    }
+
+    .odd {
+      background-color: $green-odd;  // Boja za neparne redove
+    }
+
+    img {
+      border-radius: 5px;
+    }
+  }
+}
+
+.error {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+}

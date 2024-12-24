@@ -51,9 +51,7 @@ export class TMDBklijent {
     async dohvatiFilmoveOsobe(id) {
         const resurs = `/person/${id}/movie_credits`;
         const odgovor = await this.obaviZahtjevDohvatiFilm(resurs);
-        // Dohvaćeni filmovi
         const filmovi = JSON.parse(odgovor).cast;
-        // Vratite samo prvih 20 filmova
         return filmovi.slice(0, 20).map((film) => ({
             id: film.id,
             naslov: film.title,
@@ -65,5 +63,11 @@ export class TMDBklijent {
             jezik: film.original_language,
             lik: film.character
         }));
+    }
+    async dohvatiSlikeOsobe(id) {
+        const resurs = `/person/${id}/images`;
+        const odgovor = await this.obaviZahtjev(resurs);
+        const json = JSON.parse(odgovor);
+        return json.profiles.map((slika) => slika.file_path);
     }
 }
