@@ -1,40 +1,155 @@
 $color_1: #fff;
-$background-color_1: #007bff;
-$background-color_2: #aaa;
+$green-primary: rgb(0, 152, 102);  // Glavna zelena
+$green-secondary: lighten($green-primary, 15%);  // Svijetlija zelena za hover
+$red-color: #f44336;  // Crvena za brisanje
+$background-color: #f5f5f5;  // Svijetla pozadina
+$border-color: #e0e0e0;  // Svijetlosiva za granice
 
-.osobe-container {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-	gap: 20px;
-	margin: 20px 0;
+/* Stiliziranje glavne stranice */
+main {
+  font-family: Arial, sans-serif;
+  background-color: $background-color;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
-.osoba {
-	background: #f9f9f9;
-	border: 1px solid #ddd;
-	border-radius: 8px;
-	text-align: center;
-	padding: 10px;
-	img {
-		max-width: 100%;
-		height: auto;
-		border-radius: 5px;
-	}
+
+/* Stil za input za pretragu */
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  .search-input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid $border-color;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .search-button {
+    padding: 10px 20px;
+    background-color: $green-primary;
+    color: $color_1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: $green-secondary;
+    }
+
+    &:active {
+      background-color: darken($green-primary, 10%);  // Pritisnuti gumb postaje tamniji
+    }
+  }
 }
+
+/* Stil za tablicu */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+
+  th {
+    background-color: $green-primary;  /* Zaglavlje tablice */
+    color: $color_1;
+    padding: 15px;
+    text-align: left;
+    font-size: 18px;
+  }
+
+  td {
+    background-color: $color_1;  /* Bijela pozadina za redove */
+    padding: 15px;
+    text-align: left;
+    font-size: 16px;
+    border-bottom: 1px solid $border-color;
+  }
+
+  .even {
+    background-color: lighten($green-primary, 40%);
+  }
+
+  .odd {
+    background-color: lighten($green-primary, 20%);
+  }
+}
+
+/* Stil za gumbe unutar tablice */
+button {
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &.add-button {
+    background-color: $green-primary;
+    color: $color_1;
+
+    &:hover {
+      background-color: $green-secondary;
+    }
+
+    &:active {
+      background-color: darken($green-primary, 10%);  // Pritisnuti gumb postaje tamniji
+    }
+  }
+
+  &.delete-button {
+    background-color: $red-color;
+    color: $color_1;
+
+    &:hover {
+      background-color: darken($red-color, 10%);
+    }
+
+    &:active {
+      background-color: darken($red-color, 15%);  // Pritisnuti gumb postaje tamniji
+    }
+  }
+}
+
+/* Stil za paginaciju */
 .stranicenje {
-	display: flex;
-	justify-content: center;
-	margin-top: 20px;
-	button {
-		margin: 0 10px;
-		padding: 10px 15px;
-		border: none;
-		background-color: $background-color_1;
-		color: $color_1;
-		border-radius: 4px;
-		cursor: pointer;
-		&:disabled {
-			background-color: $background-color_2;
-			cursor: not-allowed;
-		}
-	}
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+
+  .pagination-button {
+    padding: 10px 15px;
+    margin: 0 5px;
+    background-color: $green-primary;
+    color: $color_1;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $green-secondary;
+    }
+
+    &:active {
+      background-color: darken($green-primary, 10%);  // Pritisnuti gumb postaje tamniji
+    }
+
+    &:disabled {
+      background-color: $border-color;
+      cursor: not-allowed;
+    }
+  }
+
+  .pagination-text {
+    align-self: center;
+    margin: 0 10px;
+  }
+}
+
+/* Stil za obavijest o nepretraženim rezultatima */
+.no-results {
+  text-align: center;
+  font-size: 18px;
+  color: $green-primary;
 }

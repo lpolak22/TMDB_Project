@@ -71,8 +71,8 @@ export class DodavanjeService {
       });
   
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.greska || 'Neuspješno dodavanje osobe.');
+        const pogreskaInfo = await response.json();
+        throw new Error(pogreskaInfo.greska || 'Neuspješno dodavanje osobe.');
       }
   
       const podaciFilmova = await this.dohvatiFilmoveOsobe(podaciOsobe.id);  
@@ -110,8 +110,8 @@ export class DodavanjeService {
         });
   
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.greska || `Neuspješno dodavanje filma s ID-jem ${film.id}.`);
+          const pogreskaInfo = await response.json();
+          throw new Error(pogreskaInfo.greska || `Neuspješno dodavanje filma s ID-jem ${film.id}.`);
         }
       }
     } catch (error) {
@@ -138,63 +138,61 @@ async poveziOsobuIFilm(osobaId: number, filmovi: any[]): Promise<void> {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.greska || 'Neuspješno povezivanje osobe s filmovima.');
+      const pogreskaInfo = await response.json();
+      throw new Error(pogreskaInfo.greska || 'Neuspješno povezivanje osobe s filmovima.');
     }
   } catch (error) {
     console.error(error);
     throw error;
   }
 }
-  async obrisiOsobu(id: number): Promise<void> {
+async obrisiOsobu(id: number): Promise<void> {
   try {
-    // Brisanje veze osobe na filmove
+    const dohvaceniFilmovi = await fetch(`${this.restServis}osoba/${id}/film`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (!dohvaceniFilmovi.ok) {
+      throw new Error('Neuspješno dohvaćanje filmova osobe.');
+    }
+
+    const filmovi = await dohvaceniFilmovi.json();
+
     let response = await fetch(`${this.restServis}osoba/${id}/film`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.greska || 'Neuspješno brisanje veze osobe na filmove.');
+      const pogreskaInfo = await response.json();
+      throw new Error(pogreskaInfo.greska || 'brisanje veze osobe na filmove nije uspjelo');
     }
 
-    // Brisanje osobe iz baze
     response = await fetch(`${this.restServis}osoba/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.greska || 'Neuspješno brisanje osobe.');
+      const pogreskaInfo = await response.json();
+      throw new Error(pogreskaInfo.greska || 'brisanje osobe nije uspjelo');
     }
 
-    // Dohvat filmova i pokušaj brisanja filmova bez povezanih osoba
-    const filmoviResponse = await fetch(`${this.restServis}osoba/${id}/film`, {
-      headers: { 'Content-Type': 'application/json' },
-    });
-
-    if (!filmoviResponse.ok) {
-      throw new Error('Neuspješno dohvaćanje filmova osobe.');
-    }
-
-    const filmovi = await filmoviResponse.json();
+    
+    
     if (Array.isArray(filmovi)) {
       for (const film of filmovi) {
-        try {
-          const filmResponse = await fetch(`${this.restServis}film/${film.id}`, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-          });
-
-          if (!filmResponse.ok) {
-            const filmError = await filmResponse.json();
-            console.warn(filmError.greska || `Film s ID-jem ${film.id} nije obrisan.`);
-          }
-        } catch (filmError) {
-          console.warn('Greška pri brisanju filma:', filmError);
+        const obrisiFilm = await fetch(`${this.restServis}film/${film.id}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        
+        if (!obrisiFilm.ok) {
+          throw new Error('gresko kod brisanja osoba za film');
         }
+
+        
       }
     }
   } catch (error) {
@@ -202,5 +200,6 @@ async poveziOsobuIFilm(osobaId: number, filmovi: any[]): Promise<void> {
     throw error;
   }
 }
+
 
 }

@@ -278,50 +278,50 @@ async deleteFilm(zahtjev: Request, odgovor: Response) {
     odgovor.status(405).send(JSON.stringify({ greska: "zabranjena metoda" }));
   }
 
-//   async getFilmoviPoStranici(zahtjev: Request, odgovor: Response) {
-//     odgovor.type("application/json");
+  async getFilmoviPoStranici(zahtjev: Request, odgovor: Response) {
+    odgovor.type("application/json");
 
-//     let dozvoljeniParametri = ["stranica"];
-//     let sviParametri = Object.keys(zahtjev.query);
+    let dozvoljeniParametri = ["stranica"];
+    let sviParametri = Object.keys(zahtjev.query);
 
-//     let neocekivaniParametri = sviParametri.filter(
-//         (param) => !dozvoljeniParametri.includes(param)
-//     );
+    let neocekivaniParametri = sviParametri.filter(
+        (param) => !dozvoljeniParametri.includes(param)
+    );
 
-//     if (neocekivaniParametri.length > 0) {
-//         odgovor
-//             .status(422)
-//             .send({ greska: "neočekivani podaci"});
-//         return;
-//     }
+    if (neocekivaniParametri.length > 0) {
+        odgovor
+            .status(422)
+            .send({ greska: "neočekivani podaci"});
+        return;
+    }
 
-//     let stranica = parseInt(zahtjev.query["stranica"] as string, 10) || 1;
-//     let brojElemenata = 20;
+    let stranica = parseInt(zahtjev.query["stranica"] as string, 10) || 1;
+    let brojElemenata = 20;
 
-//     if (stranica < 1) {
-//         odgovor
-//             .status(400)
-//             .send({ greska: "broj stranice mora biti veći od 0" });
-//         return;
-//     }
+    if (stranica < 1) {
+        odgovor
+            .status(400)
+            .send({ greska: "broj stranice mora biti veći od 0" });
+        return;
+    }
 
-//     let offset = (stranica - 1) * brojElemenata;
+    let offset = (stranica - 1) * brojElemenata;
 
-//     try {
-//         let osobe = await this.fDao.dajSveStranica(offset, brojElemenata);
+    try {
+        let osobe = await this.fDao.dajSveStranica(offset, brojElemenata);
 
-//         if (osobe.length === 0) {
-//             odgovor
-//                 .status(404)
-//                 .send({ greska: "nepostojeć resurs" });
-//             return;
-//         }
+        if (osobe.length === 0) {
+            odgovor
+                .status(404)
+                .send({ greska: "nepostojeć resurs" });
+            return;
+        }
 
-//         odgovor.status(200).send(osobe);
-//     } catch (greska) {
-//         odgovor
-//             .status(400)
-//             .send({ greska: "greška kod dohvaćanja podataka" });
-//     }
-// }
+        odgovor.status(200).send(osobe);
+    } catch (greska) {
+        odgovor
+            .status(400)
+            .send({ greska: "greška kod dohvaćanja podataka" });
+    }
+}
 }

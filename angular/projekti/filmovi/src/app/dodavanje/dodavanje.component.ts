@@ -63,7 +63,6 @@ export class DodavanjeComponent {
   
     try {
       await this.dodavanjeService.obrisiOsobu(osoba.id);
-      alert(`Osoba ${osoba.ime_prezime} uspješno obrisana.`);
       this.osobe = this.osobe.filter((o) => o.id !== osoba.id);
     } catch (error: any) {
       alert(error.message || 'Greška prilikom brisanja osobe.');
@@ -73,10 +72,8 @@ export class DodavanjeComponent {
 
   async dodajOsobu(osoba: any) {
     try {
-        // Dodaj osobu u bazu
         await this.dodavanjeService.dodajOsobuUBazu(osoba);
 
-        alert('Osoba i njeni filmovi uspješno dodani.');
     } catch (error: any) {
         alert(error.message || 'Greška prilikom dodavanja osobe.');
     }
