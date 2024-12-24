@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (odgovor.ok) {
                 const json = await odgovor.json();
-                alert(json.poruka || "Zahtjev uspješno poslan.");
                 gumbZahtjev.style.display = "none";
             } else {
                 const greska = await odgovor.json();

@@ -12,13 +12,6 @@ export class RestOsobaFilm {
             odgovor.status(400).send({ greska: "ID osobe je obavezan" });
             return;
         }
-        let dozvoljeniParametri = { stranica: true };
-        for (let param in zahtjev.query) {
-            if (!(param in dozvoljeniParametri)) {
-                odgovor.status(422).send({ greska: "neočekivani podaci" });
-                return;
-            }
-        }
         let idOsobe = parseInt(id, 10);
         if (isNaN(idOsobe)) {
             odgovor.status(422).send({ greska: "ID mora biti broj" });

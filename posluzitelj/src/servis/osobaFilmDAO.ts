@@ -10,48 +10,37 @@ export class OsobaFilmDAO {
   }
 
   async dajFilmoveZaOsobu(id: number, stranica: number): Promise<any[]> {
-    const brojElemenata = 20;
-    const offset = (stranica - 1) * brojElemenata;
+    let brojElemenata = 20;
+    let offset = (stranica - 1) * brojElemenata;
 
     try {
       const sql = `
         SELECT 
-            f.id AS film_id, 
-            f.naslov, 
-            f.originalni_naslov, 
-            f.jezik, 
-            f.popularnost AS popularnost_filma, 
-            f.slikica_postera, 
-            f.datum_izdavanja, 
-            f.opis AS opis_filma, 
-            ofi.lik AS lik_u_filmu
-        FROM osoba_film ofi
-        JOIN osoba o ON ofi.osoba_id = o.id
-        JOIN film f ON ofi.film_id = f.id
-        WHERE o.id = ? 
+        f.id, 
+        f.naslov, 
+        f.originalni_naslov, 
+        f.jezik, 
+        f.popularnost, 
+        f.slikica_postera, 
+        f.datum_izdavanja, 
+        f.opis
+        FROM film f
+        INNER JOIN osoba_film ofi ON f.id = ofi.film_id
+        WHERE ofi.osoba_id = ?
         LIMIT ? OFFSET ?;
       `;
-      return this.baza.dajPodatke(sql, [id, brojElemenata, offset]);
+      console.log("SQL upit:", sql);
+      console.log("Parametri:", [id, brojElemenata, offset]);
+
+      let rezultat = await this.baza.dajPodatke(sql, [id, brojElemenata, offset]);
+
+      console.log("Rezultat upita:", rezultat);
+
+      return rezultat;
     } catch (err) {
       throw new Error("Greška pri dohvaćanju podataka iz baze");
     }
 }
-
-async dajUkupnoFilmovaZaOsobu(id: number): Promise<number> {
-  try {
-    const sql = `SELECT COUNT(*) AS ukupno FROM osoba_film WHERE osoba_id = ?`;
-    const rezultat = await this.baza.dajPodatke(sql, [id]);
-
-    // Pretpostavljamo da rezultat[0] sadrži objekt sa 'ukupno' kao string
-    const ukupno = parseInt(rezultat[0] as string, 10); // Pretvaranje u broj
-
-    return isNaN(ukupno) ? 0 : ukupno; // Provjera da li je broj valjan
-  } catch (err) {
-    throw new Error("Greška pri dohvaćanju ukupnog broja filmova");
-  }
-}
-
-
 
 async poveziOsobuSaFilmovima(osobaId: number, filmovi: Array<any>): Promise<void> {
   let sqlProvjeriFilm = "SELECT COUNT(*) AS broj FROM film WHERE id = ?";
