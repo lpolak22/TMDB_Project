@@ -35,7 +35,7 @@ export class RestOsobaFilm {
 
     let stranicaBroj = parseInt(stranica as string ?? '1', 10);
     if (isNaN(stranicaBroj) || stranicaBroj < 1) {
-        odgovor.status(422).send({ greska: "Stranica mora biti broj veći od 0" });
+        odgovor.status(422).send({ greska: "stranica mora biti broj veći od 0" });
         return;
     }
 
@@ -49,28 +49,36 @@ export class RestOsobaFilm {
 
         odgovor.status(200).send(filmovi);
     } catch (greska) {
-        odgovor.status(500).send({ greska: "Greška pri dohvaćanju filmova" });
+        odgovor.status(400).send({ greska: "greska kod dohvata filmova" });
     }
 }
   
 async putOsobaFilm(zahtjev: Request, odgovor: Response) {
     odgovor.type("application/json");
     const id = parseInt(zahtjev.params["id"] || "0");
-    const filmovi: Array<{ film_id: number; lik: string }> = zahtjev.body;
-
+    const filmovi: Array<any> = zahtjev.body;
+  
     if (!id || !Array.isArray(filmovi)) {
-      odgovor.status(400).json({ greska: "Nedostaje ID osobe ili podaci o filmovima" });
+      odgovor.status(400).json({ greska: "nedostaju ID osobe ili podaci o filmovima" });
       return;
     }
-
+  
     try {
+      for (const film of filmovi) {
+        if (!film.id || typeof film.id !== "number") {
+          odgovor.status(400).json({ greska: "svaki film mora imati ispravan ID" });
+          return;
+        }
+      }
+  
       await this.osobaFilmDao.poveziOsobuSaFilmovima(id, filmovi);
-      odgovor.status(201).json({ status :"uspjeh" });
+      odgovor.status(201).json({ status: "uspjeh" });
     } catch (err) {
-      console.error("Greška prilikom povezivanja osobe s filmovima:", err);
-      odgovor.status(500).json({ greska: "Greška prilikom povezivanja osobe s filmovima" });
+      console.error("greska prilikom povezivanja osobe s filmovima:", err);
+      odgovor.status(400).json({ greska: "greska kod povezivanja osobe s filmovima" });
     }
   }
+  
 
 
 

@@ -26,8 +26,8 @@ export class RestOsoba {
   async postOsoba(zahtjev: Request, odgovor: Response) {
     odgovor.type("application/json");
     let podaci = zahtjev.body;
-
-    if (!podaci.id || !podaci.ime_prezime || !podaci.poznat_po || !podaci.slika) {
+    
+    if (!podaci.id || !podaci.ime_prezime || !podaci.poznat_po) {
         odgovor.status(400).send({ greska: "svi podaci su obavezni" });
         return;
     }

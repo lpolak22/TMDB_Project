@@ -32,4 +32,24 @@ export class RestTMDB {
             odgovor.status(400).json({ greska: "pogreska prilikom dohvata osoba" });
         });
     }
+    async getFilmoviOsobe(zahtjev, odgovor) {
+        odgovor.type("application/json");
+        const idParam = zahtjev.params["id"];
+        if (!idParam || isNaN(Number(idParam))) {
+            odgovor.status(422).send({ greska: "Neočekivani podaci: ID nije ispravan" });
+            return;
+        }
+        const osobaId = parseInt(idParam, 10);
+        try {
+            const filmovi = await this.tmdbKlijent.dohvatiFilmoveOsobe(osobaId);
+            odgovor.status(200).json({
+                osobaId: osobaId,
+                filmovi: filmovi.length > 0 ? filmovi : [],
+            });
+        }
+        catch (greska) {
+            console.error("Greška prilikom dohvata filmova za osobu:", greska);
+            odgovor.status(400).json({ greska: "Greška prilikom dohvata filmova" });
+        }
+    }
 }

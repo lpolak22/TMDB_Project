@@ -179,7 +179,7 @@ async getSviFilmovi(zahtjev: Request, odgovor: Response) {
 
     let podaci = zahtjev.body;
 
-    if (!podaci.jezik || !podaci.originalni_naslov || !podaci.naslov || !podaci.popularnost || !podaci.slikica_postera || !podaci.datum_izdavanja || !podaci.opis) {
+    if (!podaci.jezik || !podaci.originalni_naslov || !podaci.naslov) {
         odgovor.status(400).send({ greska: "svi podaci su obavezni" });
         return;
     }

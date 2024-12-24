@@ -31,4 +31,3 @@ INSERT into korisnik (ime, prezime, adresa, korime, lozinka, email, tip_korisnik
 
 
 SELECT * from korisnik;
-delete from korisnik where korime = "marin";

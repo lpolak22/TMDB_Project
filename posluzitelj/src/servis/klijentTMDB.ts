@@ -8,17 +8,17 @@ export class TMDBklijent {
         this.apiKljuc = apiKljuc;
     }
 
-    public async dohvatiOsobe(stranica: number): Promise<{ osobe: Array<OsobaTmdbI>, ukupnoStranica: number }> {
-        const resurs = "/person/popular";
-        const parametri = { page: stranica };
-        const odgovor = await this.obaviZahtjev(resurs, parametri);
-        const json = JSON.parse(odgovor);
+    // public async dohvatiOsobe(stranica: number): Promise<{ osobe: Array<OsobaTmdbI>, ukupnoStranica: number }> {
+    //     const resurs = "/person/popular";
+    //     const parametri = { page: stranica };
+    //     const odgovor = await this.obaviZahtjev(resurs, parametri);
+    //     const json = JSON.parse(odgovor);
 
-        const ukupnoStranica = json.total_pages;
-        const osobe = json.results as Array<OsobaTmdbI>;
+    //     const ukupnoStranica = json.total_pages;
+    //     const osobe = json.results as Array<OsobaTmdbI>;
 
-        return { osobe, ukupnoStranica };
-    }
+    //     return { osobe, ukupnoStranica };
+    // }
 
     public async pretraziOsobePoImenu(trazi: string, stranica: number): Promise<{ osobe: Array<OsobaTmdbI>, ukupnoStranica: number }> {
         let resurs = "/search/person";
@@ -64,18 +64,23 @@ export class TMDBklijent {
     public async dohvatiFilmoveOsobe(id: number): Promise<any> {
         const resurs = `/person/${id}/movie_credits`;
         const odgovor = await this.obaviZahtjevDohvatiFilm(resurs);
-        return JSON.parse(odgovor).cast.map((film: any) => ({
-          id: film.id,
-          naslov: film.title,
-          originalni_naslov: film.original_title,
-          popularnost: film.popularity,
-          slikica_postera: film.poster_path,
-          datum_izdavanja: film.release_date,
-          opis: film.overview,
-          jezik: film.original_language,
-        }));
-      }
-      
-     
+        
+        // Dohvaćeni filmovi
+        const filmovi = JSON.parse(odgovor).cast;
     
+        // Vratite samo prvih 20 filmova
+        return filmovi.slice(0, 20).map((film: any) => ({
+            id: film.id,
+            naslov: film.title,
+            originalni_naslov: film.original_title,
+            popularnost: film.popularity,
+            slikica_postera: film.poster_path,
+            datum_izdavanja: film.release_date,
+            opis: film.overview,
+            jezik: film.original_language,
+            lik: film.character
+        }));
+    }
+    
+
 }

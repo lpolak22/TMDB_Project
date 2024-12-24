@@ -50,7 +50,8 @@ export class FilmDAO {
           popularnost: p.popularnost ?? 0,
           slikica_postera: p.slikica_postera ?? "",
           datum_izdavanja: p.datum_izdavanja ?? "",
-          opis: p.opis ?? ""
+          opis: p.opis ?? "",
+          lik: p.lik ?? ""
         };
       }
       return null;
@@ -62,10 +63,11 @@ export class FilmDAO {
 
   dodaj(film: FilmTmdbI): boolean {
     const sql = `
-      INSERT INTO film (jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis)
-      VALUES (?,?,?,?,?,?,?);
+      INSERT INTO film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis)
+      VALUES (?, ?,?,?,?,?,?,?);
     `;
     const podaci = [
+      film.id,
       film.jezik ?? "",
       film.originalni_naslov ?? "",
       film.naslov ?? "",
@@ -140,7 +142,8 @@ export class FilmDAO {
         popularnost: p.popularnost ?? 0,
         slikica_postera: p.slikica_postera ?? "",
         datum_izdavanja: p.datum_izdavanja ?? "",
-        opis: p.opis ?? ""
+        opis: p.opis ?? "",
+        lik: p.lik ?? ""
       }));
     } catch (err) {
       console.error("Greška pri dohvaćanju filmova sa stranica:", err);
@@ -205,6 +208,7 @@ export class FilmDAO {
         slikica_postera: p.slikica_postera ?? "",
         datum_izdavanja: p.datum_izdavanja ?? "",
         opis: p.opis ?? "",
+        lik: p.lik ?? ""
       }));
     } catch (err) {
       throw new Error("Greška pri dohvaćanju filmova po datumu sa stranica");
