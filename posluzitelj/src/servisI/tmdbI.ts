@@ -22,4 +22,5 @@ export interface FilmoviTmdbI {
     slikica_postera:string;
     datum_izdavanja:string;
     opis:string;
+    lik:string;
   }

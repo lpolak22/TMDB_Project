@@ -5,14 +5,14 @@ CREATE TABLE "film"(
   "naslov" VARCHAR(100) NOT NULL,
   "popularnost" DECIMAL,
   "slikica_postera" VARCHAR(1000),
-  "datum_izdavanja" VARCHAR(45) NOT NULL,
+  "datum_izdavanja" VARCHAR(45),
   "opis" VARCHAR(1000)
 );
 CREATE TABLE "osoba"(
   "id" INTEGER PRIMARY KEY NOT NULL,
   "ime_prezime" VARCHAR(150) NOT NULL,
-  "poznat_po" VARCHAR(45) NOT NULL,
-  "slika" VARCHAR(1000) NOT NULL,
+  "poznat_po" VARCHAR(45),
+  "slika" VARCHAR(1000),
   "popularnost" DECIMAL
 );
 CREATE TABLE "slika"(
@@ -25,10 +25,10 @@ CREATE TABLE "slika"(
     REFERENCES "osoba"("id")
 );
 CREATE TABLE "osoba_film"(
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   "osoba_id" INTEGER NOT NULL,
   "film_id" INTEGER NOT NULL,
-  "lik" VARCHAR(150),
-  PRIMARY KEY("osoba_id","film_id"),
+  "lik" VARCHAR(45),
   CONSTRAINT "fk_osoba_Film_osoba1"
     FOREIGN KEY("osoba_id")
     REFERENCES "osoba"("id"),
@@ -60,14 +60,13 @@ CREATE TABLE "korisnik"(
     REFERENCES "tip_korisnika"("id")
 );
 
-
 insert into tip_korisnika (id, naziv) VALUES (1, "administrator");
 insert into tip_korisnika (id,naziv) VALUES (2, "registrirani korisnik");
 select * from tip_korisnika;
 
 
 INSERT into korisnik (id, korime, lozinka, email, tip_korisnika_id) values (1, "admin", "rwa", "admin@gmail.com", 1);
-INSERT into korisnik (id, ime, prezime, adresa, korime, lozinka, email, tip_korisnika_id) values (2, "Registrirani", "Korisnik", "Korisnička 1","registrirani korisnik", "rwa", "korisnik@gmail.com", 2);
+INSERT into korisnik (id, ime, prezime, adresa, korime, lozinka, email, tip_korisnika_id) values (2, "Registrirani", "Korisnik", "Korisnička 1","obican", "rwa", "korisnik@gmail.com", 2);
 INSERT into korisnik (id, ime, prezime, adresa, korime, lozinka, email, tip_korisnika_id) values ("Lucija", "Polak", "Korisnička 1","lpolak22", "lp", "lpolak22@foi.hr", 2);
 
 select * from korisnik;
@@ -184,3 +183,5 @@ SELECT * from osoba_film;
 DELETE FROM korisnik WHERE korime = "test";
 
 delete from osoba_film where osoba_id = 1;
+
+DELETE FROM osoba;

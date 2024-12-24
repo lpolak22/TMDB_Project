@@ -37,26 +37,43 @@ export class OsobaFilmDAO {
     }
 }
 
-async poveziOsobuSaFilmovima(osobaId: number, filmovi: Array<{ film_id: number; lik: string }>): Promise<void> {
-  const sqlProveriFilm = "SELECT COUNT(*) AS broj FROM film WHERE id = ?";
-    const sqlProveriOsobu = "SELECT COUNT(*) AS broj FROM osoba WHERE id = ?";
-    const sqlDodavanjeVeze = "INSERT INTO osoba_film (film_id, osoba_id, lik) VALUES (?, ?, ?)";
+async dajUkupnoFilmovaZaOsobu(id: number): Promise<number> {
+  try {
+    const sql = `SELECT COUNT(*) AS ukupno FROM osoba_film WHERE osoba_id = ?`;
+    const rezultat = await this.baza.dajPodatke(sql, [id]);
 
-    for (const film of filmovi) {
-        const filmPostoji = (await this.baza.dajPodatkePromise(sqlProveriFilm, [film.film_id])) as any;
-        const osobaPostoji = (await this.baza.dajPodatkePromise(sqlProveriOsobu, [osobaId])) as any;
+    // Pretpostavljamo da rezultat[0] sadrži objekt sa 'ukupno' kao string
+    const ukupno = parseInt(rezultat[0] as string, 10); // Pretvaranje u broj
 
-        if (filmPostoji[0].broj === 0) {
-            throw new Error(`Film s ID-jem ${film.film_id} ne postoji u bazi.`);
-        }
-
-        if (osobaPostoji[0].broj === 0) {
-            throw new Error(`Osoba s ID-jem ${osobaId} ne postoji u bazi.`);
-        }
-
-        await this.baza.ubaciAzurirajPodatke(sqlDodavanjeVeze, [film.film_id, osobaId, film.lik || null]);
-    }
+    return isNaN(ukupno) ? 0 : ukupno; // Provjera da li je broj valjan
+  } catch (err) {
+    throw new Error("Greška pri dohvaćanju ukupnog broja filmova");
+  }
 }
+
+
+
+async poveziOsobuSaFilmovima(osobaId: number, filmovi: Array<any>): Promise<void> {
+  let sqlProvjeriFilm = "SELECT COUNT(*) AS broj FROM film WHERE id = ?";
+  let sqlProvjeriOsobu = "SELECT COUNT(*) AS broj FROM osoba WHERE id = ?";
+  let sqlDodavanjeVeze = "INSERT INTO osoba_film (film_id, osoba_id, lik) VALUES (?, ?, ?)";
+
+  for (let film of filmovi) {
+    const filmPostoji = (await this.baza.dajPodatkePromise(sqlProvjeriFilm, [film.id])) as any;
+    const osobaPostoji = (await this.baza.dajPodatkePromise(sqlProvjeriOsobu, [osobaId])) as any;
+
+    if (filmPostoji[0].broj === 0) {
+      throw new Error(`Film s ID-jem ${film.id} ne postoji u bazi.`);
+    }
+
+    if (osobaPostoji[0].broj === 0) {
+      throw new Error(`Osoba s ID-jem ${osobaId} ne postoji u bazi.`);
+    }
+
+    await this.baza.ubaciAzurirajPodatke(sqlDodavanjeVeze, [film.id, osobaId, film.lik]);
+  }
+}
+
 
 async obrisiVezeOsobeNaFilmove(idOsobe: number): Promise<void> {
   const provjeraSQL = `
