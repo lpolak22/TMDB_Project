@@ -7,4 +7,40 @@
     <p><strong>Poznato po:</strong> {{ osoba?.poznat_po }}</p>
     <p><strong>Popularnost:</strong> {{ osoba?.popularnost }}</p>
   </div>
+
+  <div *ngIf="slikeOsobe.length > 0" class="galerija">
+    <h2>Galerija slika</h2>
+    <div class="galerija-slike">
+      <img *ngFor="let slika of slikeOsobe" [src]="slika" alt="Slika iz galerije" />
+    </div>
+  </div>
+
+  <!-- Table for associated films -->
+  <div *ngIf="filmovi.length > 0" class="povezani-filmovi">
+    <h2>Povezani Filmovi</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Jezik</th>
+          <th>Originalni Naslov</th>
+          <th>Naslov</th>
+          <th>Popularnost</th>
+          <th>Poster</th>
+          <th>Datum Izdavanja</th>
+          <th>Lik</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let film of filmovi; let i = index" [class.even]="i % 2 === 0" [class.odd]="i % 2 !== 0">
+          <td>{{ film.jezik }}</td>
+          <td>{{ film.originalni_naslov }}</td>
+          <td>{{ film.naslov }}</td>
+          <td>{{ film.popularnost }}</td>
+          <td><img [src]="film.slikica_postera" alt="Poster" width="50" /></td>
+          <td>{{ film.datum_izdavanja | date }}</td>
+          <td>{{ film.lik }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </main>

@@ -149,4 +149,5 @@ function pripremiPutanjuTMDBdodavanje(){
 	let restTMDB = new RestTMDB(konf.dajKonf().tmdbApiKeyV3);
 	server.get("/servis/app/dodavanje", restTMDB.getOsobe.bind(restTMDB));
 	server.get("/servis/app/dodavanje/:id/filmovi", restTMDB.getFilmoviOsobe.bind(restTMDB));
+	server.get("/servis/app/detalji/:id", restTMDB.getSlikeOsobe.bind(restTMDB));
 }

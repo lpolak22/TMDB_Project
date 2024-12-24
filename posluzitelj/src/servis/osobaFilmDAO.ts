@@ -23,18 +23,15 @@ export class OsobaFilmDAO {
         f.popularnost, 
         f.slikica_postera, 
         f.datum_izdavanja, 
-        f.opis
+        f.opis,
+        ofi.lik
         FROM film f
         INNER JOIN osoba_film ofi ON f.id = ofi.film_id
         WHERE ofi.osoba_id = ?
         LIMIT ? OFFSET ?;
       `;
-      console.log("SQL upit:", sql);
-      console.log("Parametri:", [id, brojElemenata, offset]);
 
       let rezultat = await this.baza.dajPodatke(sql, [id, brojElemenata, offset]);
-
-      console.log("Rezultat upita:", rezultat);
 
       return rezultat;
     } catch (err) {

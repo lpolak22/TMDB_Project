@@ -1,11 +1,15 @@
 $color_1: #fff;
-$green-primary: rgb(0, 152, 102);  // Glavna zelena
-$green-secondary: lighten($green-primary, 15%);  // Svijetlija zelena za hover
-$red-color: #f44336;  // Crvena za brisanje
-$background-color: #f5f5f5;  // Svijetla pozadina
-$border-color: #e0e0e0;  // Svijetlosiva za granice
+$green-primary: rgb(0, 152, 102);
+$green-secondary: rgb(13, 172, 115);
+$green-even: rgb(153, 225, 190);
+$green-odd: rgb(77, 197, 153);
+$green-active: rgb(0, 137, 92); 
+$red-color: #f44336;
+$red-hover: #e53935;
+$red-active: #d32f2f;
+$background-color: #f5f5f5;
+$border-color: #e0e0e0;
 
-/* Stiliziranje glavne stranice */
 main {
   font-family: Arial, sans-serif;
   background-color: $background-color;
@@ -14,7 +18,6 @@ main {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Stil za input za pretragu */
 .search-bar {
   display: flex;
   gap: 10px;
@@ -42,19 +45,18 @@ main {
     }
 
     &:active {
-      background-color: darken($green-primary, 10%);  // Pritisnuti gumb postaje tamniji
+      background-color: $green-active;
     }
   }
 }
 
-/* Stil za tablicu */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 
   th {
-    background-color: $green-primary;  /* Zaglavlje tablice */
+    background-color: $green-primary;
     color: $color_1;
     padding: 15px;
     text-align: left;
@@ -62,7 +64,7 @@ table {
   }
 
   td {
-    background-color: $color_1;  /* Bijela pozadina za redove */
+    background-color: $color_1;
     padding: 15px;
     text-align: left;
     font-size: 16px;
@@ -70,15 +72,14 @@ table {
   }
 
   .even {
-    background-color: lighten($green-primary, 40%);
+    background-color: $green-even;
   }
 
   .odd {
-    background-color: lighten($green-primary, 20%);
+    background-color: $green-odd;
   }
 }
 
-/* Stil za gumbe unutar tablice */
 button {
   padding: 10px 15px;
   border-radius: 5px;
@@ -95,7 +96,7 @@ button {
     }
 
     &:active {
-      background-color: darken($green-primary, 10%);  // Pritisnuti gumb postaje tamniji
+      background-color: $green-active;
     }
   }
 
@@ -104,16 +105,15 @@ button {
     color: $color_1;
 
     &:hover {
-      background-color: darken($red-color, 10%);
+      background-color: $red-hover;
     }
 
     &:active {
-      background-color: darken($red-color, 15%);  // Pritisnuti gumb postaje tamniji
+      background-color: $red-active;
     }
   }
 }
 
-/* Stil za paginaciju */
 .stranicenje {
   display: flex;
   justify-content: center;
@@ -132,7 +132,7 @@ button {
     }
 
     &:active {
-      background-color: darken($green-primary, 10%);  // Pritisnuti gumb postaje tamniji
+      background-color: $green-active;
     }
 
     &:disabled {
@@ -147,7 +147,6 @@ button {
   }
 }
 
-/* Stil za obavijest o nepretraženim rezultatima */
 .no-results {
   text-align: center;
   font-size: 18px;

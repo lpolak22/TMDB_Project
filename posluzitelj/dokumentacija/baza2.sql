@@ -82,7 +82,7 @@ INSERT INTO osoba (id, ime_prezime, poznat_po, slika, popularnost) VALUES (10, '
 INSERT INTO osoba (id, ime_prezime, poznat_po, slika, popularnost) VALUES (11, 'Bud Spencer', 'Gluma', '/cVbBoKxRDFOdDKwdpRmxVazDWlE.jpg', 10);
 
 
-DELETE FROM film;
+DELETE FROM osoba_film;
 
 SELECT 
     f.id, 
@@ -92,9 +92,10 @@ SELECT
     f.popularnost, 
     f.slikica_postera, 
     f.datum_izdavanja, 
-    f.opis
+    f.opis,
+    ofi.lik
 FROM film f
 INNER JOIN osoba_film ofi ON f.id = ofi.film_id
-WHERE ofi.osoba_id = 18918
+WHERE ofi.osoba_id = 4724
 LIMIT 20 OFFSET 0;
 
