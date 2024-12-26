@@ -20,29 +20,19 @@ export class OsobeComponent implements OnInit {
   ukupanBrojOsoba: number = 0; 
   ukupanBrojStranica: number = 0;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private osobeService: OsobeService) {}
 
   ngOnInit() {
-    this.loadSveOsobe(); 
+    this.loadOsobe();  // Poziv metode iz servisa
   }
 
-  async loadSveOsobe() {
+  async loadOsobe() {
     try {
-      const response = await fetch(`${environment.restServis}osoba`, {
-        headers: {
-          'Accept': 'application/json',
-        },
-      });
+      this.sveOsobe = await this.osobeService.loadOsobe(this.trenutnaStranica);  // Dohvaćanje osoba preko servisa
+      this.ukupanBrojOsoba = this.sveOsobe.length;
 
-      if (response.status === 200) {
-        this.sveOsobe = await response.json();
-        this.ukupanBrojOsoba = this.sveOsobe.length; 
-        
-        this.azurirajBrojStranica();
-        this.azurirajPrikazaneOsobe(); 
-      } else {
-        throw new Error('Trenutno nije moguće prikazati osobe');
-      }
+      this.azurirajBrojStranica();
+      this.azurirajPrikazaneOsobe();
     } catch (error) {
       console.error(error);
       this.porukaGreske = 'Došlo je do pogreške, žao nam je';

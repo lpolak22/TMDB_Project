@@ -147,7 +147,7 @@ export class RestFilm {
                 odgovor.status(201).send({ status: "uspjeh" });
             }
             else {
-                odgovor.status(400).send({ greska: "neuspješno dodavanje filma" });
+                odgovor.json();
             }
         }
         catch (error) {
