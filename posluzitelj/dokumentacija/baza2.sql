@@ -82,7 +82,7 @@ INSERT INTO osoba (id, ime_prezime, poznat_po, slika, popularnost) VALUES (10, '
 INSERT INTO osoba (id, ime_prezime, poznat_po, slika, popularnost) VALUES (11, 'Bud Spencer', 'Gluma', '/cVbBoKxRDFOdDKwdpRmxVazDWlE.jpg', 10);
 
 
-DELETE FROM osoba_film;
+DELETE FROM film;
 
 SELECT 
     f.id, 

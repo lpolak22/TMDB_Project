@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DodavanjeService } from '../servisi/dodavanje.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-dodavanje',
@@ -24,6 +25,11 @@ export class DodavanjeComponent {
     try {
       this.porukaGreske = null;
       const rezultat = await this.dodavanjeService.pretraziOsobePoImenu(this.ime, this.trenutnaStranica);
+  
+      for (const osoba of rezultat.osobe) {
+        osoba.dodana = await this.dodavanjeService.provjeriOsobuUBazi(osoba.id);
+      }
+  
       this.osobe = rezultat.osobe;
       this.ukupnoStranica = rezultat.totalPages;
     } catch (error) {
@@ -31,6 +37,7 @@ export class DodavanjeComponent {
       console.error(error);
     }
   }
+  
 
   sljedecaStranica() {
     if (this.trenutnaStranica < this.ukupnoStranica) {
@@ -73,9 +80,8 @@ export class DodavanjeComponent {
   async dodajOsobu(osoba: any) {
     try {
       await this.dodavanjeService.dodajOsobuUBazu(osoba);
-      // Ažuriranje svojstva 'dodana' i obavijest Angularu o promjeni
       osoba.dodana = true;
-      this.osobe = [...this.osobe]; // Kreiranje nove reference za osvježavanje prikaza
+      this.osobe = [...this.osobe];
     } catch (error: any) {
       alert(error.message || 'Greška prilikom dodavanja osobe.');
     }
@@ -86,20 +92,26 @@ export class DodavanjeComponent {
       return;
     }
     try {
-      await this.dodavanjeService.obrisiOsobu(osoba.id);
-      // Ažuriranje svojstva 'dodana' i obavijest Angularu o promjeni
       osoba.dodana = false;
-      this.osobe = [...this.osobe]; // Kreiranje nove reference za osvježavanje prikaza
+  
+      await this.dodavanjeService.obrisiOsobu(osoba.id);
+      
     } catch (error: any) {
+      console.error(error);
       alert(error.message || 'Greška prilikom brisanja osobe.');
     }
   }
   
-  
-  isOsobaDodana(osoba: any): boolean {
-    return osoba.dodana === true; // Provjera statusa osobe
-  }
-  
 
+  pretvoriSliku(slika: string): string {
+    if (!slika) {
+      return '../../assets/default-image.png'; 
+    }
   
+    if (slika.startsWith('http')) {
+      return slika;
+    }
+  
+    return `${environment.slikaOsobePutanja}${slika}`;
+  }
 }

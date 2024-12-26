@@ -71,6 +71,21 @@ table {
     border-bottom: 1px solid $border-color;
   }
 
+  td img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+  }
+
+  td img.default-image {
+    border: 2px solid #ddd;
+    padding: 5px;
+    background-color: #f0f0f0;
+  }
+
   .even {
     background-color: $green-even;
   }
@@ -152,3 +167,4 @@ button {
   font-size: 18px;
   color: $green-primary;
 }
+

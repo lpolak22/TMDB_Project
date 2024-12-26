@@ -11,6 +11,7 @@ import { OsobeComponent } from './osobe/osobe.component';
 import { DetaljiComponent } from './detalji/detalji.component';
 import { DodavanjeComponent } from './dodavanje/dodavanje.component';
 import { FormsModule } from '@angular/forms';
+import { FiltriranjeFilmovaComponent } from './filtriranje-filmova/filtriranje-filmova.component';
 
 const routes:Routes = [
   {path: '', component: PocetnaComponent},
@@ -29,7 +30,8 @@ const routes:Routes = [
     PrijavaComponent,
     RegistracijaComponent,
     DokumentacijaComponent,
-    DodavanjeComponent
+    DodavanjeComponent,
+    FiltriranjeFilmovaComponent
   ],
   imports: [
     BrowserModule,

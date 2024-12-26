@@ -151,12 +151,14 @@ async obrisiOsobu(id: number): Promise<void> {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     });
-
+    
     if (!dohvaceniFilmovi.ok) {
       throw new Error('Neuspješno dohvaćanje filmova osobe.');
     }
 
     const filmovi = await dohvaceniFilmovi.json();
+    console.log("filmovi: ", filmovi);
+    
 
     let response = await fetch(`${this.restServis}osoba/${id}/film`, {
       method: 'DELETE',
@@ -197,6 +199,18 @@ async obrisiOsobu(id: number): Promise<void> {
   } catch (error) {
     console.error('Greška prilikom brisanja osobe:', error);
     throw error;
+  }
+}
+  async provjeriOsobuUBazi(id: number): Promise<boolean> {
+  try {
+    const response = await fetch(`${this.restServis}osoba/${id}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    return response.ok;
+  } catch (error) {
+    console.error(`Greška prilikom provjere osobe s ID-jem ${id}:`, error);
+    return false;
   }
 }
 
