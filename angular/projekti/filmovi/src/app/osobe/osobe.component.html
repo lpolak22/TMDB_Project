@@ -18,7 +18,7 @@
   <div *ngIf="!porukaGreske" class="osobe-container">
     <div *ngFor="let osoba of prikazaneOsobe" class="osoba">
       <img 
-        [src]="resolveSlikaUrl(osoba?.slika)" 
+        [src]="pretvoriSliku(osoba?.slika)" 
         alt="Osoba" 
         (click)="odiNaStranicuDetalja(osoba?.id)" 
       />

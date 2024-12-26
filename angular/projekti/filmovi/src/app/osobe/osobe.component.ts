@@ -87,9 +87,9 @@ export class OsobeComponent implements OnInit {
     this.azurirajPrikazaneOsobe();
   }
 
-  resolveSlikaUrl(slika: string): string {
+  pretvoriSliku(slika: string): string {
     if (!slika) {
-      return 'assets/default-image.png'; 
+      return '../../assets/default-image.png'; 
     }
   
     if (slika.startsWith('http')) {
