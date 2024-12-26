@@ -25,11 +25,11 @@ export class DodavanjeComponent {
     try {
       this.porukaGreske = null;
       const rezultat = await this.dodavanjeService.pretraziOsobePoImenu(this.ime, this.trenutnaStranica);
-  
+
       for (const osoba of rezultat.osobe) {
         osoba.dodana = await this.dodavanjeService.provjeriOsobuUBazi(osoba.id);
       }
-  
+
       this.osobe = rezultat.osobe;
       this.ukupnoStranica = rezultat.totalPages;
     } catch (error) {
@@ -37,7 +37,6 @@ export class DodavanjeComponent {
       console.error(error);
     }
   }
-  
 
   sljedecaStranica() {
     if (this.trenutnaStranica < this.ukupnoStranica) {
@@ -63,20 +62,6 @@ export class DodavanjeComponent {
     this.pretraziOsobe();
   }
 
-  // async obrisiOsobu(osoba: any) {
-  //   if (!confirm(`Jeste li sigurni da želite obrisati osobu ${osoba.ime_prezime}?`)) {
-  //     return;
-  //   }
-  
-  //   try {
-  //     await this.dodavanjeService.obrisiOsobu(osoba.id);
-  //     this.osobe = this.osobe.filter((o) => o.id !== osoba.id);
-  //   } catch (error: any) {
-  //     alert(error.message || 'Greška prilikom brisanja osobe.');
-  //   }
-  // }
-  
-
   async dodajOsobu(osoba: any) {
     try {
       await this.dodavanjeService.dodajOsobuUBazu(osoba);
@@ -86,32 +71,31 @@ export class DodavanjeComponent {
       alert(error.message || 'Greška prilikom dodavanja osobe.');
     }
   }
-  
+
   async obrisiOsobu(osoba: any) {
     if (!confirm(`Jeste li sigurni da želite obrisati osobu ${osoba.ime_prezime}?`)) {
       return;
     }
     try {
       osoba.dodana = false;
-  
       await this.dodavanjeService.obrisiOsobu(osoba.id);
-      
+
+      this.osobe = [...this.osobe];
     } catch (error: any) {
       console.error(error);
       alert(error.message || 'Greška prilikom brisanja osobe.');
     }
   }
-  
 
   pretvoriSliku(slika: string): string {
     if (!slika) {
       return '../../assets/default-image.png'; 
     }
-  
+
     if (slika.startsWith('http')) {
       return slika;
     }
-  
+
     return `${environment.slikaOsobePutanja}${slika}`;
   }
 }

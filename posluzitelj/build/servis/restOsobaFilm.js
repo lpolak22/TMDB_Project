@@ -75,7 +75,7 @@ export class RestOsobaFilm {
         }
         catch (greska) {
             if (greska instanceof Error && greska.message === "Greška: nepostojeća veza") {
-                odgovor.status(404).send({ greska: "Veza nije pronađena" });
+                odgovor.json();
             }
             else {
                 odgovor.status(400).send({ greska: "Greška pri brisanju veze osobe na film" });

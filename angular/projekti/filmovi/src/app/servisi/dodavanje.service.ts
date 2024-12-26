@@ -214,5 +214,4 @@ async obrisiOsobu(id: number): Promise<void> {
   }
 }
 
-
 }

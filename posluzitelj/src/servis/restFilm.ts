@@ -190,7 +190,7 @@ async getSviFilmovi(zahtjev: Request, odgovor: Response) {
         if (uspjeh) {
             odgovor.status(201).send({ status: "uspjeh" });
         } else {
-            odgovor.status(400).send({ greska: "neuspješno dodavanje filma" });
+            odgovor.json();
         }
     } catch (error) {
         console.error("Greška pri dodavanju filma:", error);
