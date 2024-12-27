@@ -72,6 +72,7 @@ function pokreniKonfiguraciju() {
 	pripremiPutanjeResursFilmova();
 	pripremiPutanjeResursOsobaFilm();
 	pripremiPutanjuTMDBdodavanje();
+	pripremiPutanjeAutentifikacija();
 
 	server.use((zahtjev, odgovor) => {
 		odgovor.type("application/json");
@@ -150,4 +151,10 @@ function pripremiPutanjuTMDBdodavanje(){
 	server.get("/servis/app/dodavanje", restTMDB.getOsobe.bind(restTMDB));
 	server.get("/servis/app/dodavanje/:id/filmovi", restTMDB.getFilmoviOsobe.bind(restTMDB));
 	server.get("/servis/app/detalji/:id", restTMDB.getSlikeOsobe.bind(restTMDB));
+}
+
+function pripremiPutanjeAutentifikacija(){
+	let restKorisnik = new RestKorisnik();
+    server.post("/servis/app/registracija", restKorisnik.postKorisnici.bind(restKorisnik));
+
 }
