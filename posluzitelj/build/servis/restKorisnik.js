@@ -1,4 +1,5 @@
 import { KorisnikDAO } from "./korisnikDAO.js";
+import * as kodovi from "../zajednicko/kodovi.js";
 export class RestKorisnik {
     kdao;
     constructor() {
@@ -17,7 +18,7 @@ export class RestKorisnik {
             ime: tijelo.ime || null,
             prezime: tijelo.prezime || null,
             korime: tijelo.korime,
-            lozinka: tijelo.lozinka,
+            lozinka: kodovi.kreirajSHA256(tijelo.lozinka, "moja sol"),
             tip_korisnika_id: 2,
             email: tijelo.email,
             adresa: tijelo.adresa || null,
