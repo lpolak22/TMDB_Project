@@ -82,7 +82,7 @@ INSERT INTO osoba (id, ime_prezime, poznat_po, slika, popularnost) VALUES (10, '
 INSERT INTO osoba (id, ime_prezime, poznat_po, slika, popularnost) VALUES (11, 'Bud Spencer', 'Gluma', '/cVbBoKxRDFOdDKwdpRmxVazDWlE.jpg', 10);
 
 
-DELETE FROM osoba where id=514;
+DELETE FROM film;
 
 SELECT 
     f.id, 
@@ -99,3 +99,6 @@ INNER JOIN osoba_film ofi ON f.id = ofi.film_id
 WHERE ofi.osoba_id = 4724
 LIMIT 20 OFFSET 0;
 
+SELECT COUNT(*) as ukupno
+FROM film 
+WHERE datum_izdavanja BETWEEN '1970-01-01' AND '2024-12-31';

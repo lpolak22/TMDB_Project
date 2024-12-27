@@ -157,8 +157,6 @@ async obrisiOsobu(id: number): Promise<void> {
     }
 
     const filmovi = await dohvaceniFilmovi.json();
-    console.log("filmovi: ", filmovi);
-    
 
     let response = await fetch(`${this.restServis}osoba/${id}/film`, {
       method: 'DELETE',
@@ -189,9 +187,9 @@ async obrisiOsobu(id: number): Promise<void> {
           headers: { 'Content-Type': 'application/json' },
         });
         
-        if (!obrisiFilm.ok) {
-          throw new Error('gresko kod brisanja osoba za film');
-        }
+        // if (!obrisiFilm.ok) {
+        //   throw new Error('greska kod brisanja osoba za film');
+        // }
 
         
       }

@@ -107,7 +107,7 @@ async getSviFilmovi(zahtjev: Request, odgovor: Response) {
             }
         }
 
-        let offset = (stranicaBroj - 1) * brojElemenata;
+        const offset = (stranicaBroj - 1) * brojElemenata;
 
         let datumOdParsed: Date | null = null;
         let datumDoParsed: Date | null = null;
@@ -131,24 +131,20 @@ async getSviFilmovi(zahtjev: Request, odgovor: Response) {
         if (!datumOdParsed) datumOdParsed = new Date(0);
         if (!datumDoParsed) datumDoParsed = new Date();
 
-        const filmovi = await this.fDao.dajFilmovePoDatumuSaStranica(
+        const { filmovi, ukupno } = await this.fDao.dajFilmovePoDatumuSaStranica(
             datumOdParsed,
             datumDoParsed,
             offset,
             brojElemenata
         );
-
-        if (filmovi.length === 0) {
-            odgovor.status(200).send([]);
-            return;
-        }
-
-        odgovor.status(200).send(filmovi);
+        
+        odgovor.status(200).send({ filmovi, ukupno });
     } catch (greska) {
         console.error("greska pri dohvacanju filmova:", greska);
         odgovor.status(400).send({ greska: "doslo je do greške na serveru" });
     }
 }
+
 
 // private pretvoriUDate(datum: string): Date {
 //     if (/^\d+$/.test(datum)) {
@@ -190,7 +186,7 @@ async getSviFilmovi(zahtjev: Request, odgovor: Response) {
         if (uspjeh) {
             odgovor.status(201).send({ status: "uspjeh" });
         } else {
-            odgovor.json();
+            odgovor.status(400).send({ greska: "neuspješno dodavanje filma" });
         }
     } catch (error) {
         console.error("Greška pri dodavanju filma:", error);
