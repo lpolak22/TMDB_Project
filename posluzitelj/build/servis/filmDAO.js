@@ -185,8 +185,6 @@ export class FilmDAO {
                 datumDoStr,
             ]);
             const ukupno = ukupnoPodaci[0].ukupno;
-            console.log('Podaci:', podaci);
-            console.log('Ukupno:', ukupno);
             if (!podaci || podaci.length === 0) {
                 return { filmovi: [], ukupno };
             }

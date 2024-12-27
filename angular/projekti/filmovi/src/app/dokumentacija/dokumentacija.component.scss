@@ -1,0 +1,12 @@
+.podebljano {
+    font-weight: bold;
+  }
+  .centrirano {
+    max-width: 800px;           // Max širina pločice
+    margin: 50px auto;          // Centriranje na stranici
+    padding: 50px;              // Unutarnje margine (ispod svakog popisa)
+    background-color: #f4f4f4; // Pozadinska boja
+    border: 2px solid #ccc;     // Objava okvira
+    border-radius: 8px;         // Zaokruživanje uglova
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Blaga sjena za efekt pločice
+  }

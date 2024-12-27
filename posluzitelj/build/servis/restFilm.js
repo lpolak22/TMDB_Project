@@ -102,7 +102,6 @@ export class RestFilm {
             if (!datumDoParsed)
                 datumDoParsed = new Date();
             const { filmovi, ukupno } = await this.fDao.dajFilmovePoDatumuSaStranica(datumOdParsed, datumDoParsed, offset, brojElemenata);
-            //console.log(ukupno);
             odgovor.status(200).send({ filmovi, ukupno });
         }
         catch (greska) {
