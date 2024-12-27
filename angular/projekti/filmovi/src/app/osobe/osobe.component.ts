@@ -23,12 +23,12 @@ export class OsobeComponent implements OnInit {
   constructor(private router: Router, private osobeService: OsobeService) {}
 
   ngOnInit() {
-    this.loadOsobe();  // Poziv metode iz servisa
+    this.loadOsobe();
   }
 
   async loadOsobe() {
     try {
-      this.sveOsobe = await this.osobeService.loadOsobe(this.trenutnaStranica);  // Dohvaćanje osoba preko servisa
+      this.sveOsobe = await this.osobeService.loadOsobe(this.trenutnaStranica);
       this.ukupanBrojOsoba = this.sveOsobe.length;
 
       this.azurirajBrojStranica();

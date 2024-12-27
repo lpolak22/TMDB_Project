@@ -80,7 +80,7 @@ export class RestFilm {
                     return;
                 }
             }
-            let offset = (stranicaBroj - 1) * brojElemenata;
+            const offset = (stranicaBroj - 1) * brojElemenata;
             let datumOdParsed = null;
             let datumDoParsed = null;
             if (datumOd) {
@@ -101,12 +101,9 @@ export class RestFilm {
                 datumOdParsed = new Date(0);
             if (!datumDoParsed)
                 datumDoParsed = new Date();
-            const filmovi = await this.fDao.dajFilmovePoDatumuSaStranica(datumOdParsed, datumDoParsed, offset, brojElemenata);
-            if (filmovi.length === 0) {
-                odgovor.status(200).send([]);
-                return;
-            }
-            odgovor.status(200).send(filmovi);
+            const { filmovi, ukupno } = await this.fDao.dajFilmovePoDatumuSaStranica(datumOdParsed, datumDoParsed, offset, brojElemenata);
+            //console.log(ukupno);
+            odgovor.status(200).send({ filmovi, ukupno });
         }
         catch (greska) {
             console.error("greska pri dohvacanju filmova:", greska);
@@ -147,7 +144,7 @@ export class RestFilm {
                 odgovor.status(201).send({ status: "uspjeh" });
             }
             else {
-                odgovor.json();
+                odgovor.status(400).send({ greska: "neuspješno dodavanje filma" });
             }
         }
         catch (error) {

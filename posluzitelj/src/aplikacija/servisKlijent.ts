@@ -31,7 +31,6 @@ export class ServisKlijent {
         let odgovor = await fetch("http://localhost:" + this.portAplikacija + "/aplikacijaLP/registracija", parametri)
 
         if (odgovor.status == 201) {
-            console.log("Korisnik ubačen na servisu");
             return true;
         } else {
             console.log(await odgovor.text());

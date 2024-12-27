@@ -19,6 +19,7 @@ const routes:Routes = [
   {path: 'osobe', component: OsobeComponent},
   { path: 'detalji/:id', component: DetaljiComponent },
   {path: 'dodavanje', component: DodavanjeComponent},
+  {path: 'filtriranje-filmova', component: FiltriranjeFilmovaComponent},
 
   {path: '**', redirectTo: ''}
 ];

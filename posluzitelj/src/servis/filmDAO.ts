@@ -172,7 +172,7 @@ export class FilmDAO {
     datumDo: Date | undefined,
     offset: number,
     brojElemenata: number
-  ): Promise<FilmTmdbI[]> {
+  ): Promise<{ filmovi: FilmTmdbI[], ukupno: number }> {
     const sql = `
       SELECT * 
       FROM film 
@@ -180,26 +180,43 @@ export class FilmDAO {
       ORDER BY datum_izdavanja ASC
       LIMIT ? OFFSET ?;
     `;
+    const sqlUkupno = `
+      SELECT COUNT(*) as ukupno
+      FROM film 
+      WHERE datum_izdavanja BETWEEN ? AND ?;
+    `;
     try {
       const datumOdStr = datumOd
         ? datumOd.toISOString().split("T")[0]
-        : "1970-01-01";
+        : "1000-01-01";
       const datumDoStr = datumDo
         ? datumDo.toISOString().split("T")[0]
         : new Date().toISOString().split("T")[0];
-  
+
+      console.log('Upit za filmove:', sql, [datumOdStr, datumDoStr, brojElemenata, offset]);
+      console.log('Upit za ukupno:', sqlUkupno, [datumOdStr, datumDoStr]);
+
+      // Dohvaćanje podataka o filmovima
       const podaci = await this.baza.dajPodatkePromise(sql, [
         datumOdStr as string,
         datumDoStr as string,
         brojElemenata,
         offset,
       ]) as Array<any>;
-  
+
+      // Dohvaćanje ukupnog broja rezultata
+      const ukupnoPodaci = await this.baza.dajPodatkePromise(sqlUkupno, [
+        datumOdStr as string,
+        datumDoStr as string,
+      ]) as Array<any>;
+
+      const ukupno = ukupnoPodaci[0].ukupno;
+
       if (!podaci || podaci.length === 0) {
-        return [];
+        return { filmovi: [], ukupno };
       }
-  
-      return podaci.map((p) => ({
+      
+      const filmovi = podaci.map((p) => ({
         id: p.id ?? 0,
         jezik: p.jezik ?? "",
         originalni_naslov: p.originalni_naslov ?? "",
@@ -210,8 +227,12 @@ export class FilmDAO {
         opis: p.opis ?? "",
         lik: p.lik ?? ""
       }));
+
+      return { filmovi, ukupno };
     } catch (err) {
       throw new Error("Greška pri dohvaćanju filmova po datumu sa stranica");
     }
-  } 
+  }
+
+
 }
