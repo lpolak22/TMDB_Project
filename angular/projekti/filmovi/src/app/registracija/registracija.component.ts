@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RegistracijaService } from '../servisi/registracija.service';  // Importirajte servis
+import { RegistracijaService } from '../servisi/registracija.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registracija',
@@ -8,7 +9,7 @@ import { RegistracijaService } from '../servisi/registracija.service';  // Impor
   styleUrls: ['./registracija.component.scss'],
 })
 export class RegistracijaComponent {
-  poruka: string = ''; // Poruka za korisnika
+  poruka: string = '';
   ime: string = '';
   prezime: string = '';
   adresa: string = '';
@@ -18,7 +19,7 @@ export class RegistracijaComponent {
   brojTelefona: string = '';
   datumRodenja: string = '';
 
-  constructor(private registracijaService: RegistracijaService) {}
+  constructor(private registracijaService: RegistracijaService, private router: Router) {}
 
   async registriraj() {
     const korisnik = {
@@ -33,9 +34,9 @@ export class RegistracijaComponent {
     };
 
     try {
-      // Pozivanje servisa za dodavanje korisnika u bazu
       await this.registracijaService.dodajOsobuUBazu(korisnik);
       this.poruka = 'Korisnik je uspješno registriran.';
+      this.router.navigate(['/prijava']);
     } catch (error) {
       this.poruka = 'Došlo je do greške prilikom registracije korisnika.';
     }
