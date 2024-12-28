@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import path from "path";
+import sesija from 'express-session'
 import { __dirname } from "../zajednicko/esmPomocnik.js";
 import { dajPortSevis } from "../zajednicko/esmPomocnik.js";
 import { Konfiguracija } from "../zajednicko/konfiguracija.js";
@@ -33,7 +34,7 @@ server.use(
 		optionsSuccessStatus: 200,
 	})
 );
-  
+
 let konf = new Konfiguracija();
 konf
     .ucitajKonfiguraciju()
@@ -54,7 +55,6 @@ konf
         port = dajPortSevis("lpolak22");
     }
 
-
 function pokreniKonfiguraciju() {
 	/*server.all("*", (zahtjev,odgovor,dalje) => {
 		try{
@@ -71,6 +71,14 @@ function pokreniKonfiguraciju() {
 	});*/
 	server.use(express.static(path.join(__dirname(), '../../angular/filmovi/browser')));
 
+
+	server.use(sesija({
+        secret: konf.dajKonf().tajniKljucSesija,
+        saveUninitialized: true,
+        cookie: { maxAge: 1000 * 60 * 60 * 3 },
+        resave: false
+    }));
+
 	pripremiPutanjeResursKorisnika();
 	pripremiPutanjeResursOsoba();
 	pripremiPutanjeResursFilmova();
@@ -78,8 +86,8 @@ function pokreniKonfiguraciju() {
 	pripremiPutanjuTMDBdodavanje();
 	pripremiPutanjeAutentifikacija();
 
-	server.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname(), '../../angular/filmovi/browser/index.html')); 
+	server.get('*', (zahtjev, odgovor) => {
+        odgovor.sendFile(path.join(__dirname(), '../../angular/filmovi/browser/index.html')); 
     });
 
 	server.use((zahtjev, odgovor) => {
@@ -87,7 +95,8 @@ function pokreniKonfiguraciju() {
 		odgovor.status(404).send({ greska: "nepostojeći resurs" });
 	  });
 
-
+	  
+	
     server.listen(port, () => {
         console.log(`Server pokrenut na portu: ${port}`);
     });
@@ -162,9 +171,8 @@ function pripremiPutanjuTMDBdodavanje(){
 }
 
 function pripremiPutanjeAutentifikacija(){
-	let restKorisnik = new RestKorisnik();
-	console.log("tu");
-	
+	let restKorisnik = new RestKorisnik();	
     server.post("/servis/app/registracija", restKorisnik.postKorisnici.bind(restKorisnik));
-
+    server.post("/servis/app/prijava", restKorisnik.postLogin.bind(restKorisnik));
 }
+

@@ -12,17 +12,17 @@ import { DetaljiComponent } from './detalji/detalji.component';
 import { DodavanjeComponent } from './dodavanje/dodavanje.component';
 import { FormsModule } from '@angular/forms';
 import { FiltriranjeFilmovaComponent } from './filtriranje-filmova/filtriranje-filmova.component';
+import { AuthGuard } from './servisi/auth.guard';
 
 const routes:Routes = [
-  {path: '', component: PocetnaComponent},
+  {path: '', component: PocetnaComponent, canActivate: [AuthGuard]},
   {path: 'dokumentacija', component: DokumentacijaComponent},
-  {path: 'osobe', component: OsobeComponent},
-  { path: 'detalji/:id', component: DetaljiComponent },
-  {path: 'dodavanje', component: DodavanjeComponent},
+  {path: 'osobe', component: OsobeComponent, canActivate: [AuthGuard]},
+  {path: 'detalji/:id', component: DetaljiComponent, canActivate: [AuthGuard]},
+  {path: 'dodavanje', component: DodavanjeComponent, canActivate: [AuthGuard]},
   {path: 'prijava', component: PrijavaComponent},
   {path: 'registracija', component: RegistracijaComponent},
-  {path: 'filtriranje-filmova', component: FiltriranjeFilmovaComponent},
-
+  {path: 'filtriranje-filmova', component: FiltriranjeFilmovaComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: ''}
 ];
 

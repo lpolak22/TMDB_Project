@@ -84,4 +84,36 @@ export class RestKorisnik {
             odgovor.status(400).send({ greska: "greska pri provjeri korisnika" });
         });
     }
+    async postLogin(zahtjev, odgovor) {
+        odgovor.type("application/json");
+        const { korime, lozinka } = zahtjev.body;
+        if (!korime || !lozinka) {
+            odgovor.status(400).send({ greska: "Nedostaju obavezni podaci: korisničko ime i/ili lozinka" });
+            return;
+        }
+        try {
+            const korisnik = await this.kdao.prijaviKorisnika(korime, kodovi.kreirajSHA256(lozinka, "moja sol"));
+            if (korisnik) {
+                zahtjev.session.korisnik = korisnik;
+                odgovor.status(200).send({
+                    ime: korisnik.ime,
+                    prezime: korisnik.prezime,
+                    email: korisnik.email,
+                    korime: korisnik.korime,
+                    tip_korisnika_id: korisnik.tip_korisnika_id,
+                    adresa: korisnik.adresa,
+                    status: korisnik.status,
+                    broj_telefona: korisnik.broj_telefona,
+                    datum_rodenja: korisnik.datum_rodenja
+                });
+            }
+            else {
+                odgovor.status(401).send({ greska: "Neispravno korisničko ime ili lozinka" });
+            }
+        }
+        catch (err) {
+            console.error("Greška pri provjeri korisnika:", err);
+            odgovor.status(400).send({ greska: "Pogreška na poslužitelju" });
+        }
+    }
 }
