@@ -170,16 +170,12 @@ export class FilmDAO {
             const datumDoStr = datumDo
                 ? datumDo.toISOString().split("T")[0]
                 : new Date().toISOString().split("T")[0];
-            console.log('Upit za filmove:', sql, [datumOdStr, datumDoStr, brojElemenata, offset]);
-            console.log('Upit za ukupno:', sqlUkupno, [datumOdStr, datumDoStr]);
-            // Dohvaćanje podataka o filmovima
             const podaci = await this.baza.dajPodatkePromise(sql, [
                 datumOdStr,
                 datumDoStr,
                 brojElemenata,
                 offset,
             ]);
-            // Dohvaćanje ukupnog broja rezultata
             const ukupnoPodaci = await this.baza.dajPodatkePromise(sqlUkupno, [
                 datumOdStr,
                 datumDoStr,

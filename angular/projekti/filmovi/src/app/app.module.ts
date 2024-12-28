@@ -13,6 +13,7 @@ import { DodavanjeComponent } from './dodavanje/dodavanje.component';
 import { FormsModule } from '@angular/forms';
 import { FiltriranjeFilmovaComponent } from './filtriranje-filmova/filtriranje-filmova.component';
 import { AuthGuard } from './servisi/auth.guard';
+import { KorisniciComponent } from './korisnici/korisnici.component';
 
 const routes:Routes = [
   {path: '', component: PocetnaComponent, canActivate: [AuthGuard]},
@@ -34,7 +35,8 @@ const routes:Routes = [
     RegistracijaComponent,
     DokumentacijaComponent,
     DodavanjeComponent,
-    FiltriranjeFilmovaComponent
+    FiltriranjeFilmovaComponent,
+    KorisniciComponent
   ],
   imports: [
     BrowserModule,

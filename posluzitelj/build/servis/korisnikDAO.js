@@ -56,7 +56,7 @@ export class KorisnikDAO {
             korisnik.korime,
             korisnik.tip_korisnika_id,
             korisnik.adresa,
-            korisnik.status || null,
+            korisnik.status,
             korisnik.broj_telefona || null,
             korisnik.datum_rodenja || null,
         ];
