@@ -3,123 +3,6 @@
   "version": 1,
   "newProjectRoot": "projekti",
   "projects": {
-    "demoProjekt": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:class": {
-          "skipTests": true
-        },
-        "@schematics/angular:component": {
-          "skipTests": true,
-          "standalone": false
-        },
-        "@schematics/angular:directive": {
-          "skipTests": true,
-          "standalone": false
-        },
-        "@schematics/angular:guard": {
-          "skipTests": true
-        },
-        "@schematics/angular:interceptor": {
-          "skipTests": true
-        },
-        "@schematics/angular:pipe": {
-          "skipTests": true,
-          "standalone": false
-        },
-        "@schematics/angular:resolver": {
-          "skipTests": true
-        },
-        "@schematics/angular:service": {
-          "skipTests": true
-        }
-      },
-      "root": "projekti/demo-projekt",
-      "sourceRoot": "projekti/demo-projekt/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:application",
-          "options": {
-            "outputPath": "dist/demo-projekt",
-            "index": "projekti/demo-projekt/src/index.html",
-            "browser": "projekti/demo-projekt/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
-            "tsConfig": "projekti/demo-projekt/tsconfig.app.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "projekti/demo-projekt/public"
-              }
-            ],
-            "styles": [
-              "projekti/demo-projekt/src/styles.scss"
-            ],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "demoProjekt:build:production"
-            },
-            "development": {
-              "buildTarget": "demoProjekt:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
-            "tsConfig": "projekti/demo-projekt/tsconfig.spec.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "projekti/demo-projekt/public"
-              }
-            ],
-            "styles": [
-              "projekti/demo-projekt/src/styles.scss"
-            ],
-            "scripts": []
-          }
-        }
-      }
-    },
     "filmovi": {
       "projectType": "application",
       "schematics": {
@@ -159,7 +42,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/filmovi",
+            "outputPath": "../posluzitelj/angular/filmovi",
             "index": "projekti/filmovi/src/index.html",
             "browser": "projekti/filmovi/src/main.ts",
             "polyfills": [
@@ -189,9 +72,9 @@
               "fileReplacements": [
 {
           "replace":
-            "projekti/vjezba_09/src/environments/environment.ts",
+            "projekti/filmovi/src/environments/environment.ts",
             "with":
-            "projekti/vjezba_09/src/environments/environment.prod.ts"
+            "projekti/filmovi/src/environments/environment.prod.ts"
           }],
 
               "budgets": [
@@ -218,6 +101,7 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          
           "configurations": {
             "production": {
               "buildTarget": "filmovi:build:production"

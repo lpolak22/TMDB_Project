@@ -7,7 +7,7 @@ export class KorisnikDAO {
   private baza: Baza;
 
   constructor() {
-		this.baza = new Baza(path.resolve(__dirname(), "../../podaci/RWA2024lpolak22_servis.sqlite"));
+		this.baza = new Baza(path.resolve(__dirname(), "../../podaci/RWA2024lpolak22_web.sqlite"));
   }
 
 //   async dajSve(): Promise<KorisnikI[]> {
