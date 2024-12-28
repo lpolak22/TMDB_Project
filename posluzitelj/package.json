@@ -1,5 +1,5 @@
 {
-	"name": "zadaca_01",
+	"name": "zadaca_02",
 	"version": "1.0.0",
 	"description": "",
 	"main": "servis.js",
@@ -9,9 +9,9 @@
 		"copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.jpg 'src/**/*.js' build/",
 		"clean": "rm -r build/*",
 		"compile": "tsc --watch false",
-		"servis": "cd podaci && node ../build/servis/servis.js",
+		"servis": "cd podaci && node ../build/servis/servis.js konfiguracija.csv",
 		"aplikacija": "cd podaci && node ../build/aplikacija/aplikacija.js",
-		"start": "npm run clean && npm run compile && npm run copy-files && npm run servis konfiguracija.csv",
+		"start": "npm run clean && npm run compile && npm run copy-files && npm run servis",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "Lucija Polak",

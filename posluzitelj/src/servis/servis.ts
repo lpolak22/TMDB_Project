@@ -1,5 +1,7 @@
 import cors from "cors";
 import express from "express";
+import path from "path";
+import { __dirname } from "../zajednicko/esmPomocnik.js";
 import { dajPortSevis } from "../zajednicko/esmPomocnik.js";
 import { Konfiguracija } from "../zajednicko/konfiguracija.js";
 import { RestKorisnik } from "./restKorisnik.js";
@@ -10,8 +12,10 @@ import { RestTMDB } from "./restTMDB.js";
 //import { provjeriToken } from "../zajednicko/jwt.js";
 
 const server = express();
+
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
+
 let port = 12222;
 server.use(
 	cors({
@@ -65,7 +69,7 @@ function pokreniKonfiguraciju() {
 			odgovor.status(422).json({greska: "Token je istekao!"});
 		}
 	});*/
-
+	server.use(express.static(path.join(__dirname(), '../../angular/filmovi/browser')));
 
 	pripremiPutanjeResursKorisnika();
 	pripremiPutanjeResursOsoba();
@@ -73,6 +77,10 @@ function pokreniKonfiguraciju() {
 	pripremiPutanjeResursOsobaFilm();
 	pripremiPutanjuTMDBdodavanje();
 	pripremiPutanjeAutentifikacija();
+
+	server.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname(), '../../angular/filmovi/browser/index.html')); 
+    });
 
 	server.use((zahtjev, odgovor) => {
 		odgovor.type("application/json");
@@ -155,6 +163,8 @@ function pripremiPutanjuTMDBdodavanje(){
 
 function pripremiPutanjeAutentifikacija(){
 	let restKorisnik = new RestKorisnik();
+	console.log("tu");
+	
     server.post("/servis/app/registracija", restKorisnik.postKorisnici.bind(restKorisnik));
 
 }
