@@ -1,23 +1,15 @@
-      <main>
-        <h1>Dobrodošli!</h1>
-        <p><strong>Ime i prezime:</strong> #ime# #prezime#</p>
-        <p><strong>Adresa:</strong> #adresa#</p>
-        <p><strong>Korisničko ime:</strong> #korime#</p>
-        <p><strong>Email:</strong> #email#</p>
-        <p><strong>Broj telefona:</strong>#broj_telefona#</p>
-        <p><strong>Datum rođenja:</strong>#datum_rodenja#</p>
-        <p><strong>Status:</strong>
-          <span id="status">#status#</span>
-        </p>
-        <button id="posaljiZahtjev" style="display: none;">Pošalji zahtjev za korištenjem servisa</button>
-    </main>
-    <footer>
-        <p id="copyright">2024 &copy; Lucija Polak</p>
-  
-        <br>
-        <a href ="mailto:lpolak22@student.foi.hr">lpolak22&#64;student.foi.hr</a>
-        <br />
-        <a href="tel:3851231234">+3851231234</a>
-        <br />
-      </footer>
-            <script src="/js/pocetna.js"></script>
+<main>
+  <h1>Dobrodošli, {{korisnik.ime}}</h1>
+  <p><span class="label">Ime i prezime:</span> {{ korisnik.ime || 'Nepoznato' }} {{ korisnik.prezime || 'Nepoznato' }}</p>
+  <p><span class="label">Adresa:</span> {{ korisnik.adresa || 'Nepoznato' }}</p>
+  <p><span class="label">Korisničko ime:</span> {{ korisnik.korime || 'Nepoznato' }}</p>
+  <p><span class="label">Email:</span> {{ korisnik.email || 'Nepoznato' }}</p>
+  <p><span class="label">Broj telefona:</span> {{ korisnik.broj_telefona || 'Nepoznato' }}</p>
+  <p><span class="label">Datum rođenja:</span> {{ korisnik.datum_rodena || 'Nepoznato' }}</p>
+  <p><span class="label">Status:</span>
+    <span id="status">
+      {{ korisnik.status === 0 || korisnik.status === null ? 'Nema statusa' : korisnik.status === 1 ? 'Ima statusa' : 'Nepoznato' }}
+    </span>
+  </p>
+  <button id="posaljiZahtjev" style="display: none;">Pošalji zahtjev za korištenje servisa</button>
+</main>

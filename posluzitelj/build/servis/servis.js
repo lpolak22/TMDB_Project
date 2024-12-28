@@ -147,12 +147,6 @@ function pripremiPutanjeAutentifikacija() {
     let restKorisnik = new RestKorisnik();
     server.post("/servis/app/registracija", restKorisnik.postKorisnici.bind(restKorisnik));
     server.post("/servis/app/prijava", restKorisnik.postLogin.bind(restKorisnik));
+    server.get("/servis/app/podaciPocetna", restKorisnik.getPocetna.bind(restKorisnik));
+    server.post("/servis/app/zahtjev", restKorisnik.postZahtjev.bind(restKorisnik));
 }
-// function autorizacijaZaPocetnu(zahtjev, odgovor, dalje) {
-// 	const korisnik = zahtjev.session.korisnik;
-// 	if (!korisnik || (korisnik.tip_korisnika_id !== 1 && korisnik.tip_korisnika_id !== 2)) {
-// 	  odgovor.status(403).send({ greska: 'Nemate dopuštenje za pristup ovoj stranici.' });
-// 	  return;
-// 	}
-// 	dalje();
-//   }

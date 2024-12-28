@@ -31,7 +31,7 @@ export class RestKorisnik {
         tip_korisnika_id: 2,
         email: tijelo.email,
         adresa: tijelo.adresa || null,
-        status: tijelo.status || null,
+        status: 0,
         broj_telefona: tijelo.broj_telefona || null,
         datum_rodenja: tijelo.datum_rodenja || null,
     };
@@ -113,18 +113,13 @@ export class RestKorisnik {
       const korisnik = await this.kdao.prijaviKorisnika(korime, kodovi.kreirajSHA256(lozinka, "moja sol"));
   
       if (korisnik) {
-        zahtjev.session.korisnik = korisnik;
+        zahtjev.session.korisnik = {
+        korime: korisnik.korime,
+        tip_korisnika_id: korisnik.tip_korisnika_id
+      };
         odgovor.status(200).send({
-          
-          ime: korisnik.ime,
-          prezime: korisnik.prezime,
-          email: korisnik.email,
           korime: korisnik.korime,
-          tip_korisnika_id: korisnik.tip_korisnika_id,
-          adresa: korisnik.adresa,
-          status: korisnik.status,
-          broj_telefona: korisnik.broj_telefona,
-          datum_rodenja: korisnik.datum_rodenja
+          tip_korisnika_id: korisnik.tip_korisnika_id
         });
       } else {
         odgovor.status(401).send({ greska: "Neispravno korisničko ime ili lozinka" });
@@ -135,4 +130,31 @@ export class RestKorisnik {
     }
   }
   
+  async getPocetna(zahtjev: Request, odgovor: Response) {
+    odgovor.type("application/json");
+  
+    const korime = zahtjev.session?.korisnik?.korime;
+  
+    if (!korime) {
+      odgovor.status(400).send({ greska: "Nedostaje korime ime u sesiji" });
+      return;
+    }
+  
+    try {
+      const korisnik = await this.kdao.daj(korime);
+      
+      if (!korisnik) {
+        odgovor.status(400).send({ greska: "ne postoji korisnik" });
+        return;
+      }
+      odgovor.status(200).send(korisnik);
+    } catch (err) {
+      console.error("greska kod dohvacanje podataka za pocetnu:", err);
+      odgovor.status(400).send({ greska: "pogreska na posluzitelju" });
+    }
+  }
+  async postZahtjev(zahtjev: Request, odgovor: Response) {
+    odgovor.type("application/json");
+    
+  }
 }

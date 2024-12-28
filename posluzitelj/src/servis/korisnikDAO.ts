@@ -35,7 +35,7 @@ export class KorisnikDAO {
   async daj(korime: string): Promise<KorisnikI | null> {
     let sql = "SELECT * FROM korisnik WHERE korime=?;";
     var podaci = (await this.baza.dajPodatkePromise(sql, [korime])) as Array<any>;
-
+    
     if (podaci.length === 1 && podaci[0] != undefined) {
       let p = podaci[0];
       let k: KorisnikI = {
@@ -50,6 +50,7 @@ export class KorisnikDAO {
         broj_telefona: p["broj_telefona"] || null,
         datum_rodenja: p["datum_rodenja"] || null,
       };
+      
       return k;
     }
 
@@ -67,7 +68,7 @@ export class KorisnikDAO {
       korisnik.korime,
       korisnik.tip_korisnika_id,
       korisnik.adresa,
-      korisnik.status || null,
+      korisnik.status,
       korisnik.broj_telefona || null,
       korisnik.datum_rodenja || null,
     ];

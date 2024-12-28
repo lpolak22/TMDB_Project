@@ -174,5 +174,8 @@ function pripremiPutanjeAutentifikacija(){
 	let restKorisnik = new RestKorisnik();	
     server.post("/servis/app/registracija", restKorisnik.postKorisnici.bind(restKorisnik));
     server.post("/servis/app/prijava", restKorisnik.postLogin.bind(restKorisnik));
+	server.get("/servis/app/podaciPocetna", restKorisnik.getPocetna.bind(restKorisnik));
+    server.post("/servis/app/zahtjev", restKorisnik.postZahtjev.bind(restKorisnik));
+
 }
 
