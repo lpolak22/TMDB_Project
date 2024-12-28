@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import path from "path";
+import sesija from 'express-session';
 import { __dirname } from "../zajednicko/esmPomocnik.js";
 import { dajPortSevis } from "../zajednicko/esmPomocnik.js";
 import { Konfiguracija } from "../zajednicko/konfiguracija.js";
@@ -61,14 +62,20 @@ function pokreniKonfiguraciju() {
         }
     });*/
     server.use(express.static(path.join(__dirname(), '../../angular/filmovi/browser')));
+    server.use(sesija({
+        secret: konf.dajKonf().tajniKljucSesija,
+        saveUninitialized: true,
+        cookie: { maxAge: 1000 * 60 * 60 * 3 },
+        resave: false
+    }));
     pripremiPutanjeResursKorisnika();
     pripremiPutanjeResursOsoba();
     pripremiPutanjeResursFilmova();
     pripremiPutanjeResursOsobaFilm();
     pripremiPutanjuTMDBdodavanje();
     pripremiPutanjeAutentifikacija();
-    server.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname(), '../../angular/filmovi/browser/index.html'));
+    server.get('*', (zahtjev, odgovor) => {
+        odgovor.sendFile(path.join(__dirname(), '../../angular/filmovi/browser/index.html'));
     });
     server.use((zahtjev, odgovor) => {
         odgovor.type("application/json");
@@ -138,6 +145,14 @@ function pripremiPutanjuTMDBdodavanje() {
 }
 function pripremiPutanjeAutentifikacija() {
     let restKorisnik = new RestKorisnik();
-    console.log("tu");
     server.post("/servis/app/registracija", restKorisnik.postKorisnici.bind(restKorisnik));
+    server.post("/servis/app/prijava", restKorisnik.postLogin.bind(restKorisnik));
 }
+// function autorizacijaZaPocetnu(zahtjev, odgovor, dalje) {
+// 	const korisnik = zahtjev.session.korisnik;
+// 	if (!korisnik || (korisnik.tip_korisnika_id !== 1 && korisnik.tip_korisnika_id !== 2)) {
+// 	  odgovor.status(403).send({ greska: 'Nemate dopuštenje za pristup ovoj stranici.' });
+// 	  return;
+// 	}
+// 	dalje();
+//   }

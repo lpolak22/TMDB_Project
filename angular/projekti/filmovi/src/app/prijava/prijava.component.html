@@ -1,14 +1,13 @@
-<main>
-    <div id="poruka">#poruka#</div>
-    <form action="/prijava" method="POST">
-        <label for="korime">Korisničko ime</label>
-        <input name="korime" type="text" />
-        <label for="lozinka">Lozinka</label>
-        <input name="lozinka" type="password" />
-
-        <input type="submit" value="Šalji" />
+<div class="prijava">
+    <form (ngSubmit)="prijaviSe(prijavaForm.value)" #prijavaForm="ngForm">
+      <label for="korime">Korisničko ime:</label>
+      <input id="korime" name="korime" ngModel required />
+  
+      <label for="lozinka">Lozinka:</label>
+      <input id="lozinka" type="password" name="lozinka" ngModel required />
+  
+      <button type="submit">Prijavi se</button>
     </form>
-    <p>Korisničko ime: registrirani korisnik, lozinka: rwa</p>
-    <p>Korisničko ime: admin, lozinka: rwa</p>
-
-</main>
+    <p>{{ poruka }}</p>
+  </div>
+  

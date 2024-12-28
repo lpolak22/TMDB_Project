@@ -87,4 +87,21 @@ export class KorisnikDAO {
             throw err;
         }
     }
+    async prijaviKorisnika(korime, lozinka) {
+        const sql = `SELECT * FROM korisnik WHERE korime = ? AND lozinka = ? LIMIT 1`;
+        const podaci = [korime, lozinka];
+        try {
+            const rezultat = await this.baza.dajPodatkePromise(sql, podaci);
+            if (rezultat.length > 0) {
+                return rezultat[0];
+            }
+            else {
+                return null;
+            }
+        }
+        catch (err) {
+            console.error("Greška prilikom provjere korisnika: ", err);
+            return null;
+        }
+    }
 }

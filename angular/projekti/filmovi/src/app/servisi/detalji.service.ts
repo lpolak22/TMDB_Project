@@ -38,7 +38,7 @@ async dohvatiPovezaneFilmove(id: number) {
           popularnost: film.popularnost,
           slikica_postera: this.prebaciSliku(film.slikica_postera),
           datum_izdavanja: film.datum_izdavanja,
-          lik: film.lik, // Dodaj ime lika koje dolazi iz tablice osoba_film
+          lik: film.lik,
         }));
         
         this.filmovi = films;

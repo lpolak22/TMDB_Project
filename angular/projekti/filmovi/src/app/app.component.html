@@ -8,6 +8,8 @@
         <a routerLink="/filtriranje-filmova">Pretraži filmove</a>
         <a routerLink="/prijava">Prijava</a>
         <a routerLink="/registracija">Registracija</a>
+        <a href="#" (click)="odjaviKorisnika()" *ngIf="korisnikPrijavljen()">Odjava</a>
+
     </nav>
 </header>
 
