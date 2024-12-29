@@ -18,18 +18,19 @@ import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module, RecaptchaModule } from 'ng-re
 
 import { environment } from '../environments/environment';
 
-const routes:Routes = [
-  {path: '', component: PocetnaComponent, canActivate: [AuthGuard]},
-  {path: 'dokumentacija', component: DokumentacijaComponent},
-  {path: 'osobe', component: OsobeComponent, canActivate: [AuthGuard]},
-  {path: 'detalji/:id', component: DetaljiComponent, canActivate: [AuthGuard]},
-  {path: 'dodavanje', component: DodavanjeComponent, canActivate: [AuthGuard]},
-  {path: 'prijava', component: PrijavaComponent},
-  {path: 'registracija', component: RegistracijaComponent},
-  {path: 'filtriranje-filmova', component: FiltriranjeFilmovaComponent, canActivate: [AuthGuard]},
-  {path: 'korisnici', component: KorisniciComponent, canActivate: [AuthGuard]},
-  {path: '**', redirectTo: ''}
+const routes: Routes = [
+  { path: '', component: PocetnaComponent, canActivate: [AuthGuard] },
+  { path: 'osobe', component: OsobeComponent, canActivate: [AuthGuard] },
+  { path: 'detalji/:id', component: DetaljiComponent, canActivate: [AuthGuard] },
+  { path: 'dodavanje', component: DodavanjeComponent, canActivate: [AuthGuard] },
+  { path: 'korisnici', component: KorisniciComponent, canActivate: [AuthGuard] },
+  { path: 'filtriranje-filmova', component: FiltriranjeFilmovaComponent, canActivate: [AuthGuard] },
+  { path: 'prijava', component: PrijavaComponent, canActivate: [AuthGuard] },
+  { path: 'registracija', component: RegistracijaComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '' },
 ];
+
+
 
 @NgModule({
   declarations: [

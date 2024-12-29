@@ -217,7 +217,7 @@ export class RestKorisnik {
     };
 
     try {
-        let korisnikPostoji = await this.kdao.postojiKorisnik(korisnik.korime);
+        let korisnikPostoji = await this.kdao.postojiKorisnikWeb(korisnik.korime);
         if (korisnikPostoji) {
             odgovor.status(400).send({
                 greska: "korisnik s ovim korisničkim imenom već postoji",

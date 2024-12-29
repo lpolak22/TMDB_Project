@@ -46,7 +46,7 @@ export class KorisniciComponent implements OnInit {
 
   async dajPristup(korisnik: any) {
     try {
-      this.korisniciService.setOdabranKorisnik(korisnik);
+      this.korisniciService.spremiKorisnika(korisnik);
       await this.korisniciService.dajPristup(korisnik.korime);
       korisnik.status = 1;
     } catch (error) {
@@ -56,7 +56,7 @@ export class KorisniciComponent implements OnInit {
 
   async zabraniPristup(korisnik: any) {
     try {
-      this.korisniciService.setOdabranKorisnik(korisnik);
+      this.korisniciService.spremiKorisnika(korisnik);
       await this.korisniciService.zabraniPristup(korisnik.korime);
       korisnik.status = 0;
     } catch (error) {

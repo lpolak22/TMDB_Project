@@ -89,7 +89,7 @@ export class KorisniciService {
     }
   }
 
-  setOdabranKorisnik(korisnik: any) {
+  spremiKorisnika(korisnik: any) {
     this.odabranKorisnik = korisnik;
   }  
 
@@ -105,11 +105,11 @@ export class KorisniciService {
             const pogreskaInfo = await response.json();
             throw new Error(pogreskaInfo.greska || 'Zabrana pristupa nije uspjela.');
         }
+        await this.obrisiKorisnika(korime);
     } catch (error) {
         console.error('Greška prilikom zabrane pristupa:', error);
         throw error;
     }
-}
-
+  }
   
 }
