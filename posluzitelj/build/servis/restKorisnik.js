@@ -98,7 +98,7 @@ export class RestKorisnik {
                     korime: korisnik.korime,
                     tip_korisnika_id: korisnik.tip_korisnika_id
                 };
-                odgovor.status(200).send({
+                odgovor.status(201).send({
                     korime: korisnik.korime,
                     tip_korisnika_id: korisnik.tip_korisnika_id
                 });
@@ -130,6 +130,21 @@ export class RestKorisnik {
         catch (err) {
             console.error("greska kod dohvacanje podataka za pocetnu:", err);
             odgovor.status(400).send({ greska: "pogreska na posluzitelju" });
+        }
+    }
+    async getPodaciKorisnici(zahtjev, odgovor) {
+        odgovor.type("application/json");
+        try {
+            const korisnici = await this.kdao.dajSve();
+            if (korisnici.length === 0) {
+                odgovor.status(200).send([]);
+            }
+            else {
+                odgovor.status(200).send(korisnici);
+            }
+        }
+        catch (err) {
+            odgovor.status(400).send({ greska: "greska kod dohvacanja podataka svih korisnika" });
         }
     }
     async postZahtjev(zahtjev, odgovor) {

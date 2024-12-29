@@ -186,12 +186,6 @@ async obrisiOsobu(id: number): Promise<void> {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' },
         });
-        
-        // if (!obrisiFilm.ok) {
-        //   throw new Error('greska kod brisanja osoba za film');
-        // }
-
-        
       }
     }
   } catch (error) {
