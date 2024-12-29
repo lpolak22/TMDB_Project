@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 export class KorisniciService {
   restServis: string = environment.restServis;
   korisnici: any[] = [];
+  odabranKorisnik: any[] = [];
 
   constructor() { }
 
@@ -50,5 +51,65 @@ export class KorisniciService {
     }
   }
     
+  async dajPristup(korime: string) {
+    try {
+      const response = await fetch(`${this.restServis}app/korisniciPristup/${korime}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 1 }),
+      });
+  
+      if (!response.ok) {
+        const pogreskaInfo = await response.json();
+        throw new Error(pogreskaInfo.greska || 'Davanje pristupa nije uspjelo.');
+      }
+      await this.dodajKorisnika(this.odabranKorisnik)
+      
+    } catch (error) {
+      console.error('Greška prilikom davanja pristupa:', error);
+      throw error;
+    }
+  }
+
+  async dodajKorisnika(korisnik: any) {
+    try {
+      const response = await fetch(`${this.restServis}korisnici`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ korisnik }),
+      });
+
+      if (!response.ok) {
+        const pogreskaInfo = await response.json();
+        throw new Error(pogreskaInfo.greska || 'Dodavanje korisnika nije uspjelo');
+      }
+    } catch (error) {
+      console.error('Greška prilikom dodavanja korisnika:', error);
+      throw error;
+    }
+  }
+
+  setOdabranKorisnik(korisnik: any) {
+    this.odabranKorisnik = korisnik;
+  }  
+
+  async zabraniPristup(korime: string) {
+    try {
+        const response = await fetch(`${this.restServis}app/korisniciPristup/${korime}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: 0 }),
+        });
+
+        if (!response.ok) {
+            const pogreskaInfo = await response.json();
+            throw new Error(pogreskaInfo.greska || 'Zabrana pristupa nije uspjela.');
+        }
+    } catch (error) {
+        console.error('Greška prilikom zabrane pristupa:', error);
+        throw error;
+    }
+}
+
   
 }

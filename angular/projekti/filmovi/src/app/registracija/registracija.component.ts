@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RegistracijaService } from '../servisi/registracija.service';
 import { Router } from '@angular/router';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-registracija',
@@ -19,7 +20,7 @@ export class RegistracijaComponent {
   brojTelefona: string = '';
   datumRodenja: string = '';
 
-  constructor(private registracijaService: RegistracijaService, private router: Router) {}
+  constructor(private registracijaService: RegistracijaService, private router: Router, private recaptchaV3Service: ReCaptchaV3Service) {}
 
   async registriraj() {
     const korisnik = {
@@ -34,6 +35,13 @@ export class RegistracijaComponent {
     };
 
     try {
+      const token = await this.recaptchaV3Service.execute('registracija').toPromise();
+
+      if (!token) {
+        this.poruka = 'Neuspješna reCAPTCHA validacija.';
+        return;
+      }
+      
       await this.registracijaService.dodajOsobuUBazu(korisnik);
       this.poruka = 'Korisnik je uspješno registriran.';
       this.router.navigate(['/prijava']);

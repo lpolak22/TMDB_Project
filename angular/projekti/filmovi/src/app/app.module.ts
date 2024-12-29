@@ -14,7 +14,9 @@ import { FormsModule } from '@angular/forms';
 import { FiltriranjeFilmovaComponent } from './filtriranje-filmova/filtriranje-filmova.component';
 import { AuthGuard } from './servisi/auth.guard';
 import { KorisniciComponent } from './korisnici/korisnici.component';
-//import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module, RecaptchaModule } from 'ng-recaptcha';
+
+import { environment } from '../environments/environment';
 
 const routes:Routes = [
   {path: '', component: PocetnaComponent, canActivate: [AuthGuard]},
@@ -45,9 +47,12 @@ const routes:Routes = [
     OsobeComponent,
     RouterModule.forRoot(routes),
     FormsModule,
-    //RecaptchaV3Module,
+    RecaptchaV3Module,
+    RecaptchaModule
   ],
-  providers: [],
+  providers: [
+    { provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.siteKey }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

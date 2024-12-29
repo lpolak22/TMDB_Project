@@ -32,3 +32,5 @@ INSERT into korisnik (ime, prezime, adresa, korime, lozinka, email, tip_korisnik
 
 SELECT * from korisnik;
 delete from korisnik;
+
+UPDATE korisnik SET status=1 WHERE korime="lpolak22";
