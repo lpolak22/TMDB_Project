@@ -3,8 +3,10 @@ import path from "path";
 import { __dirname } from "../zajednicko/esmPomocnik.js";
 export class KorisnikDAO {
     baza;
+    baza_servis;
     constructor() {
         this.baza = new Baza(path.resolve(__dirname(), "../../podaci/RWA2024lpolak22_web.sqlite"));
+        this.baza_servis = new Baza(path.resolve(__dirname(), "../../podaci/RWA2024lpolak22_servis.sqlite"));
     }
     async dajSve() {
         const sql = "SELECT * FROM korisnik";
@@ -60,13 +62,13 @@ export class KorisnikDAO {
             korisnik.broj_telefona || null,
             korisnik.datum_rodenja || null,
         ];
-        this.baza.ubaciAzurirajPodatke(sql, podaci);
+        this.baza_servis.ubaciAzurirajPodatke(sql, podaci);
         return true;
     }
     async obrisi(korime) {
         const sql = "DELETE FROM korisnik WHERE korime=?";
         try {
-            await this.baza.ubaciAzurirajPodatke(sql, [korime]);
+            await this.baza_servis.ubaciAzurirajPodatke(sql, [korime]);
         }
         catch (err) {
             console.error("Greška pri brisanju korisnika:", err);
@@ -103,5 +105,29 @@ export class KorisnikDAO {
             console.error("Greška prilikom provjere korisnika: ", err);
             return null;
         }
+    }
+    async azurirajKorisnika(korime, status) {
+        let sql = `UPDATE korisnik SET status = ? WHERE korime = ?;`;
+        let podaci = [status, korime];
+        await this.baza.ubaciAzurirajPodatke(sql, podaci);
+        return true;
+    }
+    dodajKorisnik(korisnik) {
+        let sql = `INSERT INTO korisnik (ime, prezime, lozinka, email, korime, tip_korisnika_id, adresa, status, broj_telefona, datum_rodenja) 
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        let podaci = [
+            korisnik.ime,
+            korisnik.prezime,
+            korisnik.lozinka,
+            korisnik.email,
+            korisnik.korime,
+            korisnik.tip_korisnika_id,
+            korisnik.adresa,
+            korisnik.status,
+            korisnik.broj_telefona || null,
+            korisnik.datum_rodenja || null,
+        ];
+        this.baza.ubaciAzurirajPodatke(sql, podaci);
+        return true;
     }
 }

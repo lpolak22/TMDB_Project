@@ -43,4 +43,24 @@ export class KorisniciComponent implements OnInit {
       this.errorMessage = 'Greška prilikom brisanja korisnika.';
     }
   }
+
+  async dajPristup(korisnik: any) {
+    try {
+      this.korisniciService.setOdabranKorisnik(korisnik);
+      await this.korisniciService.dajPristup(korisnik.korime);
+      korisnik.status = 1;
+    } catch (error) {
+      this.errorMessage = 'Greška prilikom davanja pristupa.';
+    }
+  }
+
+  async zabraniPristup(korisnik: any) {
+    try {
+      this.korisniciService.setOdabranKorisnik(korisnik);
+      await this.korisniciService.zabraniPristup(korisnik.korime);
+      korisnik.status = 0;
+    } catch (error) {
+      this.errorMessage = 'Greška prilikom zabrane pristupa.';
+    }
+  }
 }

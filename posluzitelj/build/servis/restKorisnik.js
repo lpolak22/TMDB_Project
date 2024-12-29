@@ -8,23 +8,23 @@ export class RestKorisnik {
     async postKorisnici(zahtjev, odgovor) {
         odgovor.type("application/json");
         let tijelo = zahtjev.body;
-        if (!tijelo.korime ||
-            !tijelo.lozinka ||
-            !tijelo.email) {
+        if (!tijelo.korisnik.korime ||
+            !tijelo.korisnik.lozinka ||
+            !tijelo.korisnik.email) {
             odgovor.status(400).send({ greska: "nedostaju obavezni podaci" });
             return;
         }
         const korisnik = {
-            ime: tijelo.ime || null,
-            prezime: tijelo.prezime || null,
-            korime: tijelo.korime,
-            lozinka: kodovi.kreirajSHA256(tijelo.lozinka, "moja sol"),
+            ime: tijelo.korisnik.ime || null,
+            prezime: tijelo.korisnik.prezime || null,
+            korime: tijelo.korisnik.korime,
+            lozinka: kodovi.kreirajSHA256(tijelo.korisnik.lozinka, "moja sol"),
             tip_korisnika_id: 2,
-            email: tijelo.email,
-            adresa: tijelo.adresa || null,
-            status: 0,
-            broj_telefona: tijelo.broj_telefona || null,
-            datum_rodenja: tijelo.datum_rodenja || null,
+            email: tijelo.korisnik.email,
+            adresa: tijelo.korisnik.adresa || null,
+            status: 1,
+            broj_telefona: tijelo.korisnik.broj_telefona || null,
+            datum_rodenja: tijelo.korisnik.datum_rodenja || null,
         };
         try {
             let korisnikPostoji = await this.kdao.postojiKorisnik(korisnik.korime);
@@ -145,6 +145,59 @@ export class RestKorisnik {
         }
         catch (err) {
             odgovor.status(400).send({ greska: "greska kod dohvacanja podataka svih korisnika" });
+        }
+    }
+    async putPristup(zahtjev, odgovor) {
+        odgovor.type("application/json");
+        const { status } = zahtjev.body;
+        const korime = zahtjev.params['korime'];
+        if (!korime) {
+            odgovor.status(400).send({ greska: "Nedostaju podaci za ažuriranje statusa korisnika." });
+            return;
+        }
+        try {
+            await this.kdao.azurirajKorisnika(korime, status);
+            odgovor.status(201).send({ status: "uspjeh" });
+        }
+        catch (err) {
+            odgovor.status(400).send({ greska: "pogreska kod azuriranja statusa korisnika" });
+        }
+    }
+    async dodajKorisnika(zahtjev, odgovor) {
+        odgovor.type("application/json");
+        let tijelo = zahtjev.body;
+        if (!tijelo.korime ||
+            !tijelo.lozinka ||
+            !tijelo.email) {
+            odgovor.status(400).send({ greska: "nedostaju obavezni podaci" });
+            return;
+        }
+        const korisnik = {
+            ime: tijelo.ime || null,
+            prezime: tijelo.prezime || null,
+            korime: tijelo.korime,
+            lozinka: kodovi.kreirajSHA256(tijelo.lozinka, "moja sol"),
+            tip_korisnika_id: 2,
+            email: tijelo.email,
+            adresa: tijelo.adresa || null,
+            status: 0,
+            broj_telefona: tijelo.broj_telefona || null,
+            datum_rodenja: tijelo.datum_rodenja || null,
+        };
+        try {
+            let korisnikPostoji = await this.kdao.postojiKorisnik(korisnik.korime);
+            if (korisnikPostoji) {
+                odgovor.status(400).send({
+                    greska: "korisnik s ovim korisničkim imenom već postoji",
+                });
+                return;
+            }
+            this.kdao.dodajKorisnik(korisnik);
+            odgovor.status(201).send({ status: "uspjeh" });
+        }
+        catch (err) {
+            console.error("greska pri unosu korisnika:", err);
+            odgovor.status(400).send({ greska: "greska pri unosu korisnika" });
         }
     }
     async postZahtjev(zahtjev, odgovor) {
