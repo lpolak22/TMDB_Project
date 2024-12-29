@@ -13,8 +13,24 @@ export class AppComponent {
   constructor(private router: Router) {}
 
   korisnikPrijavljen(): boolean {
-    let korisnik = sessionStorage.getItem('korisnik');
-    return korisnik !== null;
+    return sessionStorage.getItem('korisnik') !== null;
+  }
+
+  tipKorisnika(): number | null {
+    const korisnik = sessionStorage.getItem('korisnik');
+    if (korisnik) {
+      const parsedKorisnik = JSON.parse(korisnik);
+      return parsedKorisnik.tip_korisnika_id;
+    }
+    return null;
+  }
+
+  prikaziStraniceAdmin(): boolean {
+    return this.tipKorisnika() === 1;
+  }
+
+  prikaziStraniceKorisnik(): boolean {
+    return this.tipKorisnika() === 2;
   }
 
   async odjaviKorisnika(): Promise<void> {

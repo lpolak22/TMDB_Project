@@ -78,7 +78,7 @@ export class KorisnikDAO {
     async postojiKorisnik(korime) {
         const sql = "SELECT COUNT(*) AS broj FROM korisnik WHERE korime = ?";
         try {
-            const rezultat = (await this.baza.dajPodatkePromise(sql, [korime]));
+            const rezultat = (await this.baza_servis.dajPodatkePromise(sql, [korime]));
             if (rezultat.length > 0 && rezultat[0].broj > 0) {
                 return true;
             }
@@ -129,5 +129,19 @@ export class KorisnikDAO {
         ];
         this.baza.ubaciAzurirajPodatke(sql, podaci);
         return true;
+    }
+    async postojiKorisnikWeb(korime) {
+        const sql = "SELECT COUNT(*) AS broj FROM korisnik WHERE korime = ?";
+        try {
+            const rezultat = (await this.baza.dajPodatkePromise(sql, [korime]));
+            if (rezultat.length > 0 && rezultat[0].broj > 0) {
+                return true;
+            }
+            return false;
+        }
+        catch (err) {
+            console.error("Greška pri provjeri postojanja korisnika:", err);
+            throw err;
+        }
     }
 }

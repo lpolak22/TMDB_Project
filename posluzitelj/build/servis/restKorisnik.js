@@ -185,7 +185,7 @@ export class RestKorisnik {
             datum_rodenja: tijelo.datum_rodenja || null,
         };
         try {
-            let korisnikPostoji = await this.kdao.postojiKorisnik(korisnik.korime);
+            let korisnikPostoji = await this.kdao.postojiKorisnikWeb(korisnik.korime);
             if (korisnikPostoji) {
                 odgovor.status(400).send({
                     greska: "korisnik s ovim korisničkim imenom već postoji",
