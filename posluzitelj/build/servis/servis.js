@@ -74,6 +74,7 @@ function pokreniKonfiguraciju() {
     pripremiPutanjeResursOsobaFilm();
     pripremiPutanjuTMDBdodavanje();
     pripremiPutanjeAutentifikacija();
+    pripremiPutanjePocetnaKorisnici();
     server.get('*', (zahtjev, odgovor) => {
         odgovor.sendFile(path.join(__dirname(), '../../angular/filmovi/browser/index.html'));
     });
@@ -147,6 +148,10 @@ function pripremiPutanjeAutentifikacija() {
     let restKorisnik = new RestKorisnik();
     server.post("/servis/app/registracija", restKorisnik.postKorisnici.bind(restKorisnik));
     server.post("/servis/app/prijava", restKorisnik.postLogin.bind(restKorisnik));
+}
+function pripremiPutanjePocetnaKorisnici() {
+    let restKorisnik = new RestKorisnik();
     server.get("/servis/app/podaciPocetna", restKorisnik.getPocetna.bind(restKorisnik));
+    server.get("/servis/app/podaciKorisnici", restKorisnik.getPodaciKorisnici.bind(restKorisnik));
     server.post("/servis/app/zahtjev", restKorisnik.postZahtjev.bind(restKorisnik));
 }
