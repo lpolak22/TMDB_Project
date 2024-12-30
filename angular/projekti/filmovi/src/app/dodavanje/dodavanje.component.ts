@@ -67,6 +67,7 @@ export class DodavanjeComponent {
       await this.dodavanjeService.dodajOsobuUBazu(osoba);
       osoba.dodana = true;
       this.osobe = [...this.osobe];
+      await this.dodavanjeService.loadSlikeOsobe(osoba.id); 
     } catch (error: any) {
       alert(error.message || 'Greška prilikom dodavanja osobe.');
     }
@@ -76,13 +77,14 @@ export class DodavanjeComponent {
     try {
       osoba.dodana = false;
       await this.dodavanjeService.obrisiOsobu(osoba.id);
-
+  
       this.osobe = [...this.osobe];
     } catch (error: any) {
       console.error(error);
       alert(error.message || 'Greška prilikom brisanja osobe.');
     }
   }
+  
 
   pretvoriSliku(slika: string): string {
     if (!slika) {

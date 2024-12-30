@@ -6,6 +6,8 @@ import { environment } from '../../environments/environment';
 })
 export class DodavanjeService {
   private restServis: string = environment.restServis;
+  slikeOsobe: Array<string> = [];
+
 
   constructor() {}
 
@@ -175,6 +177,16 @@ async obrisiOsobu(id: number): Promise<void> {
       throw new Error(pogreskaInfo.greska || 'brisanje veze osobe na filmove nije uspjelo');
     }
 
+    response = await fetch(`${this.restServis}app/obrisiSlike${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (!response.ok) {
+      const pogreskaInfo = await response.json();
+      throw new Error(pogreskaInfo.greska || 'brisanje slika nije uspjelo');
+    }
+
     response = await fetch(`${this.restServis}osoba/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
@@ -185,8 +197,6 @@ async obrisiOsobu(id: number): Promise<void> {
       throw new Error(pogreskaInfo.greska || 'brisanje osobe nije uspjelo');
     }
 
-    
-    
     if (Array.isArray(filmovi)) {
       for (const film of filmovi) {
         const obrisiFilm = await fetch(`${this.restServis}film/${film.id}`, {
@@ -200,6 +210,7 @@ async obrisiOsobu(id: number): Promise<void> {
     throw error;
   }
 }
+
   async provjeriOsobuUBazi(id: number): Promise<boolean> {
   try {
     const response = await fetch(`${this.restServis}osoba/${id}`, {
@@ -213,4 +224,52 @@ async obrisiOsobu(id: number): Promise<void> {
   }
 }
 
+async loadSlikeOsobe(id: number) {
+  try {
+    const response = await fetch(`${environment.restServis}app/detalji/${id}`, {
+      headers: {
+        Accept: 'application/json',
+      },
+    });
+
+    if (response.status === 200) {
+      const data = await response.json();
+      
+      const slikePutanje = data.slike.slice(0, 20);
+      this.slikeOsobe = data;
+
+      for (const slika of slikePutanje) {
+        
+        await this.posaljiSlikuUBazu(id, slika);
+      }
+    } else {
+      throw new Error('Slike osobe nisu dostupne');
+    }
+  } catch (error) {
+    console.error('Greška pri dohvaćanju slika osobe:', error);
+  }
+}
+
+private async posaljiSlikuUBazu(osobaId: number, slikaPutanja: string) {
+  
+  try {
+    const response = await fetch(`${environment.restServis}app/detaljiSlike`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        slika_putanja: slikaPutanja,
+        osoba_id: osobaId,
+      }),
+    });
+    
+    if (!response.ok) {
+      console.error('Greška pri dodavanju slike u bazu:', await response.text());
+    }
+  } catch (error) {
+    console.error('Greška pri slanju slike u bazu:', error);
+  }
+}
+  
 }

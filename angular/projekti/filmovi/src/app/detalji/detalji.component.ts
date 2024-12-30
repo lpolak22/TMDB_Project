@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 export class DetaljiComponent implements OnInit {
   osoba: any = null;
   porukaGreske: string | null = null;
-  slikeOsobe: Array<string> = [];
+  slikeOsobe: string[] = [];
   filmovi: any[] = [];
 
   constructor(
@@ -26,68 +26,36 @@ export class DetaljiComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.loadOsobaDetalji(id);
-      this.loadSlikeOsobe(id);
+      this.loadSlikeGalerija(id);
       this.loadFilmovi(Number(id));
     }
   }
 
   async loadOsobaDetalji(id: string) {
     try {
-      const response = await fetch(`${environment.restServis}osoba/${id}`, {
-        headers: {
-          'Accept': 'application/json',
-        },
-      });
-
-      if (response.status === 200) {
-        const data = await response.json();
-        this.osoba = {
-          ...data,
-          slika: this.prebaciSliku(data.slika),
-        };
-      } else {
-        throw new Error('Podaci osobe nisu dostupni');
-      }
+      await this.detaljiService.loadOsobaDetalji(id);
+      this.osoba = this.detaljiService.osoba;
     } catch (error) {
-      console.error(error);
-      this.porukaGreske = 'Došlo je do pogreške, žao nam je';
+      console.error('Došlo je do pogreške pri dohvaćanju podataka osobe', error);
+      this.porukaGreske = 'Došlo je do pogreške pri dohvaćanju podataka osobe';
     }
   }
 
-  prebaciSliku(slika: string): string {
-    if (!slika) {
-      return '../../assets/default-image.jpg';
-    }
-
-    if (slika.startsWith('http')) {
-      return slika;
-    }
-
-    return `${environment.slikaOsobePutanja}${slika}`;
-  }
-
-  async loadSlikeOsobe(id: string) {
+  async loadSlikeGalerija(id: string) {
     try {
-      const response = await fetch(`${environment.restServis}app/detalji/${id}`, {
-        headers: {
-          'Accept': 'application/json',
-        },
-      });
-
-      if (response.status === 200) {
-        const data = await response.json();
-        this.slikeOsobe = data.slike.map((slika: string) =>
-          this.prebaciSliku(slika)
-        );
-      } else {
-        throw new Error('Slike osobe nisu dostupne');
-      }
+      await this.detaljiService.loadSlikeGalerija(id);
+      this.slikeOsobe = this.detaljiService.slikeOsobe;
     } catch (error) {
-      console.error(error);
-      this.porukaGreske = 'Došlo je do pogreške pri dohvaćanju slika';
+      console.error('Došlo je do pogreške pri dohvaćanju galerije slika', error);
+      this.porukaGreske = 'Galerija slika nije dostupna.';
     }
+  }  
+
+  preskociSlomljenuSliku(slomljenaSlika: string) {
+    this.slikeOsobe = this.slikeOsobe.filter((slika) => slika !== slomljenaSlika);
   }
 
+  
   async loadFilmovi(id: number) {
     try {
       this.filmovi = await this.detaljiService.dohvatiPovezaneFilmove(id);
@@ -96,5 +64,4 @@ export class DetaljiComponent implements OnInit {
       this.porukaGreske = 'Došlo je do pogreške pri dohvaćanju filmova';
     }
   }
-  
 }

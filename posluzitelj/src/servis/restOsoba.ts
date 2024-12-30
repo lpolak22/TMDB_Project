@@ -44,7 +44,7 @@ export class RestOsoba {
     } catch (error) {
         odgovor.status(400).send({ greska: "greska pri dodavanju osobe" });
     }
-}
+  }
 
 
 async getOsoba(zahtjev: Request, odgovor: Response) {
@@ -110,7 +110,7 @@ async deleteOsoba(zahtjev: Request, odgovor: Response) {
     } catch (greska) {
         odgovor.status(400).send({ greska: "greska prilikom brisanja" });
     }
-}
+  }
 
 
 

@@ -16,10 +16,9 @@ CREATE TABLE "osoba"(
   "popularnost" DECIMAL
 );
 CREATE TABLE "slika"(
-  "id" INTEGER NOT NULL,
-  "slika_putanja" VARCHAR(45) NOT NULL,
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  "slika_putanja" VARCHAR(45),
   "osoba_id" INTEGER NOT NULL,
-  PRIMARY KEY("id","osoba_id"),
   CONSTRAINT "fk_slika_osoba1"
     FOREIGN KEY("osoba_id")
     REFERENCES "osoba"("id")
@@ -36,7 +35,6 @@ CREATE TABLE "osoba_film"(
     FOREIGN KEY("film_id")
     REFERENCES "film"("id")
 );
-
 CREATE TABLE "tip_korisnika"(
   "id" INTEGER PRIMARY KEY NOT NULL,
   "naziv" VARCHAR(45) NOT NULL
@@ -104,3 +102,5 @@ LIMIT 20 OFFSET 0;
 SELECT COUNT(*) as ukupno
 FROM film 
 WHERE datum_izdavanja BETWEEN '1970-01-01' AND '2024-12-31';
+
+SELECT * FROM slika WHERE osoba_id = 84698

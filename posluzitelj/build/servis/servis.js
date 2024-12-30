@@ -10,6 +10,7 @@ import { RestFilm } from "./restFilm.js";
 import { RestOsoba } from "./restOsoba.js";
 import { RestOsobaFilm } from "./restOsobaFilm.js";
 import { RestTMDB } from "./restTMDB.js";
+import { RestSlika } from "./restSlika.js";
 //import { provjeriToken } from "../zajednicko/jwt.js";
 const server = express();
 server.use(express.urlencoded({ extended: true }));
@@ -76,6 +77,7 @@ function pokreniKonfiguraciju() {
     pripremiPutanjeAutentifikacija();
     pripremiPutanjePocetnaKorisnici();
     pripremiPutanjePristupKorisnici();
+    pripremiPutanjeDetaljiSlike();
     server.get('*', (zahtjev, odgovor) => {
         odgovor.sendFile(path.join(__dirname(), '../../angular/filmovi/browser/index.html'));
     });
@@ -159,4 +161,10 @@ function pripremiPutanjePocetnaKorisnici() {
 function pripremiPutanjePristupKorisnici() {
     let restKorisnik = new RestKorisnik();
     server.put("/servis/app/korisniciPristup/:korime", restKorisnik.putPristup.bind(restKorisnik));
+}
+function pripremiPutanjeDetaljiSlike() {
+    let restSlika = new RestSlika();
+    server.post("/servis/app/detaljiSlike", restSlika.postSlika.bind(restSlika));
+    server.delete("/servis/app/obrisiSlike:osoba_id", restSlika.deleteSlika.bind(restSlika));
+    server.get("/servis/app/detaljiSlike:osoba_id", restSlika.getSveSlike.bind(restSlika));
 }

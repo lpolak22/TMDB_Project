@@ -1,21 +1,32 @@
 <main>
   <div *ngIf="porukaGreske" class="error">{{ porukaGreske }}</div>
 
-  <div *ngIf="osoba" class="detalji-osobe">
+  <section *ngIf="osoba" class="detalji-osobe">
     <h1>{{ osoba?.ime_prezime }}</h1>
     <img [src]="osoba?.slika" alt="Slika osobe" />
     <p><strong>Poznato po:</strong> {{ osoba?.poznat_po }}</p>
     <p><strong>Popularnost:</strong> {{ osoba?.popularnost }}</p>
-  </div>
+  </section>
 
-  <div *ngIf="slikeOsobe.length > 0" class="galerija">
+  <section *ngIf="slikeOsobe.length > 0" class="galerija">
     <h2>Galerija slika</h2>
     <div class="galerija-slike">
-      <img *ngFor="let slika of slikeOsobe" [src]="slika" alt="Slika iz galerije" />
+      <ng-container *ngFor="let slika of slikeOsobe">
+        <figure>
+          <img
+            [src]="slika"
+            alt="Slika iz galerije"
+            class="galerija-img"
+            (error)="preskociSlomljenuSliku(slika)"
+          />
+        </figure>
+      </ng-container>
     </div>
-  </div>
+  </section>
+  
+  
 
-  <div *ngIf="filmovi.length > 0" class="povezani-filmovi">
+  <section *ngIf="filmovi.length > 0" class="povezani-filmovi">
     <h2>Povezani Filmovi</h2>
     <table>
       <thead>
@@ -30,16 +41,25 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let film of filmovi; let i = index" [class.even]="i % 2 === 0" [class.odd]="i % 2 !== 0">
-          <td>{{ film.jezik }}</td>
-          <td>{{ film.originalni_naslov }}</td>
-          <td>{{ film.naslov }}</td>
-          <td>{{ film.popularnost }}</td>
-          <td><img [src]="film.slikica_postera" alt="Poster" width="50" /></td>
-          <td>{{ film.datum_izdavanja | date }}</td>
-          <td>{{ film.lik }}</td>
-        </tr>
+        <ng-container *ngFor="let film of filmovi; let i = index">
+          <tr [class.even]="i % 2 === 0" [class.odd]="i % 2 !== 0">
+            <td>{{ film.jezik }}</td>
+            <td>{{ film.originalni_naslov }}</td>
+            <td>{{ film.naslov }}</td>
+            <td>{{ film.popularnost }}</td>
+            <td>
+              <img
+                [src]="film.slikica_postera"
+                alt="Poster filma"
+                class="film-poster"
+                width="50"
+              />
+            </td>
+            <td>{{ film.datum_izdavanja | date }}</td>
+            <td>{{ film.lik }}</td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
-  </div>
+  </section>
 </main>
