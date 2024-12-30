@@ -53,12 +53,14 @@ CREATE TABLE "korisnik"(
   "status" INTEGER,
   "broj_telefona" VARCHAR(15),
   "datum_rodenja" VARCHAR(45),
+  "totp" VARCHAR(45),
   CONSTRAINT "id_UNIQUE"
     UNIQUE("id"),
   CONSTRAINT "fk_korisnik_tip_korisnika1"
     FOREIGN KEY("tip_korisnika_id")
     REFERENCES "tip_korisnika"("id")
 );
+
 
 insert into tip_korisnika (id, naziv) VALUES (1, "administrator");
 insert into tip_korisnika (id,naziv) VALUES (2, "registrirani korisnik");
@@ -82,7 +84,7 @@ INSERT INTO osoba (id, ime_prezime, poznat_po, slika, popularnost) VALUES (10, '
 INSERT INTO osoba (id, ime_prezime, poznat_po, slika, popularnost) VALUES (11, 'Bud Spencer', 'Gluma', '/cVbBoKxRDFOdDKwdpRmxVazDWlE.jpg', 10);
 
 
-DELETE FROM korisnik;
+DELETE FROM film;
 
 SELECT 
     f.id, 

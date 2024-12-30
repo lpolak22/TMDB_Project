@@ -6,13 +6,16 @@
         <a routerLink="/korisnici">Korisnici</a>
         <a routerLink="/dodavanje">Dodavanje</a>
         <a routerLink="/filtriranje-filmova">Filtriranje filmova</a>
+        <a routerLink="/dvorazinska">Dvorazinska autentifikacija</a>
+
         <a href="#" (click)="odjaviKorisnika()">Odjava</a>
       </ng-container>
-  
+      
       <ng-container *ngIf="prikaziStraniceKorisnik()">
         <a routerLink="/">Početna</a>
         <a routerLink="/osobe">Osobe</a>
         <a routerLink="/filtriranje-filmova">Filtriranje filmova</a>
+        <a routerLink="/dvorazinska">Dvorazinska autentifikacija</a>
         <a href="#" (click)="odjaviKorisnika()">Odjava</a>
       </ng-container>
   

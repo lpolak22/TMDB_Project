@@ -100,17 +100,23 @@ export class DodavanjeService {
       if (!Array.isArray(podaciFilmova)) {
         throw new Error('Očekivan je niz podataka o filmovima, ali je dobiven drugačiji format.');
       }
-    
-      for (const film of podaciFilmova) {        
-        const response = await fetch(`${this.restServis}film`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(film),
-        });
   
-        if (!response.ok) {
-          const pogreskaInfo = await response.json();
-          throw new Error(pogreskaInfo.greska || `Neuspješno dodavanje filma s ID-jem ${film.id}.`);
+      for (const film of podaciFilmova) {
+        try {
+          const response = await fetch(`${this.restServis}film`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(film),
+          });
+  
+          if (!response.ok) {
+            const pogreskaInfo = await response.json();
+            console.warn(`Film s ID-jem ${film.id} nije dodan: ${pogreskaInfo.greska || 'Nepoznata greška'}`);
+            continue;
+          }
+        } catch (filmError) {
+          console.warn(`Greška prilikom dodavanja filma s ID-jem ${film.id}:`, filmError);
+          continue;
         }
       }
     } catch (error) {
@@ -118,6 +124,7 @@ export class DodavanjeService {
       throw error;
     }
   }
+  
   
 
   /**

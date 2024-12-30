@@ -1,3 +1,4 @@
+
 CREATE TABLE "tip_korisnika"(
   "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   "naziv" VARCHAR(45) NOT NULL,
@@ -15,6 +16,7 @@ CREATE TABLE "korisnik"(
   "status" INTEGER,
   "broj_telefona" VARCHAR(15),
   "datum_rodenja" VARCHAR(20),
+  "totp" VARCHAR(45),
   CONSTRAINT "fk_korisnik_tip_korisnika"
     FOREIGN KEY("tip_korisnika_id")
     REFERENCES "tip_korisnika"("id")

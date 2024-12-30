@@ -73,9 +73,6 @@ export class DodavanjeComponent {
   }
 
   async obrisiOsobu(osoba: any) {
-    if (!confirm(`Jeste li sigurni da želite obrisati osobu ${osoba.ime_prezime}?`)) {
-      return;
-    }
     try {
       osoba.dodana = false;
       await this.dodavanjeService.obrisiOsobu(osoba.id);

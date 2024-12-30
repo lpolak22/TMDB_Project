@@ -84,7 +84,7 @@ export class FilmDAO {
       console.error("Greška pri dodavanju filma:", err);
       return false;
     }
-}
+  }
 
 
   async obrisi(id: number): Promise<boolean> {

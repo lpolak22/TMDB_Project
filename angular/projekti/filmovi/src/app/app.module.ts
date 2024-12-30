@@ -14,6 +14,9 @@ import { FormsModule } from '@angular/forms';
 import { FiltriranjeFilmovaComponent } from './filtriranje-filmova/filtriranje-filmova.component';
 import { AuthGuard } from './servisi/auth.guard';
 import { KorisniciComponent } from './korisnici/korisnici.component';
+
+import { AktiviranjeDvorazinskeComponent } from './aktiviranje-dvorazinske/aktiviranje-dvorazinske.component';
+
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module, RecaptchaModule } from 'ng-recaptcha';
 
 import { environment } from '../environments/environment';
@@ -27,6 +30,8 @@ const routes: Routes = [
   { path: 'filtriranje-filmova', component: FiltriranjeFilmovaComponent, canActivate: [AuthGuard] },
   { path: 'prijava', component: PrijavaComponent, canActivate: [AuthGuard] },
   { path: 'registracija', component: RegistracijaComponent, canActivate: [AuthGuard] },
+  { path: 'dvorazinska', component: AktiviranjeDvorazinskeComponent, canActivate: [AuthGuard] },
+
   { path: '**', redirectTo: '' },
 ];
 
@@ -41,7 +46,8 @@ const routes: Routes = [
     DokumentacijaComponent,
     DodavanjeComponent,
     FiltriranjeFilmovaComponent,
-    KorisniciComponent
+    KorisniciComponent,
+    AktiviranjeDvorazinskeComponent
   ],
   imports: [
     BrowserModule,

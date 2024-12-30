@@ -11,18 +11,14 @@ export class AuthGuard implements CanActivate {
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     const korisnik = await this.korisnikSesija();
   
-    // Rukovanje početnom stranicom
     if (state.url === '' || state.url === '/') {
       if (korisnik) {
-        // Ako je korisnik prijavljen, dozvoli pristup početnoj stranici
         return true;
       }
-      // Ako korisnik nije prijavljen, preusmjeri ga na stranicu za prijavu
       this.router.navigate(['/prijava']);
       return false;
     }
   
-    // Provjera za prijavu i registraciju
     if (['/prijava', '/registracija'].includes(state.url)) {
       if (!korisnik) {
         return true;
@@ -31,15 +27,13 @@ export class AuthGuard implements CanActivate {
       return false;
     }
   
-    // Provjera uloge korisnika
     const tipKorisnika = korisnik?.tip_korisnika_id;
-    if (tipKorisnika === 1 && ['/korisnici', '/dodavanje', '/filtriranje-filmova'].includes(state.url)) {
+    if (tipKorisnika === 1 && ['/korisnici', '/dodavanje', '/filtriranje-filmova', '/dvorazinska'].includes(state.url)) {
       return true;
-    } else if (tipKorisnika === 2 && ['/', '/osobe', '/filtriranje-filmova', `/detalji/${route.params['id']}`].includes(state.url)) {
+    } else if (tipKorisnika === 2 && ['/', '/osobe', '/filtriranje-filmova', '/dvorazinska',`/detalji/${route.params['id']}`].includes(state.url)) {
       return true;
     }
   
-    // Defaultno preusmjeravanje
     this.router.navigate(['/']);
     return false;
   }
