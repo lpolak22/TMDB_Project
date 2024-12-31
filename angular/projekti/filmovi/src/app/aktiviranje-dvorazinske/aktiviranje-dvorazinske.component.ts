@@ -14,7 +14,23 @@ export class AktiviranjeDvorazinskeComponent implements OnInit {
   constructor(private dvorazinskaService: AktiviranjeDvorazinskeService) {}
 
   async ngOnInit() {
-   
+    const korime = this.korime();
+    if (!korime) {
+      console.error('Korisničko ime nije pronađeno u sesiji.');
+      return;
+    }
+      const totpStatus = await this.dvorazinskaService.provjeriTOTP(korime);
+      this.tajniKljuc = totpStatus?.totp[0].totp;
+    const dvaFA = await this.dvorazinskaService.provjeriDvaFA(korime);
+    if(dvaFA==1){
+      this.tajniKljuc = totpStatus.totp[0].totp;
+      this.ukljuceno = true;
+    }
+    else{
+      this.ukljuceno = false;
+      this.tajniKljuc = null;
+    } 
+  
   }
 
   async ngOnChange(){
