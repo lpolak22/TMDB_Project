@@ -26,6 +26,7 @@ export class KorisnikDAO {
             tip_korisnika_id: p["tip_korisnika_id"],
             adresa: p["adresa"] || null,
             status: p["status"] || null,
+            AktivnaDvoAut: p["AktivnaDvoAut"] || null,
             broj_telefona: p["broj_telefona"] || null,
             datum_rodenja: p["datum_rodenja"] || null,
         };
@@ -49,6 +50,7 @@ export class KorisnikDAO {
         tip_korisnika_id: p["tip_korisnika_id"],
         adresa: p["adresa"] || null,
         status: p["status"] || null,
+        AktivnaDvoAut: p["AktivnaDvoAut"] || null,
         broj_telefona: p["broj_telefona"] || null,
         datum_rodenja: p["datum_rodenja"] || null,
       };
@@ -60,8 +62,8 @@ export class KorisnikDAO {
   }
 
   dodaj(korisnik: KorisnikI) {
-    let sql = `INSERT INTO korisnik (ime, prezime, lozinka, email, korime, tip_korisnika_id, adresa, status, broj_telefona, datum_rodenja) 
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    let sql = `INSERT INTO korisnik (ime, prezime, lozinka, email, korime, tip_korisnika_id, adresa, status, AktivnaDvoAut, broj_telefona, datum_rodenja) 
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     let podaci = [
       korisnik.ime,
       korisnik.prezime,
@@ -71,6 +73,7 @@ export class KorisnikDAO {
       korisnik.tip_korisnika_id,
       korisnik.adresa,
       korisnik.status,
+      korisnik.AktivnaDvoAut,
       korisnik.broj_telefona || null,
       korisnik.datum_rodenja || null,
     ];
@@ -128,8 +131,8 @@ export class KorisnikDAO {
   }
   
   dodajKorisnik(korisnik: KorisnikI) {
-    let sql = `INSERT INTO korisnik (ime, prezime, lozinka, email, korime, tip_korisnika_id, adresa, status, broj_telefona, datum_rodenja) 
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    let sql = `INSERT INTO korisnik (ime, prezime, lozinka, email, korime, tip_korisnika_id, adresa, status, AktivnaDvoAut, broj_telefona, datum_rodenja) 
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     let podaci = [
       korisnik.ime,
       korisnik.prezime,
@@ -139,6 +142,7 @@ export class KorisnikDAO {
       korisnik.tip_korisnika_id,
       korisnik.adresa,
       korisnik.status,
+      korisnik.AktivnaDvoAut,
       korisnik.broj_telefona || null,
       korisnik.datum_rodenja || null,
     ];
@@ -158,4 +162,37 @@ export class KorisnikDAO {
         throw err;
     }
   }
+
+  async azurirajTOTP(korime: string, tajniTOTPkljuc: string | null){
+    const sql = "UPDATE korisnik SET totp = ? WHERE korime = ?;"
+    let podaci = [tajniTOTPkljuc, korime];
+    await this.baza.ubaciAzurirajPodatke(sql, podaci);
+    return true;
+  }
+
+  async azurirajDvaFA(korime: string, AktivnaDvoAut:string){
+    const sql = "UPDATE korisnik SET AktivnaDvoAut=? WHERE korime = ?;"
+    let podaci = [AktivnaDvoAut, korime];
+    await this.baza.ubaciAzurirajPodatke(sql, podaci);
+    return true;
+  }
+
+  async dajTOTP(korime:string){
+    
+    const sql = "SELECT totp FROM korisnik WHERE korime = ?";
+    
+		const podaci = await this.baza.dajPodatkePromise(sql, [korime]) as string;    
+    return podaci;
+
+   }
+
+   async dajDvaFA(korime:string){
+    
+    const sql = "SELECT AktivnaDvoAut FROM korisnik WHERE korime = ?";
+    
+		const podaci = await this.baza.dajPodatkePromise(sql, [korime]) as string;    
+    return podaci;
+
+   }
+
 }

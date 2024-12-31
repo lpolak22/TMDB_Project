@@ -1,5 +1,5 @@
 <main>
-  <div *ngIf="porukaGreske" class="error">{{ porukaGreske }}</div>
+  <div *ngIf="porukaGreske" class="poruka-greske">{{ porukaGreske }}</div>
 
   <div *ngIf="!porukaGreske" class="ukupan-broj-osoba">
     <p>Ukupan broj osoba: {{ ukupanBrojOsoba }}</p>
@@ -15,7 +15,7 @@
     </select>
   </div>
 
-  <div *ngIf="!porukaGreske" class="osobe-container">
+  <div *ngIf="!porukaGreske" class="kontejner-osoba">
     <div *ngFor="let osoba of prikazaneOsobe" class="osoba">
       <img 
         [src]="pretvoriSliku(osoba?.slika)" 
@@ -27,20 +27,15 @@
     </div>
   </div>
   
-
-  <div class="pagination">
+  <div class="paginacija">
     <button (click)="idiNaPrvuStranicu()" [disabled]="trenutnaStranica <= 1">Prva</button>
-
     <button (click)="onPromjenaStranice(trenutnaStranica - 1)" [disabled]="trenutnaStranica <= 1">
       Prethodna
     </button>
-
-    <span class="current-page">{{ trenutnaStranica }} / {{ ukupanBrojStranica }}</span>
-
+    <span class="trenutna-stranica">{{ trenutnaStranica }} / {{ ukupanBrojStranica }}</span>
     <button (click)="onPromjenaStranice(trenutnaStranica + 1)" [disabled]="trenutnaStranica >= ukupanBrojStranica">
       Sljedeća
     </button>
-
     <button (click)="idiNaPosljednjuStranicu()" [disabled]="trenutnaStranica >= ukupanBrojStranica">Posljednja</button>
   </div>
 </main>

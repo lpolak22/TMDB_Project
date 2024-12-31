@@ -7,6 +7,7 @@ export interface KorisnikI {
   tip_korisnika_id: number;
   adresa: string | null;
   status: number | null;
+  AktivnaDvoAut: number | null;
   broj_telefona: string | null;
   datum_rodenja: string | null;
 }

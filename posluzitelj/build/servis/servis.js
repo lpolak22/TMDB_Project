@@ -11,7 +11,6 @@ import { RestOsoba } from "./restOsoba.js";
 import { RestOsobaFilm } from "./restOsobaFilm.js";
 import { RestTMDB } from "./restTMDB.js";
 import { RestSlika } from "./restSlika.js";
-//import { provjeriToken } from "../zajednicko/jwt.js";
 const server = express();
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
@@ -78,6 +77,7 @@ function pokreniKonfiguraciju() {
     pripremiPutanjePocetnaKorisnici();
     pripremiPutanjePristupKorisnici();
     pripremiPutanjeDetaljiSlike();
+    pripremiPutanjeDvorazinskaAutentifikacija();
     server.get('*', (zahtjev, odgovor) => {
         odgovor.sendFile(path.join(__dirname(), '../../angular/filmovi/browser/index.html'));
     });
@@ -156,7 +156,7 @@ function pripremiPutanjePocetnaKorisnici() {
     let restKorisnik = new RestKorisnik();
     server.get("/servis/app/podaciPocetna", restKorisnik.getPocetna.bind(restKorisnik));
     server.get("/servis/app/podaciKorisnici", restKorisnik.getPodaciKorisnici.bind(restKorisnik));
-    server.post("/servis/app/zahtjev", restKorisnik.postZahtjev.bind(restKorisnik));
+    server.post("/servis/app/zahtjev", restKorisnik.postZahtjev.bind(restKorisnik)); //za zahtjev kad ga dodam
 }
 function pripremiPutanjePristupKorisnici() {
     let restKorisnik = new RestKorisnik();
@@ -167,4 +167,11 @@ function pripremiPutanjeDetaljiSlike() {
     server.post("/servis/app/detaljiSlike", restSlika.postSlika.bind(restSlika));
     server.delete("/servis/app/obrisiSlike:osoba_id", restSlika.deleteSlika.bind(restSlika));
     server.get("/servis/app/detaljiSlike:osoba_id", restSlika.getSveSlike.bind(restSlika));
+}
+function pripremiPutanjeDvorazinskaAutentifikacija() {
+    let restKorisnik = new RestKorisnik();
+    server.put("/servis/app/dvorazinska/:id", restKorisnik.stvoriTOTP.bind(restKorisnik));
+    server.get("/servis/app/dvorazinska", restKorisnik.provjeriTOTP.bind(restKorisnik));
+    server.get("/servis/app/aktivnaDvaFA/:korime", restKorisnik.provjeriDvaFA.bind(restKorisnik));
+    //	server.post("/servis/app/aktivacijaDvoAut", restKorisnik.postAktivacijaDvoAut.bind(restKorisnik));
 }

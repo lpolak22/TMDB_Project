@@ -1,1 +1,6 @@
-<p>aktiviranje-dvorazinske works!</p>
+<div class="dvorazinska-container">
+  <h2>Dvorazinska autentikacija</h2>
+  <p *ngIf="tajniKljuc">Tajni ključ: <strong>{{ tajniKljuc }}</strong></p>
+  <button (click)="ukljuciTOTP()" *ngIf="!ukljuceno">Uključi</button>
+  <button (click)="iskljuciTOTP()" *ngIf="ukljuceno">Isključi</button>
+</div>

@@ -1,5 +1,6 @@
 import { KorisnikDAO } from "./korisnikDAO.js";
 import * as kodovi from "../zajednicko/kodovi.js";
+import { generirajNasumicniBroj } from "../zajednicko/totp.js";
 export class RestKorisnik {
     kdao;
     constructor() {
@@ -23,6 +24,7 @@ export class RestKorisnik {
             email: tijelo.korisnik.email,
             adresa: tijelo.korisnik.adresa || null,
             status: 1,
+            AktivnaDvoAut: 0,
             broj_telefona: tijelo.korisnik.broj_telefona || null,
             datum_rodenja: tijelo.korisnik.datum_rodenja || null,
         };
@@ -181,6 +183,7 @@ export class RestKorisnik {
             email: tijelo.email,
             adresa: tijelo.adresa || null,
             status: 0,
+            AktivnaDvoAut: 0,
             broj_telefona: tijelo.broj_telefona || null,
             datum_rodenja: tijelo.datum_rodenja || null,
         };
@@ -202,5 +205,82 @@ export class RestKorisnik {
     }
     async postZahtjev(zahtjev, odgovor) {
         odgovor.type("application/json");
+    }
+    async stvoriTOTP(zahtjev, odgovor) {
+        odgovor.type("application/json");
+        const korime = zahtjev.body.korime;
+        const AktivnaDvoAut = zahtjev.body.AktivnaDvoAut;
+        const totpSifra = zahtjev.body.totpSifra;
+        const { deaktivacija } = zahtjev.body;
+        if (!korime) {
+            odgovor.status(400).send({ greska: "nema korime za totp azuriranje" });
+            return;
+        }
+        try {
+            if (deaktivacija) {
+                await this.kdao.azurirajDvaFA(korime, AktivnaDvoAut);
+                odgovor.status(201).send({ status: "uspjeh" });
+            }
+            else {
+                const korisnik = await this.kdao.daj(korime);
+                if (!korisnik) {
+                    odgovor.status(400).send({ greska: "Korisnik ne postoji." });
+                    return;
+                }
+                if (totpSifra == null) {
+                    let tajniTOTPkljuc = generirajNasumicniBroj();
+                    await this.kdao.azurirajTOTP(korime, tajniTOTPkljuc);
+                    await this.kdao.azurirajDvaFA(korime, AktivnaDvoAut);
+                }
+                else {
+                    await this.kdao.azurirajDvaFA(korime, AktivnaDvoAut);
+                }
+                odgovor.status(201).send({ status: "uspjeh" });
+            }
+        }
+        catch (err) {
+            console.error("Greška kod upravljanja totp:", err);
+            odgovor.status(400).send({ greska: "greska kod azuriranje totp" });
+        }
+    }
+    async provjeriTOTP(zahtjev, odgovor) {
+        odgovor.type("application/json");
+        const korime = zahtjev.query['korime'];
+        if (!korime) {
+            odgovor.status(400).send({ greska: "Nema korime za TOTP provjeru" });
+            return;
+        }
+        try {
+            const totp = await this.kdao.dajTOTP(korime);
+            if (totp === null) {
+                odgovor.status(200).send({ totp: null });
+            }
+            else {
+                odgovor.status(200).send({ totp });
+            }
+        }
+        catch (err) {
+            odgovor.status(400).send({ greska: "Greška pri provjeri TOTP-a" });
+        }
+    }
+    async provjeriDvaFA(zahtjev, odgovor) {
+        odgovor.type("application/json");
+        const korime = zahtjev.params['korime'];
+        if (!korime) {
+            odgovor.status(400).send({ greska: "Nema korime za 2FA provjeru" });
+            return;
+        }
+        try {
+            const dvaFA = await this.kdao.dajDvaFA(korime);
+            if (dvaFA === null) {
+                odgovor.status(400).send({ greska: "greska" });
+            }
+            else {
+                odgovor.status(200).send({ dvaFA });
+            }
+        }
+        catch (err) {
+            odgovor.status(400).send({ greska: "Greška pri provjeri 2FA" });
+        }
     }
 }

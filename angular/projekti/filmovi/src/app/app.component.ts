@@ -19,8 +19,8 @@ export class AppComponent {
   tipKorisnika(): number | null {
     const korisnik = sessionStorage.getItem('korisnik');
     if (korisnik) {
-      const parsedKorisnik = JSON.parse(korisnik);
-      return parsedKorisnik.tip_korisnika_id;
+      const sesijaTipKorisnika = JSON.parse(korisnik);
+      return sesijaTipKorisnika.tip_korisnika_id;
     }
     return null;
   }

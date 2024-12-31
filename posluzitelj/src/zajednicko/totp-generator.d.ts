@@ -1,6 +1,4 @@
-// totp-generator.d.ts
 declare module "totp-generator" {
-  // Define the structure of TOTP object
   export const TOTP: {
     generate: (
       secret: string,

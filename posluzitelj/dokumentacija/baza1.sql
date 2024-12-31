@@ -17,6 +17,7 @@ CREATE TABLE "korisnik"(
   "broj_telefona" VARCHAR(15),
   "datum_rodenja" VARCHAR(20),
   "totp" VARCHAR(45),
+  "AktivnaDvoAut" VARCHAR(45),
   CONSTRAINT "fk_korisnik_tip_korisnika"
     FOREIGN KEY("tip_korisnika_id")
     REFERENCES "tip_korisnika"("id")
@@ -36,3 +37,5 @@ SELECT * from korisnik;
 delete from korisnik;
 
 UPDATE korisnik SET status=1 WHERE korime="lpolak22";
+
+UPDATE korisnik SET totp = 123456, AktivnaDvoAut=1 WHERE korime = 'lpolak22';

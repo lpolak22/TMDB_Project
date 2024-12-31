@@ -52,6 +52,7 @@ CREATE TABLE "korisnik"(
   "broj_telefona" VARCHAR(15),
   "datum_rodenja" VARCHAR(45),
   "totp" VARCHAR(45),
+  "AktivnaDvoAut" INTEGER,
   CONSTRAINT "id_UNIQUE"
     UNIQUE("id"),
   CONSTRAINT "fk_korisnik_tip_korisnika1"
@@ -66,7 +67,10 @@ select * from tip_korisnika;
 
 
 INSERT into korisnik (id, korime, lozinka, email, tip_korisnika_id) values (1, "admin", "rwa", "admin@gmail.com", 1);
+
+INSERT into korisnik (ime, prezime, adresa, korime, lozinka, email, tip_korisnika_id, status, broj_telefona) values ("admin", "", " 1","admin", "2317c5cc4e67b0cb5f55b26fdcf5fe0a24012503ae99d22b26f3c866d281be2b", "admin@gmail.com", 1, 1, "+385981231234");
 INSERT into korisnik (id, ime, prezime, adresa, korime, lozinka, email, tip_korisnika_id) values (2, "Registrirani", "Korisnik", "Korisnička 1","obican", "rwa", "korisnik@gmail.com", 2);
+
 INSERT into korisnik (id, ime, prezime, adresa, korime, lozinka, email, tip_korisnika_id) values ("Lucija", "Polak", "Korisnička 1","lpolak22", "lp", "lpolak22@foi.hr", 2);
 
 select * from korisnik;
@@ -82,7 +86,7 @@ INSERT INTO osoba (id, ime_prezime, poznat_po, slika, popularnost) VALUES (10, '
 INSERT INTO osoba (id, ime_prezime, poznat_po, slika, popularnost) VALUES (11, 'Bud Spencer', 'Gluma', '/cVbBoKxRDFOdDKwdpRmxVazDWlE.jpg', 10);
 
 
-DELETE FROM film;
+DELETE FROM korisnik;
 
 SELECT 
     f.id, 
@@ -104,3 +108,5 @@ FROM film
 WHERE datum_izdavanja BETWEEN '1970-01-01' AND '2024-12-31';
 
 SELECT * FROM slika WHERE osoba_id = 84698
+
+SELECT totp FROM korisnik WHERE korime = 'lpolak22';
