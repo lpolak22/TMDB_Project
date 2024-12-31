@@ -21,8 +21,12 @@ export class PrijavaService {
 
       if (response.ok) {
         const korisnik = await response.json();
-        sessionStorage.setItem('korisnik', JSON.stringify(korisnik));
-        return korisnik;
+        if(korisnik.test==1.0){
+          return korisnik;
+        }
+        else {
+          return korisnik;
+        }
 
       } else {
         const error = await response.json();
@@ -34,4 +38,44 @@ export class PrijavaService {
     }
   }
 
+
+  async provjeriDvaFA(korime: string) {
+    try {
+        
+        let response = await fetch(`${this.restServis}app/aktivnaDvaFA/${korime}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        });
+        
+        if (response.status === 200) {
+            let data = await response.json();
+            
+            return data.dvaFA[0]?.AktivnaDvoAut;
+        } else {
+            throw new Error('Neuspješno dohvacanje 2FA');
+        }
+    } catch (error) {
+        throw new Error('Neuspješno dohvacanje 2FA-a');
+    }
+    }
+    
+    async provjeriTOTP(korime: string) {
+      try {
+          
+          let response = await fetch(`${this.restServis}app/dvorazinska?korime=${korime}`, {
+              method: 'GET',
+              headers: { 'Content-Type': 'application/json' },
+          });
+          
+          if (response.status === 200) {
+              let data = await response.json();
+              return data;
+          } else {
+              throw new Error('Neuspješno dohvacanje korisnika');
+          }
+      } catch (error) {
+          console.error('Greška prilikom provjere TOTP-a:', error);
+          throw new Error('Neuspješno dohvacanje TOTP-a');
+      }
+      }
 }

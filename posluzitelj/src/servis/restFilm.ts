@@ -8,78 +8,6 @@ export class RestFilm {
     this.fDao = new FilmDAO();
   }
 
-//   async getFilmovi(zahtjev: Request, odgovor: Response) {
-//     odgovor.type("application/json");
-
-//     try {
-//         const { datumOd, datumDo, stranica } = zahtjev.query;
-
-//         const dozvoljeniParametri = ["datumOd", "datumDo", "stranica"];
-//         const sviParametri = Object.keys(zahtjev.query);
-
-//         const neocekivaniParametri = sviParametri.filter(param => !dozvoljeniParametri.includes(param));
-
-//         if (neocekivaniParametri.length > 0) {
-//             odgovor.status(422).send({ greska: "neočekivani podaci" });
-//             return;
-//         }
-
-//         let stranicaBroj = parseInt(stranica as string, 10) || 1;
-//         const brojElemenata = 20; 
-//         if (stranicaBroj < 1) {
-//             odgovor.status(400).send({ greska: "broj stranice mora biti veći od 0" });
-//             return;
-//         }
-
-//         let offset = (stranicaBroj - 1) * brojElemenata;
-
-//         let datumOdParsed: Date | null = null;
-//         let datumDoParsed: Date | null = null;
-
-//         const sada = new Date(); 
-
-//         if (datumOd) {
-//             datumOdParsed = this.pretvoriUDate(datumOd as string);
-//         }
-
-//         if (datumDo) {
-//             datumDoParsed = this.pretvoriUDate(datumDo as string);
-//         }
-
-//         if (!datumOd && !datumDo) {
-//             odgovor.status(422).send({ greska: "neočekivani podaci" });
-//             return;
-//         }
-
-//         if (!datumOdParsed) datumOdParsed = new Date(0);
-//         if (!datumDoParsed) datumDoParsed = sada;
-
-//         try {
-//             const filmovi = await this.fDao.dajFilmovePoDatumuSaStranica(
-//                 datumOdParsed,
-//                 datumDoParsed,
-//                 offset,
-//                 brojElemenata
-//             );
-
-//             if (filmovi.length === 0) {
-//                 odgovor.status(404).send({ greska: "nepostojeći resurs" });
-//                 return;
-//             }
-
-//             odgovor.status(200).send(filmovi);
-//         } catch (greska) {
-//             odgovor
-//                 .status(400)
-//                 .send({ greska: "greška pri dohvaćanju filmova" });
-//         }
-//     } catch (greska) {
-//         odgovor
-//             .status(400)
-//             .send({ greska: "greška u unosu datuma" });
-//     }
-// }
-
 async getSviFilmovi(zahtjev: Request, odgovor: Response) {
     odgovor.type("application/json");
 
@@ -144,16 +72,6 @@ async getSviFilmovi(zahtjev: Request, odgovor: Response) {
         odgovor.status(400).send({ greska: "doslo je do greške na serveru" });
     }
 }
-
-
-// private pretvoriUDate(datum: string): Date {
-//     if (/^\d+$/.test(datum)) {
-//         return new Date(parseInt(datum, 10));
-//     }
-
-//     return new Date(datum);
-// }
-
 
    postFilmovi(zahtjev: Request, odgovor: Response) {
     odgovor.type("application/json");

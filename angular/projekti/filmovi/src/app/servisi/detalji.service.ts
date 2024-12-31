@@ -50,53 +50,7 @@ export class DetaljiService {
       throw new Error('Greška pri dohvaćanju povezanih filmova');
     }
   }
-  
-  
-  // async loadSlikeOsobe(id: string) {
-  //   try {
-  //     const response = await fetch(`${environment.restServis}app/detalji/${id}`, {
-  //       headers: {
-  //         Accept: 'application/json',
-  //       },
-  //     });
-  
-  //     if (response.status === 200) {
-  //       const data = await response.json();
-  //       const slikePutanje = data.slike.slice(0, 20);
-  //       this.slikeOsobe = slikePutanje.map((slika: string) => this.prebaciSliku(slika));
-  
-  //       for (const slika of slikePutanje) {
-  //         await this.posaljiSlikuUBazu(id, slika);
-  //       }
-  //     } else {
-  //       throw new Error('Slike osobe nisu dostupne');
-  //     }
-  //   } catch (error) {
-  //     console.error('Greška pri dohvaćanju slika osobe:', error);
-  //   }
-  // }
-  
-  // private async posaljiSlikuUBazu(osobaId: string, slikaPutanja: string) {
-    
-  //   try {
-  //     const response = await fetch(`${environment.restServis}app/detaljiSlike`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         slika_putanja: slikaPutanja,
-  //         osoba_id: osobaId,
-  //       }),
-  //     });
-      
-  //     if (!response.ok) {
-  //       console.error('Greška pri dodavanju slike u bazu:', await response.text());
-  //     }
-  //   } catch (error) {
-  //     console.error('Greška pri slanju slike u bazu:', error);
-  //   }
-  // }
+
   async loadOsobaDetalji(id: string) {
     try {
       const response = await fetch(`${environment.restServis}osoba/${id}`, {

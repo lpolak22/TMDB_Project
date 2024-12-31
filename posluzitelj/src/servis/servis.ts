@@ -201,6 +201,7 @@ function pripremiPutanjePristupKorisnici(){
 	let restKorisnik = new RestKorisnik();	
 	server.put("/servis/app/korisniciPristup/:korime", restKorisnik.putPristup.bind(restKorisnik));
 	
+	server.get("/servis/app/status/:korime", restKorisnik.getStatus.bind(restKorisnik));
 }
 
 function pripremiPutanjeDetaljiSlike(){

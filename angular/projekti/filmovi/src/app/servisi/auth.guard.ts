@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
+import { StatusService } from './status.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private statusService: StatusService) {}
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     const korisnik = await this.korisnikSesija();
@@ -28,9 +29,14 @@ export class AuthGuard implements CanActivate {
     }
   
     const tipKorisnika = korisnik?.tip_korisnika_id;
+    const status = await this.statusService.dobaviStatus(korisnik.korime);
+    
     if (tipKorisnika === 1 && ['/korisnici', '/dodavanje', '/filtriranje-filmova', '/dvorazinska'].includes(state.url)) {
       return true;
-    } else if (tipKorisnika === 2 && ['/', '/osobe', '/filtriranje-filmova', '/dvorazinska',`/detalji/${route.params['id']}`].includes(state.url)) {
+    } else if (tipKorisnika === 2 && status=='1' && ['/', '/osobe', '/filtriranje-filmova', '/dvorazinska',`/detalji/${route.params['id']}`].includes(state.url)) {
+      return true;
+    }
+    else if(tipKorisnika === 2 && status=='0' && ['/', '/dvorazinska'].includes(state.url)){
       return true;
     }
   

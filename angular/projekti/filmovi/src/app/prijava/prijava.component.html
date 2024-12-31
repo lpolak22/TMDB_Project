@@ -1,13 +1,20 @@
 <div class="prijava">
-    <form (ngSubmit)="prijaviSe(prijavaForm.value)" #prijavaForm="ngForm">
-      <label for="korime">Korisničko ime:</label>
-      <input id="korime" name="korime" ngModel required />
-  
-      <label for="lozinka">Lozinka:</label>
-      <input id="lozinka" type="password" name="lozinka" ngModel required />
-  
-      <button type="submit">Prijavi se</button>
-    </form>
-    <p>{{ poruka }}</p>
-  </div>
-  
+  <form *ngIf="!zahtijevaTOTP" (ngSubmit)="prijaviSe(prijavaForm.value)" #prijavaForm="ngForm">
+    <label for="korime">Korisničko ime:</label>
+    <input id="korime" name="korime" ngModel required />
+
+    <label for="lozinka">Lozinka:</label>
+    <input id="lozinka" type="password" name="lozinka" ngModel required />
+
+    <button type="submit">Prijavi se</button>
+  </form>
+
+  <form *ngIf="zahtijevaTOTP" (ngSubmit)="provjeriTOTP()" #totpForm="ngForm">
+    <label for="totpKod">Unesite TOTP kod:</label>
+    <input id="totpKod" name="totpKod" [(ngModel)]="totpKod" required />
+
+    <button type="submit">Potvrdi TOTP kod</button>
+  </form>
+
+  <p>{{ poruka }}</p>
+</div>

@@ -33,7 +33,7 @@ export class AppComponent {
     return this.tipKorisnika() === 2;
   }
 
-  async odjaviKorisnika(): Promise<void> {
+  odjaviKorisnika() {
     sessionStorage.removeItem('korisnik');
     this.router.navigate(['/prijava']);
   }

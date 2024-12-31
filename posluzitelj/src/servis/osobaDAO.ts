@@ -57,14 +57,6 @@ export class OsobaDAO {
         }
     }
 
-	// azuriraj(id:number, osoba:OsobaTmdbI) {
-	// 	let sql = `UPDATE osoba SET ime_prezime=?, poznat_po=?, slika=?, popularnost=? WHERE id=?`;
-  //       let podaci = [osoba.id,osoba.ime_prezime,
-  //           osoba.poznat_po,osoba.slika,osoba.popularnost];
-	// 	this.baza.ubaciAzurirajPodatke(sql,podaci);
-	// 	return true;
-	// }
-
   async dajSveStranica(offset: number, brojElemenata: number): Promise<Array<OsobaTmdbI>> {
     const sql = "SELECT * FROM osoba LIMIT ? OFFSET ?;";
     const podaci = await this.baza.dajPodatkePromise(sql, [brojElemenata, offset]) as Array<OsobaTmdbI>;

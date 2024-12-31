@@ -96,14 +96,22 @@ export class RestKorisnik {
         try {
             const korisnik = await this.kdao.prijaviKorisnika(korime, kodovi.kreirajSHA256(lozinka, "moja sol"));
             if (korisnik) {
-                zahtjev.session.korisnik = {
-                    korime: korisnik.korime,
-                    tip_korisnika_id: korisnik.tip_korisnika_id
-                };
-                odgovor.status(201).send({
-                    korime: korisnik.korime,
-                    tip_korisnika_id: korisnik.tip_korisnika_id
-                });
+                let dvaFA = await this.kdao.korisnikImaDvaFA(korime);
+                if (dvaFA?.AktivnaDvoAut != '1.0') {
+                    this.stvoriSesiju(korisnik, zahtjev);
+                    odgovor.status(201).send({
+                        korime: korisnik.korime,
+                        tip_korisnika_id: korisnik.tip_korisnika_id
+                    });
+                }
+                else {
+                    this.stvoriSesiju(korisnik, zahtjev);
+                    odgovor.status(201).send({
+                        korime: korisnik.korime,
+                        tip_korisnika_id: korisnik.tip_korisnika_id,
+                        test: 1
+                    });
+                }
             }
             else {
                 odgovor.status(401).send({ greska: "Neispravno korisničko ime ili lozinka" });
@@ -113,6 +121,12 @@ export class RestKorisnik {
             console.error("Greška pri provjeri korisnika:", err);
             odgovor.status(400).send({ greska: "Pogreška na poslužitelju" });
         }
+    }
+    async stvoriSesiju(korisnik, zahtjev) {
+        zahtjev.session.korisnik = {
+            korime: korisnik.korime,
+            tip_korisnika_id: korisnik.tip_korisnika_id
+        };
     }
     async getPocetna(zahtjev, odgovor) {
         odgovor.type("application/json");
@@ -277,6 +291,26 @@ export class RestKorisnik {
             }
             else {
                 odgovor.status(200).send({ dvaFA });
+            }
+        }
+        catch (err) {
+            odgovor.status(400).send({ greska: "Greška pri provjeri 2FA" });
+        }
+    }
+    async getStatus(zahtjev, odgovor) {
+        odgovor.type("application/json");
+        const korime = zahtjev.params['korime'];
+        if (!korime) {
+            odgovor.status(400).send({ greska: "Nema korime za status provjeru" });
+            return;
+        }
+        try {
+            const status = await this.kdao.getStatus(korime);
+            if (status === null) {
+                odgovor.status(400).send({ greska: "greska" });
+            }
+            else {
+                odgovor.status(200).send({ status });
             }
         }
         catch (err) {

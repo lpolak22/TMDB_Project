@@ -39,3 +39,5 @@ delete from korisnik;
 UPDATE korisnik SET status=1 WHERE korime="lpolak22";
 
 UPDATE korisnik SET totp = 123456, AktivnaDvoAut=1 WHERE korime = 'lpolak22';
+
+SELECT AktivnaDvoAut FROM korisnik WHERE korime = 'lpolak22';

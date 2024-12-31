@@ -6,28 +6,6 @@ export class FilmDAO {
     constructor() {
         this.baza = new Baza(path.resolve(__dirname(), "../../podaci/RWA2024lpolak22_servis.sqlite"));
     }
-    // async dajSve(): Promise<FilmTmdbI[]> {
-    //   const sql = "SELECT * FROM film;";
-    //   try {
-    //     const podaci = await this.baza.dajPodatkePromise(sql, []) as Array<any>;
-    //     if (!podaci || podaci.length === 0) {
-    //       return [];
-    //     }
-    //     return podaci.map((p) => ({
-    //       id: p.id ?? 0,
-    //       jezik: p.jezik ?? "",
-    //       originalni_naslov: p.originalni_naslov ?? "",
-    //       naslov: p.naslov ?? "",
-    //       popularnost: p.popularnost ?? 0,
-    //       slikica_postera: p.slikica_postera ?? "",
-    //       datum_izdavanja: p.datum_izdavanja ?? "",
-    //       opis: p.opis ?? ""
-    //     }));
-    //   } catch (err) {
-    //     console.error("Greška pri dohvaćanju svih filmova:", err);
-    //     throw new Error("Greška pri dohvaćanju svih filmova");
-    //   }
-    // }
     async daj(id) {
         const sql = "SELECT * FROM film WHERE id=?;";
         try {
@@ -90,28 +68,6 @@ export class FilmDAO {
             return false;
         }
     }
-    // async azuriraj(id: number, film: FilmTmdbI): Promise<boolean> {
-    //   const sql = `
-    //     UPDATE film SET jezik=?, originalni_naslov=?, naslov=?, popularnost=?, slikica_postera=?, datum_izdavanja=?, opis=? WHERE id=?;
-    //   `;
-    //   const podaci = [
-    //     film.jezik ?? "",
-    //     film.originalni_naslov ?? "",
-    //     film.naslov ?? "",
-    //     film.popularnost ?? 0,
-    //     film.slikica_postera ?? "",
-    //     film.datum_izdavanja ?? "",
-    //     film.opis ?? "",
-    //     id
-    //   ];
-    //   try {
-    //     await this.baza.ubaciAzurirajPodatke(sql, podaci);
-    //     return true;
-    //   } catch (err) {
-    //     console.error("Greška pri ažuriranju filma:", err);
-    //     return false;
-    //   }
-    // }
     async dajSveStranica(offset, brojElemenata) {
         const sql = "SELECT * FROM film LIMIT ? OFFSET ?;";
         try {

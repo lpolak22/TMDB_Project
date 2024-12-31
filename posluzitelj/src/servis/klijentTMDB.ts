@@ -8,18 +8,6 @@ export class TMDBklijent {
         this.apiKljuc = apiKljuc;
     }
 
-    // public async dohvatiOsobe(stranica: number): Promise<{ osobe: Array<OsobaTmdbI>, ukupnoStranica: number }> {
-    //     const resurs = "/person/popular";
-    //     const parametri = { page: stranica };
-    //     const odgovor = await this.obaviZahtjev(resurs, parametri);
-    //     const json = JSON.parse(odgovor);
-
-    //     const ukupnoStranica = json.total_pages;
-    //     const osobe = json.results as Array<OsobaTmdbI>;
-
-    //     return { osobe, ukupnoStranica };
-    // }
-
     public async pretraziOsobePoImenu(trazi: string, stranica: number): Promise<{ osobe: Array<OsobaTmdbI>, ukupnoStranica: number }> {
         let resurs = "/search/person";
         let parametri = {

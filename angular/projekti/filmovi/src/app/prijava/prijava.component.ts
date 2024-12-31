@@ -6,14 +6,21 @@ import { ReCaptchaV3Service } from 'ng-recaptcha';
 @Component({
   selector: 'app-prijava',
   standalone: false,
-  
   templateUrl: './prijava.component.html',
-  styleUrl: './prijava.component.scss'
+  styleUrl: './prijava.component.scss',
 })
 export class PrijavaComponent {
-    poruka: string = '';
+  poruka: string = '';
+  zahtijevaTOTP: boolean = false;
+  korime: string = '';
+  tip_korisnika_id: number = 0;
+  totpKod: string = '';
 
-  constructor(private prijavaService: PrijavaService, private router: Router, private recaptchaV3Service: ReCaptchaV3Service) {}
+  constructor(
+    private prijavaService: PrijavaService,
+    private router: Router,
+    private recaptchaV3Service: ReCaptchaV3Service
+  ) {}
 
   async prijaviSe(form: any): Promise<void> {
     const { korime, lozinka } = form;
@@ -34,8 +41,14 @@ export class PrijavaComponent {
       const korisnik = await this.prijavaService.prijaviKorisnika(korime, lozinka);
 
       if (korisnik) {
-        this.poruka = `Dobrodošli, ${korisnik.ime} ${korisnik.prezime}!`;
-        this.router.navigate(['/']);
+        if (korisnik.test === 1) {
+          this.zahtijevaTOTP = true;
+          this.korime = korisnik.korime;
+          this.tip_korisnika_id = korisnik.tip_korisnika_id
+        } else {
+          sessionStorage.setItem('korisnik', JSON.stringify(korisnik));
+          this.router.navigate(['/']);
+        }
       } else {
         this.poruka = 'Neispravno korisničko ime ili lozinka.';
       }
@@ -43,5 +56,23 @@ export class PrijavaComponent {
       this.poruka = error instanceof Error ? `Greška: ${error.message}` : 'Prijava nije uspjela.';
     }
   }
-  
+
+  async provjeriTOTP(): Promise<void> {
+    try {
+      const rezultat = await this.prijavaService.provjeriTOTP(this.korime);
+
+      if (rezultat.totp[0].totp == this.totpKod) {
+        let korime = this.korime;
+        let tip_korisnika_id = this.tip_korisnika_id;
+        let sesija = {korime, tip_korisnika_id};
+        sessionStorage.setItem('korisnik', JSON.stringify(sesija));
+        
+        this.router.navigate(['/']);
+      } else {
+        this.poruka = 'Neispravan TOTP kod.';
+      }
+    } catch (error) {
+      this.poruka = error instanceof Error ? `Greška: ${error.message}` : 'Pogreška pri provjeri TOTP koda.';
+    }
+  }
 }

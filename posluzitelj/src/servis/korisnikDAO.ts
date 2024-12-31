@@ -123,6 +123,24 @@ export class KorisnikDAO {
 		}
 	}
 
+  async korisnikImaDvaFA(korime: string): Promise<{ AktivnaDvoAut: string } | null> {
+    const sql = `SELECT AktivnaDvoAut FROM korisnik WHERE korime = ?`;
+    const podaci = [korime];
+
+    try {
+        const rezultat = await this.baza.dajPodatkePromise(sql, podaci) as { AktivnaDvoAut: string }[];
+        if (rezultat && rezultat.length > 0 && rezultat[0]) {
+            return rezultat[0];
+        } else {
+            return null;
+        }
+    } catch (err) {
+        console.error("Greška prilikom provjere 2FA: ", err);
+        return null;
+    }
+}
+
+
   async azurirajKorisnika(korime: string, status: number) {
     let sql = `UPDATE korisnik SET status = ? WHERE korime = ?;`;
     let podaci = [status, korime];
@@ -187,12 +205,14 @@ export class KorisnikDAO {
    }
 
    async dajDvaFA(korime:string){
-    
     const sql = "SELECT AktivnaDvoAut FROM korisnik WHERE korime = ?";
-    
 		const podaci = await this.baza.dajPodatkePromise(sql, [korime]) as string;    
     return podaci;
-
    }
 
+   async getStatus(korime: string){
+    const sql = "SELECT status FROM korisnik WHERE korime = ?";
+    const podaci = await this.baza.dajPodatkePromise(sql, [korime]) as string;    
+    return podaci;
+   }
 }
