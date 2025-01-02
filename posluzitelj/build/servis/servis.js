@@ -156,7 +156,7 @@ function pripremiPutanjePocetnaKorisnici() {
     let restKorisnik = new RestKorisnik();
     server.get("/servis/app/podaciPocetna", restKorisnik.getPocetna.bind(restKorisnik));
     server.get("/servis/app/podaciKorisnici", restKorisnik.getPodaciKorisnici.bind(restKorisnik));
-    server.post("/servis/app/zahtjev", restKorisnik.postZahtjev.bind(restKorisnik)); //za zahtjev kad ga dodam
+    server.put("/servis/app/zahtjev/:korime", restKorisnik.putZahtjev.bind(restKorisnik)); //za zahtjev kad ga dodam
 }
 function pripremiPutanjePristupKorisnici() {
     let restKorisnik = new RestKorisnik();

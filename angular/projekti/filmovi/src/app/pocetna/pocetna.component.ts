@@ -26,7 +26,7 @@ export class PocetnaComponent {
 
   async posaljiZahtjev() {
     try {
-      await this.pocetnaService.posaljiZahtjev();
+      await this.pocetnaService.posaljiZahtjev(this.korisnik.korime);
       this.prikaziGumb = false;
       alert('Zahtjev uspješno poslan!');
     } catch (error) {

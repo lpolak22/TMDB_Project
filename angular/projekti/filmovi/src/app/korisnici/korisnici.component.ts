@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { KorisniciService } from '../servisi/korisnici.service';
+import { StatusService } from '../servisi/status.service';
 
 @Component({
   selector: 'app-korisnici',
@@ -12,7 +13,7 @@ export class KorisniciComponent implements OnInit {
   errorMessage: string = '';
   prijavljeniKorisnikKorime: string = '';
 
-  constructor(private korisniciService: KorisniciService) {}
+  constructor(private korisniciService: KorisniciService, private statusService: StatusService) {}
 
   ngOnInit() {
     this.loadPrijavljeniKorisnik();
@@ -63,4 +64,5 @@ export class KorisniciComponent implements OnInit {
       this.errorMessage = 'Greška prilikom zabrane pristupa.';
     }
   }
+  
 }

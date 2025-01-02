@@ -25,18 +25,20 @@ export class PocetnaService {
     }
   }
 
-  async posaljiZahtjev(): Promise<any> {
+  async posaljiZahtjev(korime: string): Promise<any> {
     try {
-      const response = await fetch(`${this.restServis}app/zahtjev`, {
-        method: 'POST',
+      const response = await fetch(`${this.restServis}app/zahtjev/${korime}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ poruka: 'Zahtjev za korištenje servisa' }),
+        body: JSON.stringify({ status: 2 }),
       });
-
+  
       if (response.ok) {
-        return await response.json();
+        const korisnik = await response.json();
+        localStorage.setItem('korisnikZahtjev', JSON.stringify(korisnik));
+        return korisnik;
       } else {
         const error = await response.json();
         throw new Error(error.greska || 'Neuspješna prijava');
@@ -46,4 +48,5 @@ export class PocetnaService {
       throw error;
     }
   }
+  
 }
