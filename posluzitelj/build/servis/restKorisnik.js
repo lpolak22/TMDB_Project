@@ -158,6 +158,33 @@ export class RestKorisnik {
             odgovor.status(400).send({ greska: "pogreska na posluzitelju" });
         }
     }
+    obrisiWeb(zahtjev, odgovor) {
+        odgovor.type("application/json");
+        let korime = zahtjev.params["korime"];
+        if (!korime) {
+            odgovor.status(400).send({ greska: "nedostaje korime!" });
+            return;
+        }
+        this.kdao.daj(korime)
+            .then((korisnik) => {
+            if (!korisnik) {
+                odgovor.status(400).send({ greska: "korisnik ne postoji" });
+                return;
+            }
+            return this.kdao.obrisiWeb(korime)
+                .then(() => {
+                odgovor.status(201).send({ poruka: "uspjeh" });
+            })
+                .catch((err) => {
+                console.error("greska pri brisanju korisnika:", err);
+                odgovor.status(400).send({ greska: "greska pri brisanju korisnika" });
+            });
+        })
+            .catch((err) => {
+            console.error("greska pri provjeri korisnika:", err);
+            odgovor.status(400).send({ greska: "greska pri provjeri korisnika" });
+        });
+    }
     async getPodaciKorisnici(zahtjev, odgovor) {
         odgovor.type("application/json");
         try {
@@ -227,22 +254,21 @@ export class RestKorisnik {
             odgovor.status(400).send({ greska: "greska pri unosu korisnika" });
         }
     }
-    async putZahtjev(zahtjev, odgovor) {
-        odgovor.type("application/json");
-        const { status } = zahtjev.body;
-        const korime = zahtjev.params['korime'];
-        if (!korime) {
-            odgovor.status(400).send({ greska: "nedostaju podaci za azuriranje statusa korisnika na pocetnoj" });
-            return;
-        }
-        try {
-            await this.kdao.azurirajKorisnika(korime, status);
-            odgovor.status(201).send({ status: "uspjeh" });
-        }
-        catch (err) {
-            odgovor.status(400).send({ greska: "pogreska kod azuriranja statusa korisnika" });
-        }
-    }
+    // async putZahtjev(zahtjev: Request, odgovor: Response) {
+    //   odgovor.type("application/json");
+    //   const { status } = zahtjev.body;
+    //   const korime = zahtjev.params['korime'];
+    //   if (!korime) {
+    //       odgovor.status(400).send({ greska: "nedostaju podaci za azuriranje statusa korisnika na pocetnoj" });
+    //       return;
+    //   }
+    //   try {
+    //       await this.kdao.azurirajKorisnika(korime, status);
+    //       odgovor.status(201).send({ status: "uspjeh" });
+    //   } catch (err) {
+    //       odgovor.status(400).send({ greska: "pogreska kod azuriranja statusa korisnika" });
+    //   }
+    // }
     async stvoriTOTP(zahtjev, odgovor) {
         odgovor.type("application/json");
         const korime = zahtjev.body.korime;

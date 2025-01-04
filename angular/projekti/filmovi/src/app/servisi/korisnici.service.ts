@@ -50,7 +50,26 @@ export class KorisniciService {
       throw error;
     }
   }
-    
+  
+  async obrisiKorisnikaWeb(korime: string) {
+    let korimePrijavljen = sessionStorage.getItem(korime);
+    try {
+      let response = await fetch(`${this.restServis}app/korisnici/${korime}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!response.ok) {
+        const pogreskaInfo = await response.json();
+        throw new Error(pogreskaInfo.greska || 'Brisanje korisnika nije uspjelo');
+      }
+      
+    } catch (error) {
+      console.error('Greška prilikom brisanja korisnika:', error);
+      throw error;
+    }
+  }
+
   async dajPristup(korime: string) {
     try {
       const response = await fetch(`${this.restServis}app/korisniciPristup/${korime}`, {

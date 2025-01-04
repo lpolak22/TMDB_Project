@@ -86,6 +86,16 @@ export class KorisnikDAO {
     const sql = "DELETE FROM korisnik WHERE korime=?";
     try {
       await this.baza_servis.ubaciAzurirajPodatke(sql, [korime]);
+    } catch (err) {
+      console.error("Greška pri brisanju korisnika:", err);
+      throw err;
+    }
+  }
+
+  async obrisiWeb(korime: string): Promise<void> {
+    const sql = "DELETE FROM korisnik WHERE korime=?";
+    try {
+      await this.baza_servis.ubaciAzurirajPodatke(sql, [korime]);
       await this.baza.ubaciAzurirajPodatke(sql, [korime]);
     } catch (err) {
       console.error("Greška pri brisanju korisnika:", err);

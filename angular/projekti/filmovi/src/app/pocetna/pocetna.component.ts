@@ -28,6 +28,7 @@ export class PocetnaComponent {
     try {
       await this.pocetnaService.posaljiZahtjev(this.korisnik.korime);
       this.prikaziGumb = false;
+      this.korisnik = await this.pocetnaService.loadKorisnik();
     } catch (error) {
       console.log('Greška prilikom slanja zahtjeva');
     }

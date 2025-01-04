@@ -38,7 +38,7 @@ export class KorisniciComponent implements OnInit {
 
   async obrisiKorisnika(korime: string) {
     try {
-      await this.korisniciService.obrisiKorisnika(korime);
+      await this.korisniciService.obrisiKorisnikaWeb(korime);
       this.korisnici = this.korisnici.filter(korisnik => korisnik.korime !== korime);
     } catch (error) {
       this.errorMessage = 'Greška prilikom brisanja korisnika.';
