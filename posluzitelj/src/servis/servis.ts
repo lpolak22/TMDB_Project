@@ -11,6 +11,7 @@ import { RestOsoba } from "./restOsoba.js";
 import { RestOsobaFilm } from "./restOsobaFilm.js";
 import { RestTMDB } from "./restTMDB.js";
 import { RestSlika } from "./restSlika.js";
+import { RestReCAPTCHA } from "./restReCAPTCHA.js";
 //import { provjeriToken } from "../zajednicko/jwt.js";
 
 declare module "express-session" {
@@ -99,6 +100,7 @@ function pokreniKonfiguraciju() {
 	pripremiPutanjePristupKorisnici();
 	pripremiPutanjeDetaljiSlike();
 	pripremiPutanjeDvorazinskaAutentifikacija();
+	pripremiPutanjeRecaptcha();
 
 	server.get('*', (zahtjev, odgovor) => {
         odgovor.sendFile(path.join(__dirname(), '../../angular/filmovi/browser/index.html')); 
@@ -220,5 +222,8 @@ function pripremiPutanjeDvorazinskaAutentifikacija() {
 	server.get("/servis/app/aktivnaDvaFA/:korime", restKorisnik.provjeriDvaFA.bind(restKorisnik));
 
 //	server.post("/servis/app/aktivacijaDvoAut", restKorisnik.postAktivacijaDvoAut.bind(restKorisnik));
-
+}
+function pripremiPutanjeRecaptcha(){
+	let restReCAPTCHA = new RestReCAPTCHA(konf.dajKonf().reCaptcha);
+	server.post("/servis/app/recaptcha", restReCAPTCHA.getReCAPTCHA.bind(restReCAPTCHA));
 }

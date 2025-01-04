@@ -11,6 +11,7 @@ export class Konfiguracija {
             tajniKljucSesija: "",
             tmdbApiKeyV3: "",
             tmdbApiKeyV4: "",
+            reCaptcha: "",
         };
     }
     dajKonf() {

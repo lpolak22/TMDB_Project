@@ -6,6 +6,7 @@ type tipKonf = {
 	tajniKljucSesija: string;
 	tmdbApiKeyV3: string;
 	tmdbApiKeyV4: string;
+	reCaptcha: string;
 };
 
 export class Konfiguracija {
@@ -20,6 +21,7 @@ export class Konfiguracija {
 			tajniKljucSesija: "",
 			tmdbApiKeyV3: "",
 			tmdbApiKeyV4: "",
+			reCaptcha: "",
 		};
 	}
 	dajKonf() {
@@ -74,6 +76,7 @@ export class Konfiguracija {
 		) {
 			throw new Error("Fali JWT tajni kljuc");
 		}
+		
 		
 		if(parseInt(this.konf.jwtValjanost)<15 || parseInt(this.konf.jwtValjanost)>300){
 			throw new Error("Jwt nije u raponu")

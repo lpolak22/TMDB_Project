@@ -80,4 +80,32 @@ export class PrijavaService {
           throw new Error('Neuspješno dohvacanje TOTP-a');
       }
     }
+
+    async provjeriRecaptcha(token: string): Promise<number> {
+      try {
+        const response = await fetch(`${this.restServis}app/recaptcha`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token }),
+        });
+    
+        if (!response.ok) {
+          throw new Error("Neuspješna validacija reCAPTCHA.");
+        }
+    
+        const { success, score } = await response.json();
+        
+        if (!success) {
+          throw new Error("reCAPTCHA nije uspješan.");
+        }
+    
+        return score;
+      } catch (error) {
+        console.error("Greška pri provjeri reCAPTCHA:", error);
+        throw error;
+      }
+    }
+    
+    
+    
 }
