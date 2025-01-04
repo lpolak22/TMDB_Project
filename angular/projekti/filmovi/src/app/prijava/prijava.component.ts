@@ -37,7 +37,7 @@ export class PrijavaComponent {
         this.poruka = 'Neuspješna reCAPTCHA validacija.';
         return;
       }
-
+      
       const korisnik = await this.prijavaService.prijaviKorisnika(korime, lozinka);
 
       if (korisnik) {
@@ -57,14 +57,18 @@ export class PrijavaComponent {
     }
   }
 
-  async provjeriTOTP(): Promise<void> {
+  async provjeriTOTP(form: any): Promise<void> {
     try {
-      const rezultat = await this.prijavaService.provjeriTOTP(this.korime);
+    const { totp } = form;
 
-      if (rezultat.totp[0].totp == this.totpKod) {
+      const rezultat = await this.prijavaService.provjeriTOTP(this.korime, this.totpKod);
+      
+      if (rezultat!==null) {
         let korime = this.korime;
         let tip_korisnika_id = this.tip_korisnika_id;
         let sesija = {korime, tip_korisnika_id};
+        console.log("sesija ",sesija);
+        
         sessionStorage.setItem('korisnik', JSON.stringify(sesija));
         
         this.router.navigate(['/']);

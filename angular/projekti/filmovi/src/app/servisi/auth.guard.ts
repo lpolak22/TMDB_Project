@@ -31,12 +31,12 @@ export class AuthGuard implements CanActivate {
     const tipKorisnika = korisnik?.tip_korisnika_id;
     const status = await this.statusService.dobaviStatus(korisnik.korime);
     
-    if (tipKorisnika === 1 && ['/korisnici', '/dodavanje', '/filtriranje-filmova', '/dvorazinska'].includes(state.url)) {
+    if (tipKorisnika === 1 && ['/osobe','/korisnici', '/dodavanje', '/filtriranje-filmova', '/dvorazinska',`/detalji/${route.params['id']}`].includes(state.url)) {
       return true;
     } else if (tipKorisnika === 2 && status=='1' && ['/', '/osobe', '/filtriranje-filmova', '/dvorazinska',`/detalji/${route.params['id']}`].includes(state.url)) {
       return true;
     }
-    else if(tipKorisnika === 2 && status=='0' && ['/', '/dvorazinska'].includes(state.url)){
+    else if(tipKorisnika === 2 && (status=='0' || status=='2') && ['/', '/dvorazinska'].includes(state.url)){
       return true;
     }
   

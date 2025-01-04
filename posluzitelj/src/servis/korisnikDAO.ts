@@ -114,6 +114,7 @@ export class KorisnikDAO {
 		try {
 			const rezultat = await this.baza.dajPodatkePromise(sql,podaci) as Array<KorisnikI>;
 			if (rezultat.length > 0) {
+        
 				return rezultat[0];
 			} else {
 				return null;

@@ -214,7 +214,8 @@ function pripremiPutanjeDetaljiSlike(){
 function pripremiPutanjeDvorazinskaAutentifikacija() {
 	let restKorisnik = new RestKorisnik();
 	server.put("/servis/app/dvorazinska/:id", restKorisnik.stvoriTOTP.bind(restKorisnik));
-	server.get("/servis/app/dvorazinska", restKorisnik.provjeriTOTP.bind(restKorisnik));
+	server.post("/servis/app/dvorazinska", restKorisnik.provjeriTOTP.bind(restKorisnik));
+	server.get("/servis/app/dvorazinska", restKorisnik.dohvatiTOTP.bind(restKorisnik));
 	server.get("/servis/app/aktivnaDvaFA/:korime", restKorisnik.provjeriDvaFA.bind(restKorisnik));
 
 //	server.post("/servis/app/aktivacijaDvoAut", restKorisnik.postAktivacijaDvoAut.bind(restKorisnik));

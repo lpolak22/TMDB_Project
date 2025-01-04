@@ -9,14 +9,15 @@ export class PrijavaService {
 
   constructor() {}
 
-  async prijaviKorisnika(korime: string, lozinka: string): Promise<any> {
+  async prijaviKorisnika(korime: string, lozinka: string,): Promise<any> {
+    
     try {
       const response = await fetch(`${this.restServis}app/prijava`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ korime, lozinka }),
+        body: JSON.stringify({ korime, lozinka}),
       });
 
       if (response.ok) {
@@ -59,17 +60,18 @@ export class PrijavaService {
     }
     }
     
-    async provjeriTOTP(korime: string) {
+    async provjeriTOTP(korime: string, totpKod: string) {
       try {
           
           let response = await fetch(`${this.restServis}app/dvorazinska?korime=${korime}`, {
-              method: 'GET',
+              method: 'POST',
               headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ totpKod }),
           });
           
-          if (response.status === 200) {
+          if (response.status === 201) {
               let data = await response.json();
-              return data;
+              return data.tajniKljuc[0].totp;
           } else {
               throw new Error('Neuspješno dohvacanje korisnika');
           }

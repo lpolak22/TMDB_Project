@@ -19,11 +19,11 @@ export class AktiviranjeDvorazinskeComponent implements OnInit {
       console.error('Korisničko ime nije pronađeno u sesiji.');
       return;
     }
-      const totpStatus = await this.dvorazinskaService.provjeriTOTP(korime);
-      this.tajniKljuc = totpStatus?.totp[0].totp;
+      const totpStatus = await this.dvorazinskaService.dohvatiTOTP(korime);
+      this.tajniKljuc = totpStatus?.tajniKljuc[0].totp;
     const dvaFA = await this.dvorazinskaService.provjeriDvaFA(korime);
     if(dvaFA==1){
-      this.tajniKljuc = totpStatus.totp[0].totp;
+      this.tajniKljuc = totpStatus.tajniKljuc[0].totp;
       this.ukljuceno = true;
     }
     else{
@@ -40,8 +40,8 @@ export class AktiviranjeDvorazinskeComponent implements OnInit {
       console.error('Korisničko ime nije pronađeno u sesiji.');
       return;
     }
-      const totpStatus = await this.dvorazinskaService.provjeriTOTP(korime);
-      this.tajniKljuc = totpStatus?.totp[0].totp;
+      const totpStatus = await this.dvorazinskaService.dohvatiTOTP(korime);
+      this.tajniKljuc = totpStatus?.tajniKljuc[0].totp;
   }
 
   async ukljuciTOTP() {
@@ -53,16 +53,16 @@ export class AktiviranjeDvorazinskeComponent implements OnInit {
 
     try {
       const dvaFA = await this.dvorazinskaService.provjeriDvaFA(korime);
-      const totpStatus = await this.dvorazinskaService.provjeriTOTP(korime);
+      const totpStatus = await this.dvorazinskaService.dohvatiTOTP(korime);
       
       let rezultat;
-      if (dvaFA !== 1 && totpStatus.totp[0].totp==null) {
+      if (dvaFA !== 1 && totpStatus.tajniKljuc[0].totp==null) {
         rezultat = await this.dvorazinskaService.azurirajTOTP(korime, null);
       }
-      if(dvaFA !== 1 && totpStatus.totp[0].totp!==null){
-        rezultat = await this.dvorazinskaService.azurirajTOTP(korime, totpStatus.totp[0].totp)
+      if(dvaFA !== 1 && totpStatus.tajniKljuc[0].totp!==null){
+        rezultat = await this.dvorazinskaService.azurirajTOTP(korime, totpStatus.tajniKljuc[0].totp)
       }
-      this.tajniKljuc = totpStatus.totp[0].totp;
+      this.tajniKljuc = totpStatus.tajniKljuc[0].totp;
       this.ukljuceno = true;
     } catch (err) {
       console.error('Greška prilikom uključivanja TOTP:', err);

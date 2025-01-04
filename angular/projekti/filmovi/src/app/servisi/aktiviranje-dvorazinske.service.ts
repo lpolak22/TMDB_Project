@@ -49,7 +49,7 @@ export class AktiviranjeDvorazinskeService {
     }
   }
   
-  async provjeriTOTP(korime: string) {
+  async dohvatiTOTP(korime: string) {
     try {
         
         let response = await fetch(`${this.restServis}app/dvorazinska?korime=${korime}`, {

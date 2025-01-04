@@ -9,7 +9,7 @@
     <button type="submit">Prijavi se</button>
   </form>
 
-  <form *ngIf="zahtijevaTOTP" (ngSubmit)="provjeriTOTP()" #totpForm="ngForm">
+  <form *ngIf="zahtijevaTOTP" (ngSubmit)="provjeriTOTP(totpForm.value)" #totpForm="ngForm">
     <label for="totpKod">Unesite TOTP kod:</label>
     <input id="totpKod" name="totpKod" [(ngModel)]="totpKod" required />
 

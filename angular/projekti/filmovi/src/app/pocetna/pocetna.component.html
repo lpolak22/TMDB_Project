@@ -1,14 +1,14 @@
 <main>
   <h1>Dobrodošli, {{ korisnik.ime }}</h1>
-  <p><span class="label">Ime i prezime:</span> {{ korisnik.ime || 'Nepoznato' }} {{ korisnik.prezime || 'Nepoznato' }}</p>
-  <p><span class="label">Adresa:</span> {{ korisnik.adresa || 'Nepoznato' }}</p>
-  <p><span class="label">Korisničko ime:</span> {{ korisnik.korime || 'Nepoznato' }}</p>
-  <p><span class="label">Email:</span> {{ korisnik.email || 'Nepoznato' }}</p>
-  <p><span class="label">Broj telefona:</span> {{ korisnik.broj_telefona || 'Nepoznato' }}</p>
-  <p><span class="label">Datum rođenja:</span> {{ korisnik.datum_rodena || 'Nepoznato' }}</p>
+  <p><span class="label">Ime i prezime:</span> {{ korisnik.ime}} {{ korisnik.prezime }}</p>
+  <p><span class="label">Adresa:</span> {{ korisnik.adresa }}</p>
+  <p><span class="label">Korisničko ime:</span> {{ korisnik.korime }}</p>
+  <p><span class="label">Email:</span> {{ korisnik.email }}</p>
+  <p><span class="label">Broj telefona:</span> {{ korisnik.broj_telefona }}</p>
+  <p><span class="label">Datum rođenja:</span> {{ korisnik.datum_rodena }}</p>
   <p><span class="label">Status:</span>
     <span id="status">
-      {{ korisnik.status === 0 || korisnik.status === null ? 'Nemate status' : korisnik.status === 1 ? 'Imate status' : 'Nepoznato' }}
+      {{ korisnik.status === 0 || korisnik.status === null ? 'Nemate status' : korisnik.status === 1 ? 'Imate status' : 'Na čekanju' }}
     </span>
   </p>
   <button *ngIf="prikaziGumb" (click)="posaljiZahtjev()">Pošalji zahtjev za korištenje servisa</button>
