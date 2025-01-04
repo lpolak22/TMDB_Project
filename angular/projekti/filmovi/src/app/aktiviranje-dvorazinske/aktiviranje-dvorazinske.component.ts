@@ -20,6 +20,7 @@ export class AktiviranjeDvorazinskeComponent implements OnInit {
       return;
     }
       const totpStatus = await this.dvorazinskaService.dohvatiTOTP(korime);
+      
       this.tajniKljuc = totpStatus?.tajniKljuc[0].totp;
     const dvaFA = await this.dvorazinskaService.provjeriDvaFA(korime);
     if(dvaFA==1){
@@ -39,9 +40,7 @@ export class AktiviranjeDvorazinskeComponent implements OnInit {
     if (!korime) {
       console.error('Korisničko ime nije pronađeno u sesiji.');
       return;
-    }
-      const totpStatus = await this.dvorazinskaService.dohvatiTOTP(korime);
-      this.tajniKljuc = totpStatus?.tajniKljuc[0].totp;
+    } 
   }
 
   async ukljuciTOTP() {
@@ -53,7 +52,8 @@ export class AktiviranjeDvorazinskeComponent implements OnInit {
 
     try {
       const dvaFA = await this.dvorazinskaService.provjeriDvaFA(korime);
-      const totpStatus = await this.dvorazinskaService.dohvatiTOTP(korime);
+      let totpStatus = await this.dvorazinskaService.dohvatiTOTP(korime);
+      
       
       let rezultat;
       if (dvaFA !== 1 && totpStatus.tajniKljuc[0].totp==null) {
@@ -62,6 +62,9 @@ export class AktiviranjeDvorazinskeComponent implements OnInit {
       if(dvaFA !== 1 && totpStatus.tajniKljuc[0].totp!==null){
         rezultat = await this.dvorazinskaService.azurirajTOTP(korime, totpStatus.tajniKljuc[0].totp)
       }
+      totpStatus = await this.dvorazinskaService.dohvatiTOTP(korime);
+      this.tajniKljuc = totpStatus?.tajniKljuc[0].totp;
+
       this.tajniKljuc = totpStatus.tajniKljuc[0].totp;
       this.ukljuceno = true;
     } catch (err) {

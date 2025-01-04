@@ -106,10 +106,6 @@ export class RestKorisnik {
                     });
                 }
                 else {
-                    if (this.kdao.dajTOTP(korime) == null) {
-                        let tajniTOTPkljuc = kreirajTajniKljuc(korime);
-                        await this.kdao.azurirajTOTP(korime, tajniTOTPkljuc);
-                    }
                     let tajniKljuc = await this.kdao.dajTOTP(korime);
                     if (Array.isArray(tajniKljuc) && tajniKljuc[0] && tajniKljuc[0].totp) {
                         const totpKod = TOTP.generate(tajniKljuc[0].totp, {
@@ -267,8 +263,16 @@ export class RestKorisnik {
                     odgovor.status(400).send({ greska: "Korisnik ne postoji." });
                     return;
                 }
-                else {
-                    await this.kdao.azurirajDvaFA(korime, AktivnaDvoAut);
+                let tajniKljuc = await this.kdao.dajTOTP(korime);
+                if (Array.isArray(tajniKljuc)) {
+                    if (tajniKljuc[0].totp == null) {
+                        let tajniTOTPkljuc = kreirajTajniKljuc(korime);
+                        await this.kdao.azurirajTOTP(korime, tajniTOTPkljuc);
+                        await this.kdao.azurirajDvaFA(korime, AktivnaDvoAut);
+                    }
+                    else {
+                        await this.kdao.azurirajDvaFA(korime, AktivnaDvoAut);
+                    }
                 }
                 odgovor.status(201).send({ status: "uspjeh" });
             }

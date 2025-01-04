@@ -79,5 +79,5 @@ export class PrijavaService {
           console.error('Greška prilikom provjere TOTP-a:', error);
           throw new Error('Neuspješno dohvacanje TOTP-a');
       }
-      }
+    }
 }
