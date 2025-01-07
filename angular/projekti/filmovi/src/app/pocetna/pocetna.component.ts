@@ -1,26 +1,26 @@
-import { Component } from '@angular/core';
-import { PocetnaService } from '../servisi/pocetna.service';
+import { Component } from "@angular/core";
+import { PocetnaService } from "../servisi/pocetna.service";
 
 @Component({
-  selector: 'app-pocetna',
+  selector: "app-pocetna",
   standalone: false,
-  
-  templateUrl: './pocetna.component.html',
-  styleUrl: './pocetna.component.scss'
+
+  templateUrl: "./pocetna.component.html",
+  styleUrl: "./pocetna.component.scss",
 })
 export class PocetnaComponent {
   korisnik: any = {};
   prikaziGumb: boolean = false;
-
 
   constructor(private pocetnaService: PocetnaService) {}
 
   async ngOnInit() {
     try {
       this.korisnik = await this.pocetnaService.loadKorisnik();
-      this.prikaziGumb = this.korisnik.status === 0 || this.korisnik.status === null;
+      this.prikaziGumb =
+        this.korisnik.status === 0 || this.korisnik.status === null;
     } catch (error) {
-      console.error('Greška prilikom učitavanja korisnika:', error);
+      console.error("Greška prilikom učitavanja korisnika:", error);
     }
   }
 
@@ -30,7 +30,7 @@ export class PocetnaComponent {
       this.prikaziGumb = false;
       this.korisnik = await this.pocetnaService.loadKorisnik();
     } catch (error) {
-      console.log('Greška prilikom slanja zahtjeva');
+      console.log("Greška prilikom slanja zahtjeva");
     }
   }
 }

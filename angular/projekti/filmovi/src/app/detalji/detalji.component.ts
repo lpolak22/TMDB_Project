@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { environment } from '../../environments/environment';
-import { DetaljiService } from '../servisi/detalji.service';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { environment } from "../../environments/environment";
+import { DetaljiService } from "../servisi/detalji.service";
+import { CommonModule } from "@angular/common";
 
 @Component({
-  selector: 'app-detalji',
+  selector: "app-detalji",
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './detalji.component.html',
-  styleUrls: ['./detalji.component.scss'],
+  templateUrl: "./detalji.component.html",
+  styleUrls: ["./detalji.component.scss"],
 })
 export class DetaljiComponent implements OnInit {
   osoba: any = null;
@@ -23,7 +23,7 @@ export class DetaljiComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get("id");
     if (id) {
       this.loadOsobaDetalji(id);
       this.loadSlikeGalerija(id);
@@ -36,8 +36,11 @@ export class DetaljiComponent implements OnInit {
       await this.detaljiService.loadOsobaDetalji(id);
       this.osoba = this.detaljiService.osoba;
     } catch (error) {
-      console.error('Došlo je do pogreške pri dohvaćanju podataka osobe', error);
-      this.porukaGreske = 'Došlo je do pogreške pri dohvaćanju podataka osobe';
+      console.error(
+        "Došlo je do pogreške pri dohvaćanju podataka osobe",
+        error
+      );
+      this.porukaGreske = "Došlo je do pogreške pri dohvaćanju podataka osobe";
     }
   }
 
@@ -46,22 +49,26 @@ export class DetaljiComponent implements OnInit {
       await this.detaljiService.loadSlikeGalerija(id);
       this.slikeOsobe = this.detaljiService.slikeOsobe;
     } catch (error) {
-      console.error('Došlo je do pogreške pri dohvaćanju galerije slika', error);
-      this.porukaGreske = 'Galerija slika nije dostupna.';
+      console.error(
+        "Došlo je do pogreške pri dohvaćanju galerije slika",
+        error
+      );
+      this.porukaGreske = "Galerija slika nije dostupna.";
     }
-  }  
-
-  preskociSlomljenuSliku(slomljenaSlika: string) {
-    this.slikeOsobe = this.slikeOsobe.filter((slika) => slika !== slomljenaSlika);
   }
 
-  
+  preskociSlomljenuSliku(slomljenaSlika: string) {
+    this.slikeOsobe = this.slikeOsobe.filter(
+      (slika) => slika !== slomljenaSlika
+    );
+  }
+
   async loadFilmovi(id: number) {
     try {
       this.filmovi = await this.detaljiService.dohvatiPovezaneFilmove(id);
     } catch (error) {
-      console.error('Došlo je do pogreške pri dohvaćanju filmova', error);
-      this.porukaGreske = 'Došlo je do pogreške pri dohvaćanju filmova';
+      console.error("Došlo je do pogreške pri dohvaćanju filmova", error);
+      this.porukaGreske = "Došlo je do pogreške pri dohvaćanju filmova";
     }
   }
 }

@@ -12,6 +12,7 @@ import { RestOsobaFilm } from "./restOsobaFilm.js";
 import { RestTMDB } from "./restTMDB.js";
 import { RestSlika } from "./restSlika.js";
 import { RestReCAPTCHA } from "./restReCAPTCHA.js";
+import { RestJWT } from "./restJWT.js";
 const server = express();
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
@@ -49,19 +50,7 @@ else {
     port = dajPortSevis("lpolak22");
 }
 function pokreniKonfiguraciju() {
-    /*server.all("*", (zahtjev,odgovor,dalje) => {
-        try{
-            const token = provjeriToken(zahtjev, konf.dajKonf().jwtTajniKljuc);
-            if(!token){
-                odgovor.status(406).json({greska: "Token nije validan!"});
-                return;
-            }
-            dalje();
-        }
-        catch(err){
-            odgovor.status(422).json({greska: "Token je istekao!"});
-        }
-    });*/
+    //JWTprovjera();
     server.use(express.static(path.join(__dirname(), '../../angular/filmovi/browser')));
     server.use(sesija({
         secret: konf.dajKonf().tajniKljucSesija,
@@ -80,6 +69,7 @@ function pokreniKonfiguraciju() {
     pripremiPutanjeDetaljiSlike();
     pripremiPutanjeDvorazinskaAutentifikacija();
     pripremiPutanjeRecaptcha();
+    pripremiPutanjeJWT();
     server.get('*', (zahtjev, odgovor) => {
         odgovor.sendFile(path.join(__dirname(), '../../angular/filmovi/browser/index.html'));
     });
@@ -91,6 +81,21 @@ function pokreniKonfiguraciju() {
         console.log(`Server pokrenut na portu: ${port}`);
     });
 }
+// function JWTprovjera(){
+// 	server.all("*", (zahtjev,odgovor,dalje) => {
+// 		try{
+// 			const token = provjeriToken(zahtjev, konf.dajKonf().jwtTajniKljuc);
+// 			if(!token){
+// 				odgovor.status(406).json({greska: "Token nije validan!"});
+// 				return;
+// 			}
+// 			dalje();
+// 		}
+// 		catch(err){
+// 			odgovor.status(422).json({greska: "Token je istekao!"});
+// 		}
+// 	});
+// }
 function pripremiPutanjeResursOsoba() {
     let restOsoba = new RestOsoba();
     server.get("/servis/osoba", restOsoba.getOsobePoStranici.bind(restOsoba));
@@ -158,7 +163,6 @@ function pripremiPutanjePocetnaKorisnici() {
     let restKorisnik = new RestKorisnik();
     server.get("/servis/app/podaciPocetna", restKorisnik.getPocetna.bind(restKorisnik));
     server.get("/servis/app/podaciKorisnici", restKorisnik.getPodaciKorisnici.bind(restKorisnik));
-    // server.put("/servis/app/zahtjev/:korime", restKorisnik.putZahtjev.bind(restKorisnik));                     //za zahtjev kad ga dodam
 }
 function pripremiPutanjePristupKorisnici() {
     let restKorisnik = new RestKorisnik();
@@ -178,9 +182,12 @@ function pripremiPutanjeDvorazinskaAutentifikacija() {
     server.post("/servis/app/dvorazinska", restKorisnik.provjeriTOTP.bind(restKorisnik));
     server.get("/servis/app/dvorazinska", restKorisnik.dohvatiTOTP.bind(restKorisnik));
     server.get("/servis/app/aktivnaDvaFA/:korime", restKorisnik.provjeriDvaFA.bind(restKorisnik));
-    //	server.post("/servis/app/aktivacijaDvoAut", restKorisnik.postAktivacijaDvoAut.bind(restKorisnik));
 }
 function pripremiPutanjeRecaptcha() {
     let restReCAPTCHA = new RestReCAPTCHA(konf.dajKonf().reCaptcha);
     server.post("/servis/app/recaptcha", restReCAPTCHA.getReCAPTCHA.bind(restReCAPTCHA));
+}
+function pripremiPutanjeJWT() {
+    let restJWT = new RestJWT(konf.dajKonf().jwtTajniKljuc);
+    server.get("/getJWT", restJWT.getJWT.bind(restJWT));
 }

@@ -1,14 +1,13 @@
-$green-primary: rgb(0, 152, 102);
-$green-secondary: rgb(13, 172, 115);
-$green-even: rgb(153, 225, 190);
-$green-odd: rgb(77, 197, 153);
-$green-active: rgb(0, 137, 92);
-$red-color: #f44336;
-$red-hover: #e53935;
-$red-active: #d32f2f;
-$color_1: #fff;
-$background-color: #f5f5f5;
-$border-color: #e0e0e0;
+$zelena-glavna: rgb(0, 152, 102);
+$zelena-sekundarna: rgb(13, 172, 115);
+$zelena-aktivna: rgb(0, 137, 92);
+$crvena-boja: #f44336;
+$crvena-hover: #e53935;
+$crvena-aktivna: #d32f2f;
+$boja-bijela: #fff;
+$pozadinska-boja: #f5f5f5;
+$boja-ruba: #e0e0e0;
+$sjena: rgba(0, 0, 0, 0.1);
 
 .detalji-osobe {
   text-align: center;
@@ -49,7 +48,7 @@ $border-color: #e0e0e0;
       width: 150px;
       height: auto;
       border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 5px $sjena;
     }
   }
 }
@@ -68,27 +67,19 @@ $border-color: #e0e0e0;
     margin-top: 20px;
 
     th {
-      background-color: $green-primary;  /* Zaglavlje tablice */
-      color: $color_1;
+      background-color: $zelena-glavna;
+      color: $boja-bijela;
       padding: 15px;
       text-align: left;
       font-size: 18px;
     }
 
     td {
-      background-color: $color_1;  /* Bijela pozadina za redove */
+      background-color: $boja-bijela;
       padding: 15px;
       text-align: left;
       font-size: 16px;
-      border-bottom: 1px solid $border-color;
-    }
-
-    .even {
-      background-color: $green-even;  // Boja za parne redove
-    }
-
-    .odd {
-      background-color: $green-odd;  // Boja za neparne redove
+      border-bottom: 1px solid $boja-ruba;
     }
 
     img {
@@ -98,7 +89,7 @@ $border-color: #e0e0e0;
 }
 
 .error {
-  color: red;
+  color: $crvena-boja;
   text-align: center;
   font-weight: bold;
 }

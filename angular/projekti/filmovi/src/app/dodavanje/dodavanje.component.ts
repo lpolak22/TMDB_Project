@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
-import { DodavanjeService } from '../servisi/dodavanje.service';
-import { environment } from '../../environments/environment';
+import { Component } from "@angular/core";
+import { DodavanjeService } from "../servisi/dodavanje.service";
+import { environment } from "../../environments/environment";
 
 @Component({
-  selector: 'app-dodavanje',
+  selector: "app-dodavanje",
   standalone: false,
-  templateUrl: './dodavanje.component.html',
-  styleUrls: ['./dodavanje.component.scss'],
+  templateUrl: "./dodavanje.component.html",
+  styleUrls: ["./dodavanje.component.scss"],
 })
 export class DodavanjeComponent {
-  ime: string = '';
+  ime: string = "";
   osobe: any[] = [];
   porukaGreske: string | null = null;
   trenutnaStranica: number = 1;
@@ -19,12 +19,15 @@ export class DodavanjeComponent {
 
   async pretraziOsobe() {
     if (!this.ime.trim()) {
-      this.porukaGreske = 'Unesite pojam za pretragu.';
+      this.porukaGreske = "Unesite pojam za pretragu.";
       return;
     }
     try {
       this.porukaGreske = null;
-      const rezultat = await this.dodavanjeService.pretraziOsobePoImenu(this.ime, this.trenutnaStranica);
+      const rezultat = await this.dodavanjeService.pretraziOsobePoImenu(
+        this.ime,
+        this.trenutnaStranica
+      );
 
       for (const osoba of rezultat.osobe) {
         osoba.dodana = await this.dodavanjeService.provjeriOsobuUBazi(osoba.id);
@@ -33,7 +36,7 @@ export class DodavanjeComponent {
       this.osobe = rezultat.osobe;
       this.ukupnoStranica = rezultat.totalPages;
     } catch (error) {
-      this.porukaGreske = 'Greška prilikom pretrage osoba.';
+      this.porukaGreske = "Greška prilikom pretrage osoba.";
       console.error(error);
     }
   }
@@ -67,9 +70,9 @@ export class DodavanjeComponent {
       await this.dodavanjeService.dodajOsobuUBazu(osoba);
       osoba.dodana = true;
       this.osobe = [...this.osobe];
-      await this.dodavanjeService.loadSlikeOsobe(osoba.id); 
+      await this.dodavanjeService.loadSlikeOsobe(osoba.id);
     } catch (error: any) {
-      alert(error.message || 'Greška prilikom dodavanja osobe.');
+      alert(error.message || "Greška prilikom dodavanja osobe.");
     }
   }
 
@@ -77,21 +80,20 @@ export class DodavanjeComponent {
     try {
       osoba.dodana = false;
       await this.dodavanjeService.obrisiOsobu(osoba.id);
-  
+
       this.osobe = [...this.osobe];
     } catch (error: any) {
       console.error(error);
-      alert(error.message || 'Greška prilikom brisanja osobe.');
+      alert(error.message || "Greška prilikom brisanja osobe.");
     }
   }
-  
 
   pretvoriSliku(slika: string): string {
     if (!slika) {
-      return '../../assets/default-image.png'; 
+      return "../../assets/default-image.png";
     }
 
-    if (slika.startsWith('http')) {
+    if (slika.startsWith("http")) {
       return slika;
     }
 

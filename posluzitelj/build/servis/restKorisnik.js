@@ -254,21 +254,6 @@ export class RestKorisnik {
             odgovor.status(400).send({ greska: "greska pri unosu korisnika" });
         }
     }
-    // async putZahtjev(zahtjev: Request, odgovor: Response) {
-    //   odgovor.type("application/json");
-    //   const { status } = zahtjev.body;
-    //   const korime = zahtjev.params['korime'];
-    //   if (!korime) {
-    //       odgovor.status(400).send({ greska: "nedostaju podaci za azuriranje statusa korisnika na pocetnoj" });
-    //       return;
-    //   }
-    //   try {
-    //       await this.kdao.azurirajKorisnika(korime, status);
-    //       odgovor.status(201).send({ status: "uspjeh" });
-    //   } catch (err) {
-    //       odgovor.status(400).send({ greska: "pogreska kod azuriranja statusa korisnika" });
-    //   }
-    // }
     async stvoriTOTP(zahtjev, odgovor) {
         odgovor.type("application/json");
         const korime = zahtjev.body.korime;

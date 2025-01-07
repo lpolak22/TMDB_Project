@@ -1,23 +1,23 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
+  selector: "app-root",
+  templateUrl: "./app.component.html",
   standalone: false,
-  styleUrl: './app.component.scss'
+  styleUrl: "./app.component.scss",
 })
 export class AppComponent {
-  title = 'filmovi';
+  title = "filmovi";
 
   constructor(private router: Router) {}
 
   korisnikPrijavljen(): boolean {
-    return sessionStorage.getItem('korisnik') !== null;
+    return sessionStorage.getItem("korisnik") !== null;
   }
 
   tipKorisnika(): number | null {
-    const korisnik = sessionStorage.getItem('korisnik');
+    const korisnik = sessionStorage.getItem("korisnik");
     if (korisnik) {
       const sesijaTipKorisnika = JSON.parse(korisnik);
       return sesijaTipKorisnika.tip_korisnika_id;
@@ -34,7 +34,7 @@ export class AppComponent {
   }
 
   odjaviKorisnika() {
-    sessionStorage.removeItem('korisnik');
-    this.router.navigate(['/prijava']);
+    sessionStorage.removeItem("korisnik");
+    this.router.navigate(["/prijava"]);
   }
 }

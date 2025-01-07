@@ -23,6 +23,7 @@ import { environment } from '../environments/environment';
 
 const routes: Routes = [
   { path: '', component: PocetnaComponent, canActivate: [AuthGuard] },
+  { path: 'dokumentacija', component: DokumentacijaComponent, canActivate: [AuthGuard] },
   { path: 'osobe', component: OsobeComponent, canActivate: [AuthGuard] },
   { path: 'detalji/:id', component: DetaljiComponent, canActivate: [AuthGuard] },
   { path: 'dodavanje', component: DodavanjeComponent, canActivate: [AuthGuard] },
@@ -55,7 +56,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     FormsModule,
     RecaptchaV3Module,
-    RecaptchaModule
+    RecaptchaModule,
   ],
   providers: [
     { provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.siteKey }

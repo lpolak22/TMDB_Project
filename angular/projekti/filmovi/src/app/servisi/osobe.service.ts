@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { Injectable } from "@angular/core";
+import { environment } from "../../environments/environment";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class OsobeService {
   restServis: string = environment.restServis;
   osobe: any[] = [];
   currentPage: number = 1;
-  
+
   constructor() {}
 
   async loadOsobe(stranica: number) {
@@ -20,11 +20,11 @@ export class OsobeService {
         this.osobe = data;
         return this.osobe;
       } else {
-        throw new Error('Neuspjesno dohvacanje');
+        throw new Error("Neuspjesno dohvacanje");
       }
     } catch (error) {
       console.error(error);
-      throw new Error('Neuspjesno dohvacanje');
+      throw new Error("Neuspjesno dohvacanje");
     }
   }
 

@@ -1,51 +1,50 @@
-$color_1: #fff;
-$green-primary: rgb(0, 152, 102);
-$green-secondary: rgb(13, 172, 115);
-$green-even: rgb(153, 225, 190);
-$green-odd: rgb(77, 197, 153);
-$green-active: rgb(0, 137, 92); 
-$red-color: #f44336;
-$red-hover: #e53935;
-$red-active: #d32f2f;
-$background-color: #f5f5f5;
-$border-color: #e0e0e0;
+$boja-bijela: #fff;
+$zelena-glavna: rgb(0, 152, 102);
+$zelena-sekundarna: rgb(13, 172, 115);
+$zelena-aktivna: rgb(0, 137, 92); 
+$crvena-boja: #f44336;
+$crvena-hover: #e53935;
+$crvena-aktivna: #d32f2f;
+$pozadinska-boja: #f5f5f5;
+$boja-ruba: #e0e0e0;
+$sjena: rgba(0, 0, 0, 0.1);
 
 main {
   font-family: Arial, sans-serif;
-  background-color: $background-color;
+  background-color: $pozadinska-boja;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 8px $sjena;
 }
 
-.search-bar {
+.pretraga-searchbar {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
 
-  .search-input {
+  .pretraga-input {
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid $border-color;
+    border: 1px solid $boja-ruba;
     width: 100%;
     max-width: 300px;
   }
 
-  .search-button {
+  .pretraga-gumb {
     padding: 10px 20px;
-    background-color: $green-primary;
-    color: $color_1;
+    background-color: $zelena-glavna;
+    color: $boja-bijela;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
 
     &:hover {
-      background-color: $green-secondary;
+      background-color: $zelena-sekundarna;
     }
 
     &:active {
-      background-color: $green-active;
+      background-color: $zelena-aktivna;
     }
   }
 }
@@ -56,19 +55,19 @@ table {
   margin-top: 20px;
 
   th {
-    background-color: $green-primary;
-    color: $color_1;
+    background-color: $zelena-glavna;
+    color: $boja-bijela;
     padding: 15px;
     text-align: left;
     font-size: 18px;
   }
 
   td {
-    background-color: $color_1;
+    background-color: $boja-bijela;
     padding: 15px;
     text-align: left;
     font-size: 16px;
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid $boja-ruba;
   }
 
   td img {
@@ -86,13 +85,6 @@ table {
     background-color: #f0f0f0;
   }
 
-  .even {
-    background-color: $green-even;
-  }
-
-  .odd {
-    background-color: $green-odd;
-  }
 }
 
 button {
@@ -102,29 +94,29 @@ button {
   cursor: pointer;
   transition: background-color 0.3s;
 
-  &.add-button {
-    background-color: $green-primary;
-    color: $color_1;
+  &.dodaj-gumb {
+    background-color: $zelena-glavna;
+    color: $boja-bijela;
 
     &:hover {
-      background-color: $green-secondary;
+      background-color: $zelena-sekundarna;
     }
 
     &:active {
-      background-color: $green-active;
+      background-color: $zelena-aktivna;
     }
   }
 
-  &.delete-button {
-    background-color: $red-color;
-    color: $color_1;
+  &.obrisi-gumb {
+    background-color: $crvena-boja;
+    color: $boja-bijela;
 
     &:hover {
-      background-color: $red-hover;
+      background-color: $crvena-hover;
     }
 
     &:active {
-      background-color: $red-active;
+      background-color: $crvena-aktivna;
     }
   }
 }
@@ -134,37 +126,36 @@ button {
   justify-content: center;
   margin-top: 20px;
 
-  .pagination-button {
+  .stranica-gumb {
     padding: 10px 15px;
     margin: 0 5px;
-    background-color: $green-primary;
-    color: $color_1;
+    background-color: $zelena-glavna;
+    color: $boja-bijela;
     border-radius: 5px;
     cursor: pointer;
 
     &:hover {
-      background-color: $green-secondary;
+      background-color: $zelena-sekundarna;
     }
 
     &:active {
-      background-color: $green-active;
+      background-color: $zelena-aktivna;
     }
 
     &:disabled {
-      background-color: $border-color;
+      background-color: $boja-ruba;
       cursor: not-allowed;
     }
   }
 
-  .pagination-text {
+  .stranica-tekst {
     align-self: center;
     margin: 0 10px;
   }
 }
 
-.no-results {
+.nema-rezultata {
   text-align: center;
   font-size: 18px;
-  color: $green-primary;
+  color: $zelena-glavna;
 }
-

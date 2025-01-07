@@ -1,41 +1,34 @@
 <main>
-  <div *ngIf="porukaGreske" class="poruka-greske">{{ porukaGreske }}</div>
-
-  <div *ngIf="!porukaGreske" class="ukupan-broj-osoba">
-    <p>Ukupan broj osoba: {{ ukupanBrojOsoba }}</p>
-  </div>
-
-  <div class="odabir-stranice">
-    <label for="osobePoStranici">Prikaži osoba po stranici:</label>
-    <select id="osobePoStranici" (change)="onPromjenaOsobaPoStranici($event)">
-      <option value="5">5</option>
-      <option value="10" selected>10</option>
-      <option value="20">20</option>
-      <option value="50">50</option>
-    </select>
-  </div>
-
-  <div *ngIf="!porukaGreske" class="kontejner-osoba">
-    <div *ngFor="let osoba of prikazaneOsobe" class="osoba">
-      <img 
-        [src]="pretvoriSliku(osoba?.slika)" 
-        alt="Osoba" 
-        (click)="odiNaStranicuDetalja(osoba?.id)" 
-      />
-      <h3>{{ osoba?.ime_prezime }}</h3>
-      <p>{{ osoba?.poznat_po }}</p>
-    </div>
-  </div>
-  
-  <div class="paginacija">
-    <button (click)="idiNaPrvuStranicu()" [disabled]="trenutnaStranica <= 1">Prva</button>
-    <button (click)="onPromjenaStranice(trenutnaStranica - 1)" [disabled]="trenutnaStranica <= 1">
+   <div *ngIf="porukaGreske" class="poruka-greske">{{ porukaGreske }}</div>
+   <div class="odabir-stranice">
+      <label for="osobePoStranici">Prikaži osoba po stranici:</label>
+      <select id="osobePoStranici" (change)="onPromjenaOsobaPoStranici($event)">
+         <option value="5">5</option>
+         <option value="10" selected>10</option>
+         <option value="20">20</option>
+         <option value="50">50</option>
+      </select>
+   </div>
+   <div *ngIf="!porukaGreske" class="kontejner-osoba">
+      <div *ngFor="let osoba of prikazaneOsobe" class="osoba">
+         <img 
+         [src]="pretvoriSliku(osoba?.slika)" 
+         alt="Osoba" 
+         (click)="odiNaStranicuDetalja(osoba?.id)" 
+         />
+         <h3>{{ osoba?.ime_prezime }}</h3>
+         <p>{{ osoba?.poznat_po }}</p>
+      </div>
+   </div>
+   <div class="paginacija">
+      <button (click)="idiNaPrvuStranicu()" [disabled]="trenutnaStranica <= 1">Prva</button>
+      <button (click)="onPromjenaStranice(trenutnaStranica - 1)" [disabled]="trenutnaStranica <= 1">
       Prethodna
-    </button>
-    <span class="trenutna-stranica">{{ trenutnaStranica }} / {{ ukupanBrojStranica }}</span>
-    <button (click)="onPromjenaStranice(trenutnaStranica + 1)" [disabled]="trenutnaStranica >= ukupanBrojStranica">
+      </button>
+      <span class="trenutna-stranica">{{ trenutnaStranica }} / {{ ukupanBrojStranica }}</span>
+      <button (click)="onPromjenaStranice(trenutnaStranica + 1)" [disabled]="trenutnaStranica >= ukupanBrojStranica">
       Sljedeća
-    </button>
-    <button (click)="idiNaPosljednjuStranicu()" [disabled]="trenutnaStranica >= ukupanBrojStranica">Posljednja</button>
-  </div>
+      </button>
+      <button (click)="idiNaPosljednjuStranicu()" [disabled]="trenutnaStranica >= ukupanBrojStranica">Posljednja</button>
+   </div>
 </main>

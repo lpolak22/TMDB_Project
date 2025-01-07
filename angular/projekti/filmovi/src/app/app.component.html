@@ -1,33 +1,44 @@
 <header>
-    <h1>Filmovi</h1>
-    <nav>
-      <ng-container *ngIf="prikaziStraniceAdmin()">
-        <a routerLink="/">Početna</a>
-        <a routerLink="/osobe">Osobe</a>
-        <a routerLink="/dodavanje">Dodavanje</a>
-        <a routerLink="/filtriranje-filmova">Filtriranje filmova</a>
-        <a routerLink="/dvorazinska">Dvorazinska autentifikacija</a>
-        <a routerLink="/korisnici">Korisnici</a>
-        <a href="#" (click)="odjaviKorisnika()">Odjava</a>
-      </ng-container>
-      
-      <ng-container *ngIf="prikaziStraniceKorisnik()">
-        <a routerLink="/">Početna</a>
-        <a routerLink="/osobe">Osobe</a>
-        <a routerLink="/filtriranje-filmova">Filtriranje filmova</a>
-        <a routerLink="/dvorazinska">Dvorazinska autentifikacija</a>
-        <a href="#" (click)="odjaviKorisnika()">Odjava</a>
-      </ng-container>
-  
-      <ng-container *ngIf="!korisnikPrijavljen()">
-        <a routerLink="/">Početna</a>
-        <a routerLink="/prijava">Prijava</a>
-        <a routerLink="/registracija">Registracija</a>
-      </ng-container>
-    </nav>
-  </header>
-  
-  <main>
-    <router-outlet></router-outlet>
-  </main>
-  
+  <h1>Filmovi</h1>
+  <nav>
+    <ng-container *ngIf="prikaziStraniceAdmin()">
+      <a routerLink="/" routerLinkActive="aktivna" [routerLinkActiveOptions]="{exact: true}">Početna</a>
+      <a routerLink="/dokumentacija" routerLinkActive="aktivna">Dokumentacija</a>
+      <a routerLink="/osobe" routerLinkActive="aktivna">Osobe</a>
+      <a routerLink="/dodavanje" routerLinkActive="aktivna">Dodavanje</a>
+      <a routerLink="/filtriranje-filmova" routerLinkActive="aktivna">Filtriranje filmova</a>
+      <a routerLink="/dvorazinska" routerLinkActive="aktivna">Dvorazinska autentifikacija</a>
+      <a routerLink="/korisnici" routerLinkActive="aktivna">Korisnici</a>
+      <a href="#" (click)="odjaviKorisnika()">Odjava</a>
+    </ng-container>
+
+    <ng-container *ngIf="prikaziStraniceKorisnik()">
+      <a routerLink="/" routerLinkActive="aktivna" [routerLinkActiveOptions]="{exact: true}">Početna</a>
+      <a routerLink="/dokumentacija" routerLinkActive="aktivna">Dokumentacija</a>
+      <a routerLink="/osobe" routerLinkActive="aktivna">Osobe</a>
+      <a routerLink="/filtriranje-filmova" routerLinkActive="aktivna">Filtriranje filmova</a>
+      <a routerLink="/dvorazinska" routerLinkActive="aktivna">Dvorazinska autentifikacija</a>
+      <a href="#" (click)="odjaviKorisnika()">Odjava</a>
+    </ng-container>
+
+    <ng-container *ngIf="!korisnikPrijavljen()">
+      <a routerLink="/" routerLinkActive="aktivna" [routerLinkActiveOptions]="{exact: true}">Početna</a>
+      <a routerLink="/dokumentacija" routerLinkActive="aktivna">Dokumentacija</a>
+      <a routerLink="/prijava" routerLinkActive="aktivna">Prijava</a>
+      <a routerLink="/registracija" routerLinkActive="aktivna">Registracija</a>
+    </ng-container>
+  </nav>
+</header>
+<main>
+  <router-outlet></router-outlet>
+</main>
+<footer>
+  <p id="copyright">2024 &copy; Lucija Polak</p>
+  <br/>
+  <br/>
+  <br>
+  <a href ="mailto:lpolak22@student.foi.hr">lpolak22&#64;student.foi.hr</a>
+  <br />
+  <a href="tel:3851231234">+3851231234</a>
+  <br />
+</footer>

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 export function kreirajToken(korisnik, tajniKljucJWT) {
-    let token = jwt.sign({ korime: korisnik.korime }, tajniKljucJWT, { expiresIn: "15s" });
+    let token = jwt.sign({ korime: korisnik.korime }, tajniKljucJWT, { expiresIn: "60s" });
     return token;
 }
 export function provjeriToken(zahtjev, tajniKljucJWT) {
