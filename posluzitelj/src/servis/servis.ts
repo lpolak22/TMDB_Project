@@ -12,8 +12,6 @@ import { RestOsobaFilm } from "./restOsobaFilm.js";
 import { RestTMDB } from "./restTMDB.js";
 import { RestSlika } from "./restSlika.js";
 import { RestReCAPTCHA } from "./restReCAPTCHA.js";
-import { RestJWT } from "./restJWT.js";
-//import { provjeriToken } from "../zajednicko/jwt.js";
 
 declare module "express-session" {
 	interface SessionData {
@@ -68,7 +66,6 @@ konf
     }
 
 function pokreniKonfiguraciju() {
-	//JWTprovjera();
 	server.use(express.static(path.join(__dirname(), '../../angular/filmovi/browser')));
 
 
@@ -90,7 +87,6 @@ function pokreniKonfiguraciju() {
 	pripremiPutanjeDetaljiSlike();
 	pripremiPutanjeDvorazinskaAutentifikacija();
 	pripremiPutanjeRecaptcha();
-	pripremiPutanjeJWT();
 
 	server.get('*', (zahtjev, odgovor) => {
         odgovor.sendFile(path.join(__dirname(), '../../angular/filmovi/browser/index.html')); 
@@ -107,21 +103,6 @@ function pokreniKonfiguraciju() {
         console.log(`Server pokrenut na portu: ${port}`);
     });
 }
-// function JWTprovjera(){
-// 	server.all("*", (zahtjev,odgovor,dalje) => {
-// 		try{
-// 			const token = provjeriToken(zahtjev, konf.dajKonf().jwtTajniKljuc);
-// 			if(!token){
-// 				odgovor.status(406).json({greska: "Token nije validan!"});
-// 				return;
-// 			}
-// 			dalje();
-// 		}
-// 		catch(err){
-// 			odgovor.status(422).json({greska: "Token je istekao!"});
-// 		}
-// 	});
-// }
 
 function pripremiPutanjeResursOsoba() {
 	let restOsoba = new RestOsoba();
@@ -228,9 +209,5 @@ function pripremiPutanjeDvorazinskaAutentifikacija() {
 function pripremiPutanjeRecaptcha(){
 	let restReCAPTCHA = new RestReCAPTCHA(konf.dajKonf().reCaptcha);
 	server.post("/servis/app/recaptcha", restReCAPTCHA.getReCAPTCHA.bind(restReCAPTCHA));
-}
-function pripremiPutanjeJWT(){
-	let restJWT = new RestJWT(konf.dajKonf().jwtTajniKljuc);
-	server.get("/getJWT", restJWT.getJWT.bind(restJWT));
 }
 

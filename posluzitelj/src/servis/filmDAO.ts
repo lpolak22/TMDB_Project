@@ -38,7 +38,7 @@ export class FilmDAO {
 
   dodaj(film: FilmTmdbI): boolean {
     const sql = `
-      INSERT INTO film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis)
+      INSERT OR REPLACE INTO film (id, jezik, originalni_naslov, naslov, popularnost, slikica_postera, datum_izdavanja, opis)
       VALUES (?, ?,?,?,?,?,?,?);
     `;
     const podaci = [
