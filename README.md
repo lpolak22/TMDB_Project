@@ -1,1 +1,2 @@
-# RWA_zadaca
+# TMDB_Project
+The TMDB_Project is a web application built using a combination of modern web technologies, including TypeScript, JavaScript, HTML, SCSS, and Shell scripting. The primary goal of this project is to deliver a feature-rich and interactive user experience, leveraging TypeScript for strong typing and maintainability, JavaScript for dynamic behavior, and SCSS for advanced styling capabilities. Additionally, the project integrates TMDB (The Movie Database) to provide detailed information about actors and movies, enhancing its functionality with rich, up-to-date data. This project demonstrates a structured approach to web development, with a focus on scalability, performance, and best practices.
