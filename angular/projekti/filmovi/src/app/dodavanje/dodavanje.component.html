@@ -1,0 +1,66 @@
+<main>
+  <div class="pretraga-searchbar">
+    <input
+      type="text"
+      [(ngModel)]="ime"
+      placeholder="Unesite ime osobe..."
+    />
+    <button class="pretraga-gumb" (click)="pretraziOsobe()">Pretraži</button>
+  </div>
+
+  <div *ngIf="porukaGreske" class="error">{{ porukaGreske }}</div>
+
+  <div *ngIf="osobe.length > 0" class="rezultati">
+    <table>
+      <thead>
+        <tr>
+          <th>Slika</th>
+          <th>Ime i prezime</th>
+          <th>Poznat po</th>
+          <th>Akcije</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let osoba of osobe; let i = index" [class.parni]="i % 2 === 0" [class.neparni]="i % 2 !== 0">
+          <td>
+            <img [src]="pretvoriSliku(osoba.slika)" alt="{{ osoba.ime_prezime }}" />
+          </td>          
+          <td>{{ osoba.ime_prezime }}</td>
+          <td>{{ osoba.poznat_po }}</td>
+          <td>
+            <button
+              *ngIf="!osoba.dodana"
+              class="dodaj-gumb"
+              (click)="dodajOsobu(osoba)"
+            >
+              Dodaj
+            </button>
+            <button
+              *ngIf="osoba.dodana"
+              class="obrisi-gumb"
+              (click)="obrisiOsobu(osoba)"
+            >
+              Obriši
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="stranicenje">
+      <button class="stranica-gumb" (click)="idiNaPrvuStranicu()" [disabled]="trenutnaStranica === 1">Prva</button>
+
+      <button class="stranica-gumb" (click)="prethodnaStranica()" [disabled]="trenutnaStranica === 1">Prethodna</button>
+
+      <span class="stranica-tekst">Stranica {{ trenutnaStranica }} od {{ ukupnoStranica }}</span>
+
+      <button class="stranica-gumb" (click)="sljedecaStranica()" [disabled]="trenutnaStranica === ukupnoStranica">Sljedeća</button>
+
+      <button class="stranica-gumb" (click)="idiNaPosljednjuStranicu()" [disabled]="trenutnaStranica === ukupnoStranica">Posljednja</button>
+    </div>
+  </div>
+
+  <div *ngIf="osobe.length === 0 && !porukaGreske" class="nema-rezultata">
+    Nema pronađenih osoba.
+  </div>
+</main>

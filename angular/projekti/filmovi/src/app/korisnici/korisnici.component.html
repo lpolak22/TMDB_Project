@@ -1,0 +1,39 @@
+<div class="korisnici-container">
+  <h2>Popis korisnika</h2>
+  <div *ngIf="errorMessage" class="nema_korisnika">
+     {{ errorMessage }}
+  </div>
+  <table *ngIf="korisnici.length > 0" class="korisnici-table">
+     <thead>
+        <tr>
+           <th>Ime</th>
+           <th>Prezime</th>
+           <th>Korisničko ime</th>
+           <th>Email</th>
+           <th>Telefon</th>
+           <th>Adresa</th>
+           <th>Status</th>
+           <th>Akcije</th>
+        </tr>
+     </thead>
+     <tbody>
+        <tr *ngFor="let korisnik of korisnici">
+           <td>{{ korisnik.ime }}</td>
+           <td>{{ korisnik.prezime }}</td>
+           <td>{{ korisnik.korime }}</td>
+           <td>{{ korisnik.email }}</td>
+           <td>{{ korisnik.broj_telefona }}</td>
+           <td>{{ korisnik.adresa }}</td>
+           <td>{{ korisnik.status === 0 || korisnik.status === null ? 'Nema' : korisnik.status === 2 ? 'Na čekanju' : 'Ima' }}</td>
+           <td>
+              <button (click)="obrisiKorisnika(korisnik.korime)" [disabled]="korisnik.korime === prijavljeniKorisnikKorime">Obriši</button>
+              <button *ngIf="korisnik.status === 1 || korisnik.status === 2" (click)="zabraniPristup(korisnik)" [disabled]="korisnik.korime === prijavljeniKorisnikKorime">Zabrani pristup</button>
+              <button *ngIf="korisnik.status === 0 || korisnik.status === null || korisnik.status === 2" (click)="dajPristup(korisnik)" [disabled]="korisnik.korime === prijavljeniKorisnikKorime">Daj pristup</button>
+           </td>
+        </tr>
+     </tbody>
+  </table>
+  <div *ngIf="korisnici.length === 0 && !errorMessage" class="nema_korisnika">
+     Nema korisnika za prikazati.
+  </div>
+</div>

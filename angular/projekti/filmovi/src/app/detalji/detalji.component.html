@@ -1,0 +1,60 @@
+<main>
+  <div *ngIf="porukaGreske" class="error">{{ porukaGreske }}</div>
+  <section *ngIf="osoba" class="detalji-osobe">
+     <h1>{{ osoba?.ime_prezime }}</h1>
+     <img [src]="osoba?.slika" alt="Slika osobe" />
+     <p><strong>Poznato po:</strong> {{ osoba?.poznat_po }}</p>
+     <p><strong>Popularnost:</strong> {{ osoba?.popularnost }}</p>
+  </section>
+  <section *ngIf="slikeOsobe.length > 0" class="galerija">
+     <h2>Galerija slika</h2>
+     <div class="galerija-slike">
+        <ng-container *ngFor="let slika of slikeOsobe">
+           <figure>
+              <img
+              [src]="slika"
+              alt="Slika iz galerije"
+              class="galerija-img"
+              (error)="preskociSlomljenuSliku(slika)"
+              />
+           </figure>
+        </ng-container>
+     </div>
+  </section>
+  <section *ngIf="filmovi.length > 0" class="povezani-filmovi">
+     <h2>Povezani Filmovi</h2>
+     <table>
+        <thead>
+           <tr>
+              <th>Jezik</th>
+              <th>Originalni Naslov</th>
+              <th>Naslov</th>
+              <th>Popularnost</th>
+              <th>Poster</th>
+              <th>Datum Izdavanja</th>
+              <th>Lik</th>
+           </tr>
+        </thead>
+        <tbody>
+           <ng-container *ngFor="let film of filmovi; let i = index">
+              <tr>
+                 <td>{{ film.jezik }}</td>
+                 <td>{{ film.originalni_naslov }}</td>
+                 <td>{{ film.naslov }}</td>
+                 <td>{{ film.popularnost }}</td>
+                 <td>
+                    <img
+                       [src]="film.slikica_postera"
+                       alt="Poster filma"
+                       class="film-poster"
+                       width="50"
+                       />
+                 </td>
+                 <td>{{ film.datum_izdavanja | date }}</td>
+                 <td>{{ film.lik }}</td>
+              </tr>
+           </ng-container>
+        </tbody>
+     </table>
+  </section>
+</main>

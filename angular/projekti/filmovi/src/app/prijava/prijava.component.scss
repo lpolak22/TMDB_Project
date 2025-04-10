@@ -1,0 +1,90 @@
+$boja-bijela: #fff;
+$zelena-glavna: rgb(0, 152, 102);
+$zelena-sekundarna: rgb(13, 172, 115);
+$zelena-aktivna: rgb(0, 137, 92);
+$crvena-boja: #f44336;
+$crvena-hover: #e53935;
+$crvena-aktivna: #d32f2f;
+$pozadinska-boja: #f5f5f5;
+$boja-ruba: #e0e0e0;
+$sjena: rgba(0, 0, 0, 0.1);
+
+main {
+  font-family: Arial, sans-serif;
+  background-color: $pozadinska-boja;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px $sjena;
+}
+
+.okvir-forme {
+  background-color: $boja-bijela;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px $sjena;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+p {
+  font-size: 14px;
+  text-align: center;
+  color: $zelena-glavna;
+  margin-top: 20px;
+}
+
+.poruka {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: $crvena-boja;
+}
+
+form {
+  background-color: $boja-bijela;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px $sjena;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  label {
+    font-size: 16px;
+    font-weight: bold;
+    color: $zelena-glavna;
+  }
+
+  input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid $boja-ruba;
+    font-size: 16px;
+  }
+
+  button,
+  input[type="submit"] {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: $zelena-glavna;
+    color: $boja-bijela;
+
+    &:hover {
+      background-color: $zelena-sekundarna;
+    }
+
+    &:active {
+      background-color: $zelena-aktivna;
+    }
+  }
+
+  input[type="submit"]:disabled {
+    background-color: $boja-ruba;
+    cursor: not-allowed;
+  }
+}

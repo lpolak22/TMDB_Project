@@ -1,0 +1,34 @@
+<div>
+  <h2>Filtriranje filmova</h2>
+  <form class="filtriranje-forma" (ngSubmit)="filtrirajFilmove()">
+     <label for="datumOd">Datum od:</label>
+     <input type="date" id="datumOd" [(ngModel)]="datumOd" name="datumOd" />
+     <label for="datumDo">Datum do:</label>
+     <input type="date" id="datumDo" [(ngModel)]="datumDo" name="datumDo" />
+     <button type="submit">Filtriraj</button>
+  </form>
+  <div *ngIf="filmovi.length > 0">
+     <h3>Rezultati:</h3>
+     <ul class="popis-filmova">
+        <li class="film" *ngFor="let film of filmovi">
+           <img [src]="pretvoriSliku(film.slikica_postera)" alt="{{ film.naslov }}" />
+           <h4>{{ film.naslov }}</h4>
+           <p>{{ film.datum_izdavanja }}</p>
+           <p>{{ film.opis }}</p>
+        </li>
+     </ul>
+     <div class="paginacija">
+        <button (click)="idiNaPrvuStranicu()" [disabled]="trenutnaStranica <= 1">Prva</button>
+        <button (click)="onPromjenaStranice(trenutnaStranica - 1)" [disabled]="trenutnaStranica <= 1">Prethodna</button>
+        <span class="trenutna-stranica">{{ trenutnaStranica }} / {{ ukupanBrojStranica }}</span>
+        <button (click)="onPromjenaStranice(trenutnaStranica + 1)" [disabled]="trenutnaStranica >= ukupanBrojStranica">Sljedeća</button>
+        <button (click)="idiNaPosljednjuStranicu()" [disabled]="trenutnaStranica >= ukupanBrojStranica">Posljednja</button>
+     </div>
+  </div>
+  <div *ngIf="filmovi.length === 0 && !porukaGreske">
+     <p class="poruka-greske">Nema filmova za prikazivanje.</p>
+  </div>
+  <div *ngIf="porukaGreske">
+     <p class="poruka-greske">{{ porukaGreske }}</p>
+  </div>
+</div>
